@@ -1,0 +1,9 @@
+{
+  "id_asal": "DX-20261015-001",
+  "kunjungan_id_asal": "REG-20261015-001",
+  "pasien_id_asal": "PS-10001",
+  "kode_icd10": "I10",
+  "nama_diagnosis": "Essential (primary) hypertension",
+  "kategori": "primer",
+  "status_klinis": "active"
+}

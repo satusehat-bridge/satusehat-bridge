@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SATUSEHAT Bridge — Universal SIMRS Integration Portal & Live AI Assistant</title>
+  <meta name="description" content="Universal On-Premise SIMRS Integration Bridge ke SATUSEHAT Kemenkes & BPJS E-Klaim. 47 Profil Playbook, Dual Ingestion, Enkripsi Host, Lisensi Permanen Tanpa Vendor Lock-in.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            },
+            navy: {
+              800: '#1e293b',
+              850: '#141d2e',
+              900: '#0f172a',
+              950: '#090d16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-nav {
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col">
+
+  <!-- ============================================================================== -->
+  <!-- TOP NAVIGATION BAR -->
+  <!-- ============================================================================== -->
+  <header class="sticky top-0 z-50 glass-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">SATUSEHAT Bridge</span>
+          <span class="hidden sm:inline-block ml-2 px-2 py-0.5 text-xs rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 font-mono">v2.2.0</span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
+        <a href="#katalog" class="hover:text-brand-400 transition-colors">47 Profil Playbook</a>
+        <a href="#arsitektur" class="hover:text-brand-400 transition-colors">Arsitektur</a>
+        <a href="#kalkulator" class="hover:text-brand-400 transition-colors">Kalkulator TCO</a>
+        <a href="#live-agent" class="hover:text-brand-400 transition-colors flex items-center space-x-1.5 text-cyan-400">
+          <i data-lucide="bot" class="w-4 h-4"></i>
+          <span>Live AI Agent</span>
+        </a>
+        <a href="#harga" class="hover:text-brand-400 transition-colors">Lisensi & Order</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="https://github.com/satusehat-bridge/satusehat-bridge" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/60 hover:bg-slate-700 text-xs font-medium text-slate-200 transition-colors">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <span>GitHub Spek</span>
+        </a>
+        <a href="#harga" class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-navy-950 font-semibold text-xs transition-all shadow-md shadow-brand-500/20 flex items-center space-x-1.5">
+          <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+          <span>Pesan Lisensi</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================================== -->
+  <!-- HERO SECTION -->
+  <!-- ============================================================================== -->
+  <section class="relative pt-16 pb-20 overflow-hidden border-b border-slate-800/80">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-900/20 via-navy-950 to-navy-950 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-slate-300 mb-6">
+        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+        <span class="font-medium">Self-Hosted Universal Integration Bridge</span>
+        <span class="text-slate-500">•</span>
+        <span class="text-brand-400">Zero Cloud Vendor Lock-in</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight sm:leading-tight">
+        Jembatan SIMRS ke <span class="bg-gradient-to-r from-brand-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">SATUSEHAT Kemenkes & BPJS</span> Tanpa Merusak Database Utama
+      </h1>
+
+      <p class="mt-6 text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+        Solusi <strong class="text-white">on-premise mandiri</strong> bagi Rumah Sakit, Klinik, dan Pengembang SIMRS. Didukung arsitektur <strong>Dual Ingestion (REST API & Table Adapter Staging)</strong>, <strong>47 Profil Playbook Kemenkes</strong>, dan enkripsi host-level AES-256-GCM.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#live-agent" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-cyan-500 hover:from-brand-600 hover:to-cyan-600 text-navy-950 font-bold text-sm shadow-xl shadow-brand-500/25 flex items-center justify-center space-x-2 transition-all">
+          <i data-lucide="bot" class="w-5 h-5"></i>
+          <span>Konsultasi Teknis dengan AI Live Agent</span>
+        </a>
+        <a href="#katalog" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm flex items-center justify-center space-x-2 transition-colors">
+          <i data-lucide="layout-grid" class="w-5 h-5"></i>
+          <span>Eksplorasi 47 Profil Playbook</span>
+        </a>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+        <div class="glass-card p-4 rounded-xl">
+          <div class="text-brand-400 font-mono text-2xl font-bold">47 Profil</div>
+          <div class="text-xs text-slate-400 mt-1">Playbook Alur Kerja Klinis Kemenkes DTO & Klaim BPJS</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl">
+          <div class="text-cyan-400 font-mono text-2xl font-bold">33 Tipe FHIR</div>
+          <div class="text-xs text-slate-400 mt-1">Tipe Resource FHIR R4 Unik Terpetakan Terstandar</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl">
+          <div class="text-purple-400 font-mono text-2xl font-bold">Dual Adapter</div>
+          <div class="text-xs text-slate-400 mt-1">REST API JSON + Table Adapter (SQL Server, MySQL, PG)</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl">
+          <div class="text-amber-400 font-mono text-2xl font-bold">Rp 0 / Bulan</div>
+          <div class="text-xs text-slate-400 mt-1">Lisensi Permanen Tunggal. Tanpa Biaya Rutin Apapun.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================================== -->
+  <!-- ARSITEKTUR & KEAMANAN SECTION -->
+  <!-- ============================================================================== -->
+  <section id="arsitektur" class="py-16 border-b border-slate-800/80 bg-navy-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-xs font-semibold text-brand-400 uppercase tracking-wider font-mono">Arsitektur & Perlindungan Data</h2>
+        <p class="mt-2 text-3xl font-extrabold text-white">Bagaimana SATUSEHAT Bridge Bekerja?</p>
+        <p class="mt-3 text-sm text-slate-400">Pemisahan fisik tegas antara basis data internal SIMRS dan server Kemenkes. Tidak ada perubahan struktur tabel produksi rumah sakit.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-4">
+              <i data-lucide="database" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">1. Table Adapter Staging</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              SIMRS cukup melakukan <code class="text-blue-300 bg-slate-800 px-1 py-0.5 rounded">INSERT</code> baris data ke tabel staging terpisah (<code class="text-blue-300 bg-slate-800 px-1 py-0.5 rounded">satusehat_bridge_staging_envelope</code>). Mendukung Microsoft SQL Server 2008+, MySQL 5.7+, dan PostgreSQL 12+.
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center space-x-1">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400"></i>
+            <span>Nol modifikasi DDL tabel rekam medis SIMRS</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400 flex items-center justify-center mb-4">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">2. Core Kanonikal & 49 Tabel</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Mesin internal memvalidasi skema, memetakan terminologi (ICD-10, LOINC, SNOMED, KFA), mengenkripsi rahasia dengan AES-256-GCM, dan mengantrekan pengiriman secara asinkron dengan kontrol konkurensi (lease lock).
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center space-x-1">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400"></i>
+            <span>Idempotensi ketat & anti duplikasi pengiriman</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-4">
+              <i data-lucide="send" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">3. Outbound Worker Delivery</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Pekerja latar belakang (Queue Worker) mengubah entitas menjadi bundle FHIR R4 resmi Kemenkes DTO, menangani rotasi token OAuth2 otomatis, serta mencatat status HTTP dan audit log pengiriman.
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center space-x-1">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400"></i>
+            <span>Retry eksponensial cerdas jika Kemenkes down</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================== -->
+  <!-- 47 PROFIL PLAYBOOK EXPLORER -->
+  <!-- ============================================================================== -->
+  <section id="katalog" class="py-16 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <h2 class="text-xs font-semibold text-brand-400 uppercase tracking-wider font-mono">Eksplorasi Katalog Komprehensif</h2>
+          <p class="mt-2 text-3xl font-extrabold text-white">47 Profil Playbook Kemenkes DTO</p>
+          <p class="mt-1 text-xs text-slate-400">Mencakup 33 Tipe Resource FHIR R4 Target Unik dan 4 Kategori Implementasi</p>
+        </div>
+        
+        <!-- Search & Filter Controls -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
+            <input id="profileSearchInput" type="text" placeholder="Cari profil, LOINC, FHIR..." class="w-full sm:w-64 pl-9 pr-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors">
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex items-center space-x-2 overflow-x-auto pb-4 mb-6 text-xs font-medium text-slate-300" id="categoryTabs">
+        <button onclick="filterCategory('ALL')" class="category-btn active px-3 py-1.5 rounded-lg bg-brand-500 text-navy-950 font-bold whitespace-nowrap">Semua (47)</button>
+        <button onclick="filterCategory('Clinical Core')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Klinis Inti</button>
+        <button onclick="filterCategory('Pharmacy')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Farmasi & BMHP</button>
+        <button onclick="filterCategory('Diagnostic')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Penunjang (Lab & Rad)</button>
+        <button onclick="filterCategory('Emergency')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Triase IGD</button>
+        <button onclick="filterCategory('Surgical')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Bedah & Anestesi</button>
+        <button onclick="filterCategory('Financial')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Billing & Pre-Klaim</button>
+        <button onclick="filterCategory('Medical Device')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Alat Kesehatan</button>
+        <button onclick="filterCategory('TTE & Legal Integrity')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">TTE Digital Sign</button>
+      </div>
+
+      <!-- Profile Cards Grid -->
+      <div id="profilesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Rendered via JavaScript -->
+      </div>
+      
+      <div id="noResults" class="hidden text-center py-12 text-slate-400 text-sm">
+        Tidak ditemukan profil yang cocok dengan kata kunci pencarian.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================== -->
+  <!-- FIREBASE LIVE AGENT (AI TECHNICAL ASSISTANT) -->
+  <!-- ============================================================================== -->
+  <section id="live-agent" class="py-16 border-b border-slate-800/80 bg-gradient-to-b from-navy-950 via-navy-900/50 to-navy-950">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-3">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Interactive AI Assistant • Konsultasi Teknis 24/7</span>
+        </div>
+        <h2 class="text-3xl font-extrabold text-white">SATUSEHAT Bridge Live Agent</h2>
+        <p class="mt-2 text-xs sm:text-sm text-slate-300">
+          Asisten teknis interaktif untuk konsultasi spesifikasi arsitektur, kamus data 47 profil, integrasi Table Adapter, dan estimasi implementasi fasyankes Anda.
+        </p>
+      </div>
+
+      <!-- Live Chat Window -->
+      <div class="glass-card rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col h-[560px]">
+        
+        <!-- Chat Header -->
+        <div class="px-5 py-3.5 bg-slate-800/80 border-b border-slate-700/80 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white">
+              <i data-lucide="bot" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-white flex items-center space-x-2">
+                <span>SATUSEHAT Bridge AI Copilot</span>
+                <span class="inline-block w-2 h-2 rounded-full bg-brand-400"></span>
+              </div>
+              <div class="text-[10px] text-slate-400">Knowledge Base v2.2.0 • 47 Profil & 29 Model Kanonikal</div>
+            </div>
+          </div>
+          <button onclick="resetChat()" class="text-xs text-slate-400 hover:text-white transition-colors flex items-center space-x-1">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            <span>Reset Percakapan</span>
+          </button>
+        </div>
+
+        <!-- Chat Message Log -->
+        <div id="chatMessages" class="flex-1 p-5 overflow-y-auto space-y-4 text-xs font-sans">
+          <!-- Initial AI greeting -->
+          <div class="flex items-start space-x-3">
+            <div class="w-7 h-7 rounded-lg bg-cyan-600/20 border border-cyan-500/30 text-cyan-400 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="bot" class="w-4 h-4"></i>
+            </div>
+            <div class="bg-slate-800/90 border border-slate-700/80 rounded-2xl rounded-tl-none p-3.5 text-slate-200 max-w-[85%] leading-relaxed">
+              Halo! Saya adalah <strong>Live Technical Assistant SATUSEHAT Bridge</strong>. Saya dapat menjawab pertanyaan teknis mengenai:
+              <ul class="list-disc list-inside mt-2 space-y-1 text-slate-300">
+                <li>Arsitektur Table Adapter (SQL Server, MySQL, Postgres).</li>
+                <li>Daftar 47 Profil Playbook Kemenkes DTO & 33 tipe FHIR unik.</li>
+                <li>Perbedaan model Kanonikal terdedikasi vs Generic Staging Envelope.</li>
+                <li>Enkripsi data, skema keamanan, dan prosedur upgrade tanpa downtime.</li>
+                <li>Lisensi komersial permanen $299 tanpa biaya langganan bulanan.</li>
+              </ul>
+              Silakan pilih pertanyaan cepat di bawah atau ketik pertanyaan teknis Anda!
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Prompt Chips -->
+        <div class="px-4 py-2 bg-slate-900/60 border-t border-slate-800 flex items-center space-x-2 overflow-x-auto text-[11px] text-slate-300">
+          <span class="text-slate-500 flex-shrink-0 font-medium">Contoh:</span>
+          <button onclick="sendQuickPrompt('Bagaimana cara kerja Table Adapter tanpa merusak database SIMRS?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">Cara Kerja Table Adapter</button>
+          <button onclick="sendQuickPrompt('Apa perbedaan 47 profil Playbook dengan 33 tipe FHIR unik?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">47 Profil vs 33 FHIR</button>
+          <button onclick="sendQuickPrompt('Apa arti status Generic Envelope Ingestion?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">Generic Envelope Ingestion</button>
+          <button onclick="sendQuickPrompt('Berapa biaya lisensi dan apa saja yang didapat?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">Harga & Lisensi</button>
+          <button onclick="sendQuickPrompt('Apakah data pasien disimpan di cloud pihak ketiga?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">Privasi Pasien</button>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="p-3 bg-slate-900 border-t border-slate-800">
+          <form id="chatForm" onsubmit="handleChatSubmit(event)" class="flex items-center space-x-2">
+            <input id="chatInput" type="text" placeholder="Ketik pertanyaan teknis atau arsitektur..." class="flex-1 bg-slate-800/90 border border-slate-700 text-xs text-white rounded-xl px-4 py-2.5 focus:outline-none focus:border-cyan-400 placeholder-slate-500">
+            <button type="submit" class="px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-navy-950 font-bold text-xs flex items-center space-x-1.5 transition-colors">
+              <span>Kirim</span>
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================================== -->
+  <!-- KALKULATOR ROI / TCO -->
+  <!-- ============================================================================== -->
+    <!-- ============================================================================== -->
+  <!-- KALKULATOR TCO: LISENSI PERMANEN VS LANGGANAN VENDOR SAAS -->
+  <!-- ============================================================================== -->
+  <section id="kalkulator" class="py-16 border-b border-slate-800/80 bg-navy-900/40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="text-xs font-semibold text-brand-400 uppercase tracking-wider font-mono">Simulasi Finansial Fasyankes</h2>
+        <p class="mt-2 text-3xl font-extrabold text-white">Komparasi Total Biaya Kepemilikan (TCO)</p>
+        <p class="mt-2 text-xs text-slate-400">Bandingkan skema sewa bulanan vendor cloud dengan kepemilikan lisensi permanen on-premise.</p>
+      </div>
+
+      <div class="glass-card p-6 sm:p-8 rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <!-- Interactive Controls -->
+        <div class="space-y-6">
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-2">
+              <span class="text-slate-300">Estimasi Biaya Langganan Vendor Cloud / Bulan</span>
+              <span id="saasMonthlyLabel" class="text-brand-400 font-mono">Rp 3.500.000 / bln</span>
+            </div>
+            <input id="saasSlider" type="range" min="1500000" max="10000000" step="500000" value="3500000" oninput="calculateTco()" class="w-full accent-brand-500 cursor-pointer">
+            <span class="text-[10px] text-slate-400">Biaya tipikal vendor cloud bridge / middleware per fasyankes.</span>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-2">
+              <span class="text-slate-300">Horison Waktu Operasional</span>
+              <span id="yearsLabel" class="text-brand-400 font-mono">3 Tahun (36 Bulan)</span>
+            </div>
+            <input id="yearsSlider" type="range" min="1" max="5" step="1" value="3" oninput="calculateTco()" class="w-full accent-brand-500 cursor-pointer">
+            <span class="text-[10px] text-slate-400">Periode evaluasi operasional rumah sakit atau klinik.</span>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300 space-y-1">
+            <div class="font-semibold text-white">Keunggulan Model SATUSEHAT Bridge:</div>
+            <div>• Lisensi Permanen (Sekali Bayar): <strong>Rp 4.750.000 (US$ 299)</strong></div>
+            <div>• Biaya Langganan Bulanan: <strong>Rp 0 (Nol Biaya Rutin)</strong></div>
+            <div>• Biaya Tambahan per Transaksi / Pasien: <strong>Rp 0</strong></div>
+            <div>• Kedaulatan Data: <strong>100% Server Mandiri (Privasi Pasien Terjamin)</strong></div>
+          </div>
+        </div>
+
+        <!-- Result Box -->
+        <div class="bg-gradient-to-br from-slate-900 to-navy-950 p-6 rounded-xl border border-brand-500/30 flex flex-col justify-between text-center">
+          <div>
+            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Total Biaya Vendor Langganan (SaaS)</span>
+            <div id="saasTotalCost" class="text-3xl sm:text-4xl font-extrabold text-rose-400 font-mono mt-1">Rp 126.000.000</div>
+            <div id="saasPeriodNote" class="text-[11px] text-slate-500 mt-1">Akumulasi biaya sewa selama periode 36 bulan</div>
+          </div>
+
+          <div class="my-6 py-4 border-y border-slate-800">
+            <span class="text-xs font-mono text-brand-400 uppercase tracking-wider">Total Anggaran yang Dihemat</span>
+            <div id="savingsCost" class="text-4xl sm:text-5xl font-black text-brand-400 font-mono mt-1">Rp 121.250.000</div>
+            <div id="savingsPercent" class="text-xs text-brand-300 font-medium mt-1">Efisiensi Biaya: 96.2%</div>
+          </div>
+
+          <button onclick="openOrderModal()" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-colors shadow-lg shadow-brand-500/20">
+            Pesan Lisensi Permanen Rp 4.750.000
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================== -->
+  <!-- HARGA & ALUR PEMESANAN RESMI -->
+  <!-- ============================================================================== -->
+  <section id="harga" class="py-16 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-xs font-semibold text-brand-400 uppercase tracking-wider font-mono">Transparansi Lisensi & Pemesanan</h2>
+        <p class="mt-2 text-3xl font-extrabold text-white">Satu Harga Permanen. Tanpa Biaya Tersembunyi.</p>
+        <p class="mt-2 text-xs sm:text-sm text-slate-400">Lisensi kepemilikan permanen fasyankes dengan instalasi mandiri on-premise tanpa biaya bulanan.</p>
+      </div>
+
+      <div class="max-w-lg mx-auto glass-card rounded-2xl overflow-hidden border border-brand-500/40 shadow-2xl relative">
+        <div class="absolute top-0 right-0 bg-brand-500 text-navy-950 text-[10px] font-extrabold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
+          Perpetual License
+        </div>
+
+        <div class="p-8">
+          <div class="text-xs font-mono text-brand-400">Single Facility Commercial License</div>
+          <h3 class="text-2xl font-bold text-white mt-1">SATUSEHAT Bridge Enterprise Core</h3>
+          
+          <div class="mt-6 flex items-baseline space-x-2">
+            <span class="text-4xl sm:text-5xl font-extrabold text-white font-mono">Rp 4.750.000</span>
+            <span class="text-slate-400 text-xs font-mono">(US$ 299)</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Sekali bayar untuk penggunaan permanen di 1 Fasilitas Kesehatan.</p>
+
+          <div class="mt-6 pt-6 border-t border-slate-800 space-y-3 text-xs text-slate-300">
+            <div class="flex items-center space-x-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+              <span>Full Source Code PHP 8.2+ / Laravel 10 (Tanpa Enkripsi IonCube)</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+              <span>Hak deploy mandiri (dev, staging, production, DR) di 1 RS</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+              <span>Cakupan 47 Profil Playbook Kemenkes & 29 Model Kanonikal</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+              <span>Modul Table Adapter Staging (SQL Server, MySQL, Postgres)</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+              <span>Sertifikat Lisensi Resmi & Panduan Penerapan Teknis</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+              <span>Bebas biaya langganan bulanan / tahunan seumur hidup</span>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-8 space-y-3">
+            <a href="javascript:openOrderModal()" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs flex items-center justify-center space-x-2 transition-colors shadow-lg shadow-brand-500/20">
+              <i data-lucide="message-square" class="w-4 h-4"></i>
+              <span>Ajukan Pemesanan Lisensi Resmi</span>
+            </a>
+            
+            <button onclick="openOrderModal()" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-xs flex items-center justify-center space-x-2 transition-colors">
+              <i data-lucide="credit-card" class="w-4 h-4"></i>
+              <span>Konsultasi Teknis via Email</span>
+            </button>
+          </div>
+
+          <div class="mt-4 text-[10px] text-center text-slate-400">
+            Pengiriman paket source code dilakukan maksimal 1 jam setelah konfirmasi pembayaran.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================================== -->
+  <!-- MODAL: CONTOH JSON PAYLOAD -->
+  <!-- ============================================================================== -->
+  <div id="payloadModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card max-w-2xl w-full rounded-2xl overflow-hidden border border-slate-700 shadow-2xl flex flex-col max-h-[85vh]">
+      <div class="px-5 py-4 bg-slate-800/90 border-b border-slate-700 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="file-json" class="w-5 h-5 text-brand-400"></i>
+          <span id="modalProfileName" class="font-bold text-sm text-white">Contoh Payload</span>
+        </div>
+        <button onclick="closePayloadModal()" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-5 overflow-y-auto flex-1 font-mono text-xs">
+        <div class="flex justify-between items-center mb-2">
+          <span id="modalEndpointBadge" class="text-[11px] text-cyan-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">POST /api/v1/...</span>
+          <button onclick="copyModalJson()" class="text-xs text-brand-400 hover:text-brand-300 flex items-center space-x-1">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span id="copyBtnText">Salin JSON</span>
+          </button>
+        </div>
+        <pre id="modalJsonContent" class="bg-navy-950 p-4 rounded-xl text-slate-200 overflow-x-auto border border-slate-800"></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================================== -->
+  <!-- MODAL: PEMESANAN & PROFORMA INVOICE -->
+  <!-- ============================================================================== -->
+  <div id="orderModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full rounded-2xl overflow-hidden border border-slate-700 shadow-2xl p-6">
+      
+      <!-- Step 1: Input Form -->
+      <div id="orderFormStep">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="file-text" class="w-5 h-5 text-brand-400"></i>
+              <span>Formulir Pemesanan Lisensi Fasyankes</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">SATUSEHAT Bridge Enterprise Core (Rp 4.750.000 / US$ 299)</p>
+          </div>
+          <button onclick="closeOrderModal()" class="text-slate-400 hover:text-white">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <form id="facilityOrderForm" onsubmit="handleFacilityOrderSubmit(event)" class="mt-4 space-y-3.5 text-xs">
+          <div>
+            <label class="block font-medium text-slate-300 mb-1">Nama Fasilitas Kesehatan (RS / Klinik / Lab) *</label>
+            <input required id="ordFacilityName" type="text" placeholder="Contoh: RSU Surya Husada Bandung" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-medium text-slate-300 mb-1">Tipe Fasilitas *</label>
+              <select id="ordFacilityType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-brand-500">
+                <option value="Rumah Sakit Umum">Rumah Sakit Umum (RSU)</option>
+                <option value="Rumah Sakit Khusus">Rumah Sakit Khusus</option>
+                <option value="Klinik Pratama / Utama">Klinik Pratama / Utama</option>
+                <option value="Laboratorium Medis">Laboratorium Medis</option>
+                <option value="Vendor SIMRS">Vendor SIMRS Mitra</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-300 mb-1">Basis Data SIMRS *</label>
+              <select id="ordDatabaseType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-brand-500">
+                <option value="Microsoft SQL Server">Microsoft SQL Server</option>
+                <option value="MySQL / MariaDB">MySQL / MariaDB</option>
+                <option value="PostgreSQL">PostgreSQL</option>
+                <option value="Direct REST API">Direct REST API</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-medium text-slate-300 mb-1">Nama PIC Teknis / IT Manager *</label>
+            <input required id="ordPicName" type="text" placeholder="Nama lengkap penanggung jawab" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-medium text-slate-300 mb-1">Email Resmi Fasyankes *</label>
+              <input required id="ordPicEmail" type="email" placeholder="it@rumahsakit.co.id" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-300 mb-1">Nomor WhatsApp Aktif *</label>
+              <input required id="ordPicPhone" type="tel" placeholder="08xxxxxxxxxx" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-400 space-y-1">
+            <span class="text-slate-300 font-medium">Informasi Pembelian:</span>
+            <p>Setelah formulir dikirim, sistem menerbitkan <strong>Proforma Invoice resmi bernomor unik</strong>. Konfirmasi dikirim ke email sales untuk verifikasi mutasi rekening fasyankes.</p>
+          </div>
+
+          <div class="pt-2 flex items-center justify-end space-x-2">
+            <button type="button" onclick="closeOrderModal()" class="px-4 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-300 font-medium transition-colors">Batal</button>
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold flex items-center space-x-1.5 transition-colors shadow-lg shadow-brand-500/20">
+              <span>Terbitkan Proforma Invoice</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Proforma Invoice Display -->
+      <div id="orderInvoiceStep" class="hidden">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
+            <span class="font-bold text-white text-base">Proforma Invoice Terbit</span>
+          </div>
+          <button onclick="closeOrderModal()" class="text-slate-400 hover:text-white">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <div class="mt-4 p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+            <span class="text-slate-400">Order ID:</span>
+            <span id="invOrderId" class="text-brand-400 font-bold">SB-ORD-...</span>
+          </div>
+          <div class="flex justify-between items-center text-[11px]">
+            <span class="text-slate-400">Fasilitas:</span>
+            <span id="invFacility" class="text-white font-sans font-medium text-right">...</span>
+          </div>
+          <div class="flex justify-between items-center text-[11px]">
+            <span class="text-slate-400">PIC / Kontak:</span>
+            <span id="invPic" class="text-slate-300 font-sans text-right">...</span>
+          </div>
+          <div class="flex justify-between items-center text-[11px]">
+            <span class="text-slate-400">Database SIMRS:</span>
+            <span id="invDatabase" class="text-cyan-400 font-sans">...</span>
+          </div>
+          <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-sm">
+            <span class="text-slate-300 font-sans font-semibold">Total Tagihan Lisensi:</span>
+            <span class="text-brand-400 font-bold font-mono">Rp 4.750.000 <span class="text-xs text-slate-400">(US$ 299)</span></span>
+          </div>
+          <div class="text-[10px] text-slate-500 font-sans">
+            Status: <span class="text-amber-400 font-medium">Menunggu Verifikasi & Penyelesaian Rekening</span>
+          </div>
+        </div>
+
+        <div class="mt-4 p-3 rounded-xl bg-brand-500/10 border border-brand-500/20 text-xs text-slate-200 leading-relaxed space-y-1">
+          <div class="font-bold text-brand-400 flex items-center space-x-1.5">
+            <i data-lucide="info" class="w-4 h-4"></i>
+            <span>Instruksi Penyelesaian Transaksi:</span>
+          </div>
+          <p class="text-[11px] text-slate-300">
+            Rincian pesanan Anda telah dicatat. Silakan kirimkan konfirmasi pesanan ini ke email resmi kami 
+            <strong class="text-white">satusehatbridge@gmail.com</strong>. Tim administrasi kami akan menerbitkan lembar Invoice resmi dan rincian rekening bank transfer (BCA/Mandiri/QRIS).
+          </p>
+          <p class="text-[11px] text-slate-400">
+            Paket software berlisensi penuh beserta checksum integritas SHA-256 akan dikirimkan maksimal 1 jam setelah mutasi transfer terverifikasi.
+          </p>
+        </div>
+
+        <div class="mt-5 space-y-2">
+          <a id="invMailtoBtn" href="#" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs flex items-center justify-center space-x-2 transition-colors shadow-lg shadow-brand-500/20">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <span>Kirim Email Konfirmasi Otomatis</span>
+          </a>
+          <button onclick="copyInvoiceDetails()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center space-x-2 transition-colors">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span id="copyInvBtnText">Salin Rincian Pesanan ke Clipboard</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================================== -->
+  <!-- FOOTER -->
+  <!-- ============================================================================== -->
+  <footer class="mt-auto border-t border-slate-800 bg-navy-950 py-10 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <i data-lucide="shield-check" class="w-5 h-5 text-brand-400"></i>
+        <span class="font-semibold text-slate-200">SATUSEHAT Bridge</span>
+        <span>• Universal SIMRS Integration Platform</span>
+      </div>
+      <div class="flex items-center space-x-6">
+        <a href="https://github.com/satusehat-bridge/satusehat-bridge" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub Repository</a>
+        <a href="#katalog" class="hover:text-white transition-colors">47 Profil Playbook</a>
+        <a href="#harga" class="hover:text-white transition-colors">Kebijakan Lisensi</a>
+      </div>
+      <div class="text-[11px] text-slate-500">
+        © 2026 SATUSEHAT Bridge. Dikelola secara mandiri. Bukan produk resmi Kemenkes RI.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================================== -->
+  <!-- CLIENT JAVASCRIPT: PROFILES DATABASE & LIVE AGENT LOGIC -->
+  <!-- ============================================================================== -->
+  <script>
+    // 1. 47 Playbook Profiles Database (Synchronized with Authoritative SSOT)
+    const PLAYBOOK_PROFILES = [
+      { id: 1, name: 'Encounter', fhir: 'Encounter', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'Permenkes ActCode AMB/IMP/EMER', endpoint: 'POST /api/v1/kunjungan', payload: { pasien_id_asal: 'PS-10001', dokter_id_asal: 'DR-20001', lokasi_id_asal: 'LOK-POLI-INT', nomor_kunjungan: 'REG-2026-0001', jenis_kunjungan: 'RAWAT_JALAN', status: 'aktif' } },
+      { id: 2, name: 'Condition', fhir: 'Condition', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'ICD-10 (Primer/Sekunder)', endpoint: 'POST /api/v1/diagnosis', payload: { kunjungan_id_asal: 'REG-2026-0001', kode_icd10: 'I10', nama_diagnosis: 'Essential hypertension', jenis_diagnosis: 'primer' } },
+      { id: 3, name: 'Procedure (Tindakan)', fhir: 'Procedure', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'ICD-9-CM / SNOMED CT', endpoint: 'POST /api/v1/tindakan', payload: { kunjungan_id_asal: 'REG-2026-0001', kode_icd9cm: '89.52', nama_tindakan: 'Electrocardiogram', status: 'completed' } },
+      { id: 4, name: 'MedicationRequest', fhir: 'MedicationRequest', category: 'Pharmacy', tier: 'DEDICATED CANONICAL', code: 'Kamus Farmasi KFA Kemenkes', endpoint: 'POST /api/v1/resep', payload: { kunjungan_id_asal: 'REG-2026-0001', dokter_id_asal: 'DR-20001', nomor_resep: 'RSP-2026-001', items: [{ obat_id_asal: 'MED-AML-05', jumlah: 30, aturan_pakai: '1x sehari 5mg oral' }] } },
+      { id: 5, name: 'MedicationDispense', fhir: 'MedicationDispense', category: 'Pharmacy', tier: 'DEDICATED CANONICAL', code: 'KFA Farmasi / Dispensing', endpoint: 'POST /api/v1/dispense', payload: { resep_id_asal: 'RSP-2026-001', nomor_dispense: 'DSP-2026-001', status: 'completed' } },
+      { id: 6, name: 'MedicationAdministration', fhir: 'MedicationAdministration', category: 'Pharmacy', tier: 'DEDICATED CANONICAL', code: 'KFA Farmasi + UCUM Dosis', endpoint: 'POST /api/v1/pemberian-obat', payload: { kunjungan_id_asal: 'REG-2026-0001', obat_id_asal: 'MED-AML-05', dosis: 5, satuan_dosis: 'mg', rute: 'Oral' } },
+      { id: 7, name: 'QuestionnaireResponse', fhir: 'QuestionnaireResponse', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'Kemenkes Skrining PTM', endpoint: 'POST /api/v1/respon-kuesioner', payload: { kunjungan_id_asal: 'REG-2026-0001', kode_kuesioner: 'SKRINING-PTM-01', items: [{ link_id: '1', answer_boolean: true }] } },
+      { id: 8, name: 'Observation (Tanda Vital)', fhir: 'Observation', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'LOINC 85354-9 (BP, HR, RR, Temp)', endpoint: 'POST /api/v1/tanda-vital', payload: { kunjungan_id_asal: 'REG-2026-0001', sistole: 120, diastole: 80, denyut_jantung: 78, laju_pernapasan: 18, suhu_tubuh: 36.6 } },
+      { id: 9, name: 'ClinicalImpression', fhir: 'ClinicalImpression', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'SNOMED CT Asesmen Dokter', endpoint: 'POST /api/v1/asesmen-klinis', payload: { kunjungan_id_asal: 'REG-2026-0001', deskripsi: 'Pasien stabil, keluhan nyeri kepala berkurang.' } },
+      { id: 10, name: 'CarePlan', fhir: 'CarePlan', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'SNOMED CT Rencana Medis', endpoint: 'POST /api/v1/rencana-asuhan', payload: { kunjungan_id_asal: 'REG-2026-0001', judul: 'Edukasi diet rendah garam dan kontrol rutin 1 bulan.' } },
+      { id: 11, name: 'FamilyMemberHistory', fhir: 'FamilyMemberHistory', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'HL7 RoleCode + ICD-10', endpoint: 'POST /api/v1/riwayat-penyakit-keluarga', payload: { pasien_id_asal: 'PS-10001', relasi: 'FTH', kode_icd10: 'I10', nama_kondisi: 'Hipertensi Orang Tua' } },
+      { id: 12, name: 'Composition (Resume Medis)', fhir: 'Composition', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'LOINC 11488-4 (Discharge Summary)', endpoint: 'POST /api/v1/resume-medis', payload: { kunjungan_id_asal: 'REG-2026-0001', nomor_dokumen: 'DOC-RESUME-001', judul: 'Ringkasan Pulang Rawat Inap' } },
+      { id: 13, name: 'Procedure (Edukasi KIE)', fhir: 'Procedure', category: 'Clinical Core', tier: 'SHARED SERIALIZER', code: 'SNOMED 409073007 / ICD-9 99.07', endpoint: 'POST /api/v1/tindakan', payload: { kunjungan_id_asal: 'REG-2026-0001', kode_icd9cm: '99.07', nama_tindakan: 'Edukasi Manajemen Hipertensi' } },
+      { id: 14, name: 'AllergyIntolerance', fhir: 'AllergyIntolerance', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'SNOMED CT Alergen', endpoint: 'POST /api/v1/alergi', payload: { pasien_id_asal: 'PS-10001', kategori: 'medication', nama_alergen: 'Amoxicillin' } },
+      { id: 15, name: 'ServiceRequest (Lab)', fhir: 'ServiceRequest', category: 'Diagnostic', tier: 'SHARED SERIALIZER', code: 'LOINC Laboratory Request', endpoint: 'POST /api/v1/order-penunjang', payload: { kunjungan_id_asal: 'REG-2026-0001', kode_layanan: '57021-8', nama_layanan: 'Darah Lengkap (CBC)' } },
+      { id: 16, name: 'Specimen (Lab)', fhir: 'Specimen', category: 'Diagnostic', tier: 'DEDICATED CANONICAL', code: 'SNOMED CT Sampel Biologis', endpoint: 'POST /api/v1/spesimen', payload: { order_penunjang_id_asal: 'ORD-LAB-001', jenis_spesimen: 'Darah Vena' } },
+      { id: 17, name: 'Observation (Lab LOINC)', fhir: 'Observation', category: 'Diagnostic', tier: 'SHARED SERIALIZER', code: 'LOINC Lab Test Result', endpoint: 'POST /api/v1/hasil-penunjang', payload: { order_penunjang_id_asal: 'ORD-LAB-001', kode_loinc: '718-7', nama_tes: 'Hemoglobin', nilai: 14.2, satuan: 'g/dL' } },
+      { id: 18, name: 'DiagnosticReport (Lab)', fhir: 'DiagnosticReport', category: 'Diagnostic', tier: 'DEDICATED CANONICAL', code: 'LOINC 11502-2 (Lab Report)', endpoint: 'POST /api/v1/hasil-penunjang', payload: { order_penunjang_id_asal: 'ORD-LAB-001', nomor_hasil: 'LAB-RES-01', kesimpulan: 'Dalam batas normal' } },
+      { id: 19, name: 'ServiceRequest (Radiology)', fhir: 'ServiceRequest', category: 'Diagnostic', tier: 'SHARED SERIALIZER', code: 'LOINC Radiology Request', endpoint: 'POST /api/v1/order-penunjang', payload: { kunjungan_id_asal: 'REG-2026-0001', kode_layanan: 'RAD-THORAX-01', nama_layanan: 'Foto Thorax AP/PA' } },
+      { id: 20, name: 'ImagingStudy (Radiology)', fhir: 'ImagingStudy', category: 'Diagnostic', tier: 'DEDICATED CANONICAL', code: 'DICOM Modality DX/CT/MR', endpoint: 'POST /api/v1/studi-radiologi', payload: { order_penunjang_id_asal: 'ORD-RAD-001', modality: 'DX', uid_instance: '1.2.840.10008.1' } },
+      { id: 21, name: 'Observation (Radiology)', fhir: 'Observation', category: 'Diagnostic', tier: 'SHARED SERIALIZER', code: 'LOINC Kesan Radiologi', endpoint: 'POST /api/v1/hasil-penunjang', payload: { order_penunjang_id_asal: 'ORD-RAD-001', kesan: 'Cor dan pulmo dalam batas normal' } },
+      { id: 22, name: 'DiagnosticReport (Radiology)', fhir: 'DiagnosticReport', category: 'Diagnostic', tier: 'SHARED SERIALIZER', code: 'LOINC Ekspertise Sp.Rad', endpoint: 'POST /api/v1/hasil-penunjang', payload: { order_penunjang_id_asal: 'ORD-RAD-001', kesimpulan: 'Normal chest radiography' } },
+      { id: 23, name: 'Composition (Triase IGD)', fhir: 'Composition', category: 'Emergency', tier: 'SHARED SERIALIZER', code: 'LOINC 11283-9 (Triage Note)', endpoint: 'POST /api/v1/resume-medis', payload: { kunjungan_id_asal: 'REG-2026-0001', judul: 'Catatan Triase IGD ATS-3' } },
+      { id: 24, name: 'Observation (Triase ATS/ESI)', fhir: 'Observation', category: 'Emergency', tier: 'SHARED SERIALIZER', code: 'Skala ATS / ESI Triase', endpoint: 'POST /api/v1/tanda-vital', payload: { kunjungan_id_asal: 'REG-2026-0001', skala_triase: 'ATS-3', status: 'Kuning' } },
+      { id: 25, name: 'Procedure (Triase Resusitasi)', fhir: 'Procedure', category: 'Emergency', tier: 'SHARED SERIALIZER', code: 'SNOMED Triage Evaluation', endpoint: 'POST /api/v1/tindakan', payload: { kunjungan_id_asal: 'REG-2026-0001', nama_tindakan: 'Resusitasi Cairan Awal' } },
+      { id: 26, name: 'ServiceRequest (RTL / SPRI)', fhir: 'ServiceRequest', category: 'Clinical Core', tier: 'SHARED SERIALIZER', code: 'SPRI BPJS / Rujukan Kontrol', endpoint: 'POST /api/v1/order-penunjang', payload: { kunjungan_id_asal: 'REG-2026-0001', nomor_spri: 'SPRI-2026-001', alasan: 'Kontrol Hipertensi' } },
+      { id: 27, name: 'ChargeItem', fhir: 'ChargeItem', category: 'Financial', tier: 'GENERIC ENVELOPE', code: 'Tarif INA-CBG / Buku Tarif RS', endpoint: 'POST /api/v1/envelope/charge-item', payload: { id_asal: 'CHG-01', kode_tarif: 'TARIF-01', nominal: 150000 } },
+      { id: 28, name: 'Invoice', fhir: 'Invoice', category: 'Financial', tier: 'GENERIC ENVELOPE', code: 'Faktur Billing Tagihan', endpoint: 'POST /api/v1/envelope/invoice', payload: { id_asal: 'INV-01', nomor_faktur: 'FAK-2026-01', total: 350000 } },
+      { id: 29, name: 'Goal', fhir: 'Goal', category: 'Clinical Core', tier: 'SHARED SERIALIZER', code: 'SNOMED Target Klinis', endpoint: 'POST /api/v1/rencana-asuhan', payload: { kunjungan_id_asal: 'REG-2026-0001', target: 'Tekanan darah < 130/80 mmHg' } },
+      { id: 30, name: 'RiskAssessment', fhir: 'RiskAssessment', category: 'Clinical Core', tier: 'SHARED SERIALIZER', code: 'Skala Morse / Braden', endpoint: 'POST /api/v1/asesmen-klinis', payload: { kunjungan_id_asal: 'REG-2026-0001', risiko_jatuh: 'Rendah' } },
+      { id: 31, name: 'NutritionOrder', fhir: 'NutritionOrder', category: 'Clinical Core', tier: 'GENERIC ENVELOPE', code: 'SNOMED Diet Prescribed', endpoint: 'POST /api/v1/envelope/nutrition', payload: { id_asal: 'NUT-01', diet: 'Rendah Garam 1700 kkal' } },
+      { id: 32, name: 'Account', fhir: 'Account', category: 'Financial', tier: 'GENERIC ENVELOPE', code: 'Rekening Billing RS', endpoint: 'POST /api/v1/envelope/account', payload: { id_asal: 'ACC-01', nomor_rekening: 'BILL-2026-01' } },
+      { id: 33, name: 'Composition (Laporan OK)', fhir: 'Composition', category: 'Surgical', tier: 'SHARED SERIALIZER', code: 'LOINC 11504-8 (Surgical Op Note)', endpoint: 'POST /api/v1/resume-medis', payload: { kunjungan_id_asal: 'REG-2026-0001', judul: 'Laporan Operasi Bedah' } },
+      { id: 34, name: 'Composition (Laporan Persalinan)', fhir: 'Composition', category: 'Surgical', tier: 'SHARED SERIALIZER', code: 'LOINC 15508-5 (Labor & Delivery)', endpoint: 'POST /api/v1/resume-medis', payload: { kunjungan_id_asal: 'REG-2026-0001', judul: 'Laporan Persalinan VK' } },
+      { id: 35, name: 'Composition (Resume Anestesi)', fhir: 'Composition', category: 'Surgical', tier: 'SHARED SERIALIZER', code: 'LOINC 59284-0 (Anesthesia Note)', endpoint: 'POST /api/v1/resume-medis', payload: { kunjungan_id_asal: 'REG-2026-0001', judul: 'Resume Anestesi Spinal' } },
+      { id: 36, name: 'CoverageEligibilityResponse', fhir: 'CoverageEligibilityResponse', category: 'Financial', tier: 'GENERIC ENVELOPE', code: 'VClaim SEP Response BPJS', endpoint: 'POST /api/v1/envelope/eligibility', payload: { id_asal: 'ELG-01', no_sep: '0001R0010126V000001' } },
+      { id: 37, name: 'Coverage', fhir: 'Coverage', category: 'Financial', tier: 'GENERIC ENVELOPE', code: 'Nomor Kartu BPJS 13 Digit', endpoint: 'POST /api/v1/envelope/coverage', payload: { id_asal: 'COV-01', no_kartu: '0001234567890' } },
+      { id: 38, name: 'Composition (Laporan Tindakan)', fhir: 'Composition', category: 'Clinical Core', tier: 'SHARED SERIALIZER', code: 'LOINC 28570-0 (Procedure Note)', endpoint: 'POST /api/v1/resume-medis', payload: { kunjungan_id_asal: 'REG-2026-0001', judul: 'Laporan Tindakan Endoskopi' } },
+      { id: 39, name: 'MedicationDispense (Lainnya)', fhir: 'MedicationDispense', category: 'Pharmacy', tier: 'SHARED SERIALIZER', code: 'KFA Alkes / BHP Steril', endpoint: 'POST /api/v1/dispense', payload: { resep_id_asal: 'RSP-2026-001', jenis: 'BMHP' } },
+      { id: 40, name: 'Device', fhir: 'Device', category: 'Medical Device', tier: 'GENERIC ENVELOPE', code: 'GMDN / AKD / AKL Kemenkes', endpoint: 'POST /api/v1/envelope/device', payload: { id_asal: 'DEV-01', nama_alat: 'Infusion Pump' } },
+      { id: 41, name: 'DeviceRequest', fhir: 'DeviceRequest', category: 'Medical Device', tier: 'GENERIC ENVELOPE', code: 'Permintaan Pemasangan Alkes', endpoint: 'POST /api/v1/envelope/device-request', payload: { id_asal: 'DVR-01', alkes: 'Kateter Vena' } },
+      { id: 42, name: 'DeviceDispense', fhir: 'DeviceDispense', category: 'Medical Device', tier: 'GENERIC ENVELOPE', code: 'Serah Terima Alkes Medis', endpoint: 'POST /api/v1/envelope/device-dispense', payload: { id_asal: 'DVD-01', jumlah: 1 } },
+      { id: 43, name: 'DeviceUseStatement', fhir: 'DeviceUseStatement', category: 'Medical Device', tier: 'GENERIC ENVELOPE', code: 'Pemakaian Alkes Implan', endpoint: 'POST /api/v1/envelope/device-use', payload: { id_asal: 'DVU-01', lokasi_implan: 'Lengan Kiri' } },
+      { id: 44, name: 'SupplyRequest', fhir: 'SupplyRequest', category: 'Medical Device', tier: 'GENERIC ENVELOPE', code: 'Order BHP Logistik Medis', endpoint: 'POST /api/v1/envelope/supply-request', payload: { id_asal: 'SUP-01', nama_item: 'Spuit 5cc' } },
+      { id: 45, name: 'SupplyDelivery', fhir: 'SupplyDelivery', category: 'Medical Device', tier: 'GENERIC ENVELOPE', code: 'Pengiriman BHP Logistik', endpoint: 'POST /api/v1/envelope/supply-delivery', payload: { id_asal: 'SUD-01', status: 'delivered' } },
+      { id: 46, name: 'E-Klaim', fhir: 'Claim', category: 'Financial', tier: 'SPECIAL SERVICE', code: 'ClaimGradeQualityValidator (INA-CBG)', endpoint: 'POST /api/v1/kualitas-data/audit', payload: { kunjungan_id_asal: 'REG-2026-0001', diagnosa_primer: 'I10' } },
+      { id: 47, name: 'Provenance & Task (TTE)', fhir: 'Provenance', category: 'TTE & Legal Integrity', tier: 'SPECIAL SERVICE', code: 'BSrE Dynamic QR 10s TTL', endpoint: 'POST /api/v1/tte/request', payload: { document_id: 'DOC-47', dpjp_nik: '3273010101850001' } },
+    ];
+
+    let currentCategory = 'ALL';
+
+    function renderProfiles() {
+      const grid = document.getElementById('profilesGrid');
+      const search = document.getElementById('profileSearchInput').value.toLowerCase();
+      const noResults = document.getElementById('noResults');
+
+      grid.innerHTML = '';
+      let matchCount = 0;
+
+      PLAYBOOK_PROFILES.forEach(p => {
+        const matchesCat = (currentCategory === 'ALL' || p.category === currentCategory);
+        const matchesSearch = p.name.toLowerCase().includes(search) || 
+                              p.fhir.toLowerCase().includes(search) || 
+                              p.code.toLowerCase().includes(search);
+
+        if (matchesCat && matchesSearch) {
+          matchCount++;
+          const card = document.createElement('div');
+          card.className = 'glass-card p-4 rounded-xl flex flex-col justify-between hover:border-slate-600 transition-colors';
+          
+          let tierBadgeColor = 'bg-slate-800 text-slate-300 border-slate-700';
+          if (p.tier === 'DEDICATED CANONICAL') tierBadgeColor = 'bg-brand-500/10 text-brand-400 border-brand-500/30';
+          else if (p.tier === 'SHARED SERIALIZER') tierBadgeColor = 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+          else if (p.tier === 'GENERIC ENVELOPE') tierBadgeColor = 'bg-purple-500/10 text-purple-400 border-purple-500/30';
+          else if (p.tier === 'SPECIAL SERVICE') tierBadgeColor = 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-[10px] font-mono text-slate-400 font-bold">#${p.id}</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full border ${tierBadgeColor}">${p.tier}</span>
+              </div>
+              <h4 class="font-bold text-white text-sm tracking-tight">${p.name}</h4>
+              <div class="mt-1 flex items-center space-x-1.5 text-xs text-cyan-400 font-mono">
+                <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                <span>FHIR: ${p.fhir}</span>
+              </div>
+              <p class="mt-2 text-[11px] text-slate-400 leading-snug">${p.code}</p>
+            </div>
+            
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
+              <span class="text-[10px] text-slate-500 font-mono">${p.endpoint.split(' ')[0]}</span>
+              <button onclick="viewPayloadModal(${p.id})" class="text-xs text-brand-400 hover:text-brand-300 font-medium flex items-center space-x-1">
+                <span>Lihat JSON</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </button>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+      });
+
+      noResults.classList.toggle('hidden', matchCount > 0);
+      lucide.createIcons();
+    }
+
+    function filterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-500', 'text-navy-950', 'font-bold');
+        btn.classList.add('bg-slate-800/80', 'text-slate-300');
+      });
+      event.target.classList.remove('bg-slate-800/80', 'text-slate-300');
+      event.target.classList.add('bg-brand-500', 'text-navy-950', 'font-bold');
+      renderProfiles();
+    }
+
+    document.getElementById('profileSearchInput').addEventListener('input', renderProfiles);
+
+    // Modal logic
+    let currentModalPayload = null;
+    function viewPayloadModal(id) {
+      const profile = PLAYBOOK_PROFILES.find(p => p.id === id);
+      if (!profile) return;
+      currentModalPayload = profile.payload;
+      document.getElementById('modalProfileName').innerText = `#${profile.id} ${profile.name} (Target FHIR: ${profile.fhir})`;
+      document.getElementById('modalEndpointBadge').innerText = profile.endpoint;
+      document.getElementById('modalJsonContent').innerText = JSON.stringify(profile.payload, null, 2);
+      document.getElementById('payloadModal').classList.remove('hidden');
+      document.getElementById('copyBtnText').innerText = 'Salin JSON';
+      lucide.createIcons();
+    }
+
+    function closePayloadModal() {
+      document.getElementById('payloadModal').classList.add('hidden');
+    }
+
+    function copyModalJson() {
+      if (!currentModalPayload) return;
+      navigator.clipboard.writeText(JSON.stringify(currentModalPayload, null, 2));
+      document.getElementById('copyBtnText').innerText = 'Tersalin!';
+      setTimeout(() => { document.getElementById('copyBtnText').innerText = 'Salin JSON'; }, 2000);
+    }
+
+    function openOrderModal() {
+      document.getElementById('orderModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeOrderModal() {
+      document.getElementById('orderModal').classList.add('hidden');
+    }
+
+    // TCO Calculator logic
+    function calculateTco() {
+      const saasMonthly = parseInt(document.getElementById("saasSlider").value);
+      const years = parseInt(document.getElementById("yearsSlider").value);
+      const months = years * 12;
+
+      document.getElementById("saasMonthlyLabel").innerText = `Rp ${(saasMonthly).toLocaleString("id-ID")} / bln`;
+      document.getElementById("yearsLabel").innerText = `${years} Tahun (${months} Bulan)`;
+
+      const saasTotal = saasMonthly * months;
+      const bridgeLicense = 4750000;
+      const savings = saasTotal - bridgeLicense;
+      const percent = ((savings / saasTotal) * 100).toFixed(1);
+
+      document.getElementById("saasTotalCost").innerText = `Rp ${saasTotal.toLocaleString("id-ID")}`;
+      document.getElementById("saasPeriodNote").innerText = `Akumulasi biaya sewa selama periode ${months} bulan`;
+      document.getElementById("savingsCost").innerText = `Rp ${savings.toLocaleString("id-ID")}`;
+      document.getElementById("savingsPercent").innerText = `Efisiensi Biaya: ${percent}%`;
+    }
+
+    // Order Modal logic
+    let generatedOrderData = null;
+
+    function openOrderModal() {
+      document.getElementById("orderFormStep").classList.remove("hidden");
+      document.getElementById("orderInvoiceStep").classList.add("hidden");
+      document.getElementById("orderModal").classList.remove("hidden");
+      lucide.createIcons();
+    }
+
+    function closeOrderModal() {
+      document.getElementById("orderModal").classList.add("hidden");
+    }
+
+    function handleFacilityOrderSubmit(e) {
+      e.preventDefault();
+      const facility = document.getElementById("ordFacilityName").value.trim();
+      const type = document.getElementById("ordFacilityType").value;
+      const db = document.getElementById("ordDatabaseType").value;
+      const pic = document.getElementById("ordPicName").value.trim();
+      const email = document.getElementById("ordPicEmail").value.trim();
+      const phone = document.getElementById("ordPicPhone").value.trim();
+
+      const randSuffix = Math.floor(1000 + Math.random() * 9000);
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+      const orderId = `SB-ORD-${dateStr}-${randSuffix}`;
+
+      generatedOrderData = { orderId, facility, type, db, pic, email, phone, price: "Rp 4.750.000 (US$ 299)" };
+
+      document.getElementById("invOrderId").innerText = orderId;
+      document.getElementById("invFacility").innerText = `${facility} (${type})`;
+      document.getElementById("invPic").innerText = `${pic} (${email} / ${phone})`;
+      document.getElementById("invDatabase").innerText = db;
+
+      const subject = encodeURIComponent(`Konfirmasi Pemesanan Lisensi SATUSEHAT Bridge - ${orderId}`);
+      const body = encodeURIComponent(
+        `Halo Tim SATUSEHAT Bridge,\n\nSaya ingin mengonfirmasi pemesanan lisensi SATUSEHAT Bridge Enterprise Core:\n\n` +
+        `• Order ID: ${orderId}\n` +
+        `• Fasilitas: ${facility} (${type})\n` +
+        `• PIC Teknis: ${pic}\n` +
+        `• Email Resmi: ${email}\n` +
+        `• WhatsApp: ${phone}\n` +
+        `• Database SIMRS: ${db}\n` +
+        `• Nilai Lisensi: Rp 4.750.000 (US$ 299)\n\n` +
+        `Mohon informasi lembar Invoice resmi dan rekening pembayaran (BCA / Mandiri / QRIS) untuk penyelesaian administrasi fasyankes kami.\n\nTerima kasih.`
+      );
+      document.getElementById("invMailtoBtn").href = `mailto:satusehatbridge@gmail.com?subject=${subject}&body=${body}`;
+
+      document.getElementById("orderFormStep").classList.add("hidden");
+      document.getElementById("orderInvoiceStep").classList.remove("hidden");
+      lucide.createIcons();
+    }
+
+    function copyInvoiceDetails() {
+      if (!generatedOrderData) return;
+      const text = `ORDER PENGAJUAN LISENSI SATUSEHAT BRIDGE\n` +
+        `Order ID: ${generatedOrderData.orderId}\n` +
+        `Fasilitas: ${generatedOrderData.facility} (${generatedOrderData.type})\n` +
+        `PIC: ${generatedOrderData.pic} (${generatedOrderData.email} / ${generatedOrderData.phone})\n` +
+        `Database SIMRS: ${generatedOrderData.db}\n` +
+        `Tagihan: ${generatedOrderData.price}\n` +
+        `Email Sales: satusehatbridge@gmail.com`;
+
+      navigator.clipboard.writeText(text);
+      document.getElementById("copyInvBtnText").innerText = "Tersalin ke Clipboard!";
+      setTimeout(() => { document.getElementById("copyInvBtnText").innerText = "Salin Rincian Pesanan ke Clipboard"; }, 2500);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProfiles();
+      calculateTco();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

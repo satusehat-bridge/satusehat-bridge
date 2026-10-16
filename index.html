@@ -1311,7 +1311,8 @@
           <div class="pt-2 flex items-center justify-end space-x-2">
             <button type="button" onclick="closeOrderModal()" class="px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-800 text-slate-300 font-medium transition-colors active:scale-95">Batal</button>
             <button type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black flex items-center space-x-2 transition-all shadow-lg shadow-emerald-500/35 active:scale-95">
-              <span>Proses Otonom & Serahkan Produk</span>
+              <i data-lucide="file-text" class="w-4 h-4"></i>
+              <span>Generate Proforma Invoice & Lisensi</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
           </div>
@@ -1406,10 +1407,17 @@
                   <span>Artefak Produk Diserahkan Langsung:</span>
                 </div>
 
-                <button onclick="downloadLicenseCertificate()" class="w-full py-3.5 px-4 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-xl shadow-emerald-500/35 transform hover:-translate-y-0.5 active:scale-95">
-                  <i data-lucide="file-check-2" class="w-4 h-4"></i>
-                  <span>Unduh Sertifikat Lisensi Resmi (.md)</span>
-                </button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button onclick="printProformaInvoice()" class="py-3 px-4 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-cyan-500/25 transform hover:-translate-y-0.5 active:scale-95">
+                    <i data-lucide="printer" class="w-4 h-4"></i>
+                    <span>Cetak / Unduh Invoice (PDF)</span>
+                  </button>
+
+                  <button onclick="downloadLicenseCertificate()" class="py-3 px-4 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-500/25 transform hover:-translate-y-0.5 active:scale-95">
+                    <i data-lucide="file-check-2" class="w-4 h-4"></i>
+                    <span>Unduh Lisensi Resmi (.md)</span>
+                  </button>
+                </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <button onclick="downloadDockerCompose()" class="py-2.5 px-3 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center space-x-2 transition-colors active:scale-95">
@@ -1995,27 +2003,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
     }
 
     // ----------------------------------------------------------------------------
-    // 5. Order Modal & Proforma Invoice Logic
-    // ----------------------------------------------------------------------------
-    let generatedOrderData = null;
-
-    function openOrderModal() {
-      const card = document.getElementById("orderModalCard");
-      if (card) {
-        card.className = "glass-card w-full max-w-xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95";
-      }
-      document.getElementById("orderFormStep").classList.remove("hidden");
-      document.getElementById("orderInvoiceStep").classList.add("hidden");
-      document.getElementById("orderModal").classList.remove("hidden");
-      lucide.createIcons();
-    }
-
-    function closeOrderModal() {
-      document.getElementById("orderModal").classList.add("hidden");
-    }
-
-    // ----------------------------------------------------------------------------
-    // 5. Order Modal & Autonomous AI Agent Delivery Engine
+    // 5. Order Modal & Proforma Invoice / Autonomous Delivery Engine
     // ----------------------------------------------------------------------------
     let generatedOrderData = null;
 
@@ -2103,6 +2091,147 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    }
+
+    function printProformaInvoice() {
+      if (!generatedOrderData) return;
+      const d = generatedOrderData;
+      const printWin = window.open('', '_blank', 'width=880,height=920');
+      if (!printWin) {
+        alert('Mohon izinkan pop-up di browser Anda untuk mencetak atau mengunduh invoice.');
+        return;
+      }
+      
+      const invoiceHtml = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Proforma Invoice - ${d.orderId} - SATUSEHAT Bridge</title>
+  <style>
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    body { margin: 0; padding: 40px; color: #1e293b; background: #fff; font-size: 13px; line-height: 1.5; }
+    .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #059669; padding-bottom: 20px; margin-bottom: 24px; }
+    .brand h1 { margin: 0; font-size: 24px; color: #059669; font-weight: 800; letter-spacing: -0.5px; }
+    .brand p { margin: 4px 0 0 0; color: #64748b; font-size: 12px; }
+    .inv-title { text-align: right; }
+    .inv-badge { display: inline-block; background: #059669; color: #fff; font-weight: 700; font-size: 11px; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; margin-bottom: 6px; }
+    .inv-meta { font-size: 12px; color: #475569; }
+    .inv-meta strong { color: #0f172a; }
+    .grid { display: flex; justify-content: space-between; margin-bottom: 28px; gap: 20px; }
+    .box { flex: 1; padding: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; }
+    .box-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 8px; letter-spacing: 0.5px; }
+    .table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    .table th { background: #f1f5f9; padding: 10px 12px; text-align: left; font-size: 11px; text-transform: uppercase; color: #475569; border-bottom: 2px solid #cbd5e1; }
+    .table td { padding: 12px; border-bottom: 1px solid #e2e8f0; font-size: 12px; }
+    .text-right { text-align: right; }
+    .totals { width: 340px; margin-left: auto; margin-bottom: 30px; }
+    .totals-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 12px; color: #475569; }
+    .totals-row.grand { font-size: 16px; font-weight: 800; color: #059669; border-top: 2px solid #cbd5e1; padding-top: 10px; margin-top: 6px; }
+    .license-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 14px; margin-bottom: 24px; font-family: monospace; font-size: 11px; color: #166534; }
+    .footer { font-size: 11px; color: #94a3b8; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+    @media print {
+      body { padding: 20px; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print" style="margin-bottom: 20px; padding: 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+    <span style="font-weight: 600; color: #065f46;">Dokumen Resmi Proforma Invoice siap dicetak atau disimpan sebagai PDF.</span>
+    <button onclick="window.print()" style="padding: 8px 18px; background: #059669; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Cetak / Simpan PDF</button>
+  </div>
+  
+  <div class="header">
+    <div class="brand">
+      <h1>SATUSEHAT BRIDGE</h1>
+      <p>Universal SIMRS Integration Bridge Layer • Autonomous Core</p>
+      <p style="font-size: 11px; color: #64748b;">Standar Kemenkes DTO (47 Profil Playbook) & HL7 FHIR R4</p>
+    </div>
+    <div class="inv-title">
+      <div class="inv-badge">Proforma Invoice Resmi</div>
+      <div class="inv-meta">No. Invoice: <strong>${d.orderId}</strong></div>
+      <div class="inv-meta">Tanggal: <strong>${d.issuedDate}</strong></div>
+      <div class="inv-meta">Otoritas Penerbit: <strong style="color: #059669;">AI Autonomous Agent v2.2.0</strong></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <div class="box-title">Diterbitkan Untuk (Bill To)</div>
+      <div style="font-size: 14px; font-weight: 700; color: #0f172a;">${d.facility}</div>
+      <div style="color: #475569; font-size: 12px; margin-top: 2px;">Tipe Fasyankes: ${d.type}</div>
+      <div style="color: #475569; font-size: 12px;">Target SIMRS: ${d.db}</div>
+    </div>
+    <div class="box">
+      <div class="box-title">Kontak PIC Teknis</div>
+      <div style="font-size: 13px; font-weight: 600; color: #0f172a;">${d.pic}</div>
+      <div style="color: #475569; font-size: 12px; margin-top: 2px;">Email: ${d.email}</div>
+      <div style="color: #475569; font-size: 12px;">WhatsApp/Telp: ${d.phone}</div>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 50%;">Deskripsi Produk & Lisensi Komersial</th>
+        <th class="text-right">Harga Normal</th>
+        <th class="text-right">Diskon Promo</th>
+        <th class="text-right">Jumlah (USD)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div style="font-weight: 700; color: #0f172a;">SATUSEHAT Bridge Enterprise Core Perpetual License</div>
+          <div style="font-size: 11px; color: #64748b; margin-top: 3px;">
+            • Hak penggunaan permanen on-premise seumur hidup untuk 1 Fasilitas Kesehatan<br>
+            • Cakupan 47 Profil Playbook Kemenkes DTO & 33 Resource HL7 FHIR R4<br>
+            • Universal SIMRS Table Adapter Engine (MSSQL / MySQL / PostgreSQL)<br>
+            • Outbound Queue Worker, Dashboard Monitoring, & Modul TTE BSrE Dynamic QR<br>
+            • Tanpa biaya langganan bulanan & tanpa royalti per transaksi pasien
+          </div>
+        </td>
+        <td class="text-right" style="color: #94a3b8; text-decoration: line-through;">$500.00</td>
+        <td class="text-right" style="color: #e11d48; font-weight: 600;">-$201.00 (40%)</td>
+        <td class="text-right" style="font-weight: 700; color: #059669;">$299.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <div class="totals-row">
+      <span>Subtotal Normal:</span>
+      <span>$500.00 USD</span>
+    </div>
+    <div class="totals-row" style="color: #e11d48;">
+      <span>Diskon Promo Peluncuran:</span>
+      <span>-$201.00 USD</span>
+    </div>
+    <div class="totals-row grand">
+      <span>Total Tagihan USD:</span>
+      <span>$299.00 USD</span>
+    </div>
+    <div class="totals-row" style="font-size: 11px; color: #059669; font-weight: 600; padding-top: 4px;">
+      <span>Estimasi Nilai IDR (Kurs Live):</span>
+      <span>± Rp ${d.idrAmount.toLocaleString('id-ID')}</span>
+    </div>
+  </div>
+
+  <div class="license-box">
+    <div style="font-weight: bold; margin-bottom: 4px; color: #15803d; font-family: sans-serif; font-size: 11px; text-transform: uppercase;">Kunci Lisensi Fasyankes Resmi (Terikat Kriptografis):</div>
+    <div style="font-size: 12px; font-weight: bold; word-break: break-all;">${d.licenseKey}</div>
+    <div style="font-size: 10px; color: #166534; margin-top: 4px;">SHA-256 Checksum: ${d.shaFingerprint}</div>
+  </div>
+
+  <div class="footer">
+    <p>Dokumen Proforma Invoice ini diterbitkan secara otonom dan sah oleh AI Autonomous Agent Engine v2.2.0.</p>
+    <p>© 2026 SATUSEHAT Bridge Core Team • Universal Health Interoperability Standards</p>
+  </div>
+</body>
+</html>`;
+      printWin.document.open();
+      printWin.document.write(invoiceHtml);
+      printWin.document.close();
     }
 
     function downloadLicenseCertificate() {
@@ -2382,6 +2511,7 @@ REDIS_PORT=6379
     window.closeOrderModal = closeOrderModal;
     window.handleFacilityOrderSubmit = handleFacilityOrderSubmit;
     window.downloadLicenseCertificate = downloadLicenseCertificate;
+    window.printProformaInvoice = printProformaInvoice;
     window.downloadDockerCompose = downloadDockerCompose;
     window.downloadEnvStarter = downloadEnvStarter;
     window.copyLicenseKey = copyLicenseKey;

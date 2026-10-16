@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SATUSEHAT Bridge — Universal SIMRS Integration Portal & Live AI Assistant</title>
-  <meta name="description" content="Universal On-Premise SIMRS Integration Bridge ke SATUSEHAT Kemenkes & BPJS E-Klaim. 47 Profil Playbook, Dual Ingestion, Enkripsi Host, Lisensi Permanen Tanpa Vendor Lock-in.">
+  <title>SATUSEHAT Bridge — Universal SIMRS Integration Portal & Technical Architecture</title>
+  <meta name="description" content="Universal On-Premise SIMRS Integration Bridge ke SATUSEHAT Kemenkes & BPJS E-Klaim. 47 Profil Playbook, Dual Ingestion, Enkripsi Host AES-256-GCM, Lisensi Permanen Tanpa Vendor Lock-in.">
   
   <!-- Brand Favicons & Icons -->
   <link rel="icon" type="image/svg+xml" href="assets/satusehat-bridge-icon.svg">
@@ -12,10 +12,10 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="stylesheet" href="brand.css">
   
-  <!-- Fonts -->
+  <!-- Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -54,29 +54,71 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     /* Custom scrollbar */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
     ::-webkit-scrollbar-track { background: #090d16; }
     ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+    /* Surface & Glassmorphism styles */
     .glass-card {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
+    .glass-card-hover {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-hover:hover {
+      border-color: rgba(52, 211, 153, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -10px rgba(16, 185, 129, 0.15);
+    }
     .glass-nav {
-      background: rgba(9, 13, 22, 0.85);
+      background: rgba(9, 13, 22, 0.88);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
-    .badge-glow {
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+
+    /* Purposeful technical pattern backgrounds */
+    .tech-grid-pattern {
+      background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+      background-size: 24px 24px;
     }
+    .tech-blueprint-lines {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    /* Halo indicators replacing noisy animate-ping */
+    .halo-indicator {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .halo-indicator::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 9999px;
+      border: 1px solid currentColor;
+      opacity: 0.35;
+    }
+
+    /* Terminal syntax highlights */
+    .code-keyword { color: #f43f5e; font-weight: 600; }
+    .code-string { color: #34d399; }
+    .code-function { color: #38bdf8; }
+    .code-comment { color: #64748b; font-style: italic; }
+    .code-key { color: #fbbf24; }
   </style>
 </head>
-<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col">
+<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col tech-grid-pattern">
 
   <!-- ============================================================================== -->
-  <!-- TOP NAVIGATION BAR -->
+  <!-- TOP NAVIGATION BAR (Clean, Uncluttered, No Redundant Live Agent Link) -->
   <!-- ============================================================================== -->
   <header class="sticky top-0 z-50 glass-nav">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -84,26 +126,22 @@
         <a href="#" class="flex items-center">
           <img src="assets/satusehat-bridge-logo-dark.svg" alt="SATUSEHAT-Bridge" class="h-8 sm:h-9 w-auto">
         </a>
-        <span class="hidden sm:inline-block px-2 py-0.5 text-xs rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 font-mono">v2.2.0</span>
+        <span class="hidden sm:inline-block px-2.5 py-0.5 text-[11px] rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 font-mono font-medium">v2.2.0 Ready</span>
       </div>
 
-      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
         <a href="#katalog" class="hover:text-brand-400 transition-colors">47 Profil Playbook</a>
-        <a href="#arsitektur" class="hover:text-brand-400 transition-colors">Arsitektur</a>
-        <a href="#kalkulator" class="hover:text-brand-400 transition-colors">Kalkulator TCO</a>
-        <button onclick="toggleChat(true)" class="hover:text-brand-400 transition-colors flex items-center space-x-1.5 text-cyan-400 font-medium text-sm">
-          <i data-lucide="bot" class="w-4 h-4"></i>
-          <span>Live AI Agent</span>
-        </button>
-        <a href="#harga" class="hover:text-brand-400 transition-colors">Lisensi & Order</a>
+        <a href="#arsitektur" class="hover:text-brand-400 transition-colors">Arsitektur Pipeline</a>
+        <a href="#kalkulator" class="hover:text-brand-400 transition-colors">Simulasi TCO</a>
+        <a href="#harga" class="hover:text-brand-400 transition-colors">Lisensi & Pemesanan</a>
       </nav>
 
       <div class="flex items-center space-x-3">
-        <a href="https://github.com/satusehat-bridge/satusehat-bridge" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/60 hover:bg-slate-700 text-xs font-medium text-slate-200 transition-colors">
+        <a href="https://github.com/satusehat-bridge/satusehat-bridge" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/60 hover:bg-slate-700 text-xs font-medium text-slate-200 transition-all active:scale-95">
           <i data-lucide="github" class="w-4 h-4"></i>
           <span>GitHub Spek</span>
         </a>
-        <a href="#harga" class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-navy-950 font-semibold text-xs transition-all shadow-md shadow-brand-500/20 flex items-center space-x-1.5">
+        <a href="#harga" class="px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-all shadow-md shadow-brand-500/20 flex items-center space-x-1.5 active:scale-95">
           <i data-lucide="shopping-cart" class="w-4 h-4"></i>
           <span>Pesan Lisensi</span>
         </a>
@@ -112,17 +150,20 @@
   </header>
 
   <!-- ============================================================================== -->
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION WITH LIVE ARCHITECTURAL TERMINAL -->
   <!-- ============================================================================== -->
-  <section class="relative pt-16 pb-20 overflow-hidden border-b border-slate-800/80">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-900/20 via-navy-950 to-navy-950 pointer-events-none"></div>
+  <section class="relative pt-14 pb-20 overflow-hidden border-b border-slate-800/80">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-900/15 via-navy-950 to-navy-950 pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
       
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
-        <span class="font-medium">Self-Hosted Universal Integration Bridge</span>
+      <!-- Operational Status Badge with Refined Halo -->
+      <div class="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-slate-800/90 border border-slate-700/80 text-xs text-slate-300 mb-6 shadow-sm">
+        <span class="halo-indicator text-brand-400">
+          <span class="w-2 h-2 rounded-full bg-brand-400"></span>
+        </span>
+        <span class="font-medium text-slate-200">Self-Hosted Universal Integration Bridge</span>
         <span class="text-slate-500">•</span>
-        <span class="text-brand-400">Zero Cloud Vendor Lock-in</span>
+        <span class="text-brand-400 font-mono font-medium">Zero Cloud Vendor Lock-in</span>
       </div>
 
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight sm:leading-tight">
@@ -133,33 +174,120 @@
         Solusi <strong class="text-white">on-premise mandiri</strong> bagi Rumah Sakit, Klinik, dan Pengembang SIMRS. Didukung arsitektur <strong>Dual Ingestion (REST API & Table Adapter Staging)</strong>, <strong>47 Profil Playbook Kemenkes</strong>, dan enkripsi host-level AES-256-GCM.
       </p>
 
+      <!-- Primary Action Buttons -->
       <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <button onclick="toggleChat(true)" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-cyan-500 hover:from-brand-600 hover:to-cyan-600 text-navy-950 font-bold text-sm shadow-xl shadow-brand-500/25 flex items-center justify-center space-x-2 transition-all">
-          <i data-lucide="bot" class="w-5 h-5"></i>
-          <span>Konsultasi Teknis dengan AI Live Agent</span>
-        </button>
-        <a href="#katalog" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm flex items-center justify-center space-x-2 transition-colors">
-          <i data-lucide="layout-grid" class="w-5 h-5"></i>
+        <a href="#katalog" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-cyan-500 hover:from-brand-600 hover:to-cyan-600 text-navy-950 font-bold text-sm shadow-xl shadow-brand-500/20 flex items-center justify-center space-x-2 transition-all active:scale-95">
+          <i data-lucide="layout-grid" class="w-4 h-4"></i>
           <span>Eksplorasi 47 Profil Playbook</span>
         </a>
+        <a href="#kalkulator" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm flex items-center justify-center space-x-2 transition-all active:scale-95">
+          <i data-lucide="calculator" class="w-4 h-4"></i>
+          <span>Simulasi Penghematan TCO</span>
+        </a>
+        <button onclick="toggleChat(true)" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-cyan-500/40 text-cyan-400 font-semibold text-sm flex items-center justify-center space-x-2 transition-all active:scale-95">
+          <i data-lucide="bot" class="w-4 h-4"></i>
+          <span>Konsultasi Teknis Live</span>
+        </button>
+      </div>
+
+      <!-- ============================================================================ -->
+      <!-- INTERACTIVE ARCHITECTURE & CODE PREVIEW TERMINAL -->
+      <!-- ============================================================================ -->
+      <div class="mt-12 max-w-4xl mx-auto text-left">
+        <div class="rounded-2xl border border-slate-700/80 bg-navy-900/90 shadow-2xl overflow-hidden">
+          
+          <!-- Terminal Header & Pipeline Breadcrumb -->
+          <div class="px-4 py-3 bg-slate-800/90 border-b border-slate-700/80 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+              <span class="ml-2 text-xs font-mono text-slate-400 font-medium">pipeline://simrs-to-satusehat</span>
+            </div>
+
+            <div class="flex items-center space-x-1.5 text-[11px] font-mono text-slate-300">
+              <span class="text-slate-500">ENGINE:</span>
+              <span class="text-brand-400 font-semibold">PHP 8.2+</span>
+              <span class="text-slate-600">|</span>
+              <span class="text-slate-500">TESTS:</span>
+              <span class="text-cyan-400 font-semibold">250/250 PASSED (100%)</span>
+            </div>
+          </div>
+
+          <!-- Code / Architecture Mode Switcher Tabs -->
+          <div class="px-4 pt-3 bg-slate-900/95 border-b border-slate-800 flex items-center justify-between gap-2 overflow-x-auto">
+            <div class="flex space-x-2">
+              <button id="tabSqlBtn" onclick="switchDemoTab('sql')" class="demo-tab-btn active px-3.5 py-1.5 text-xs font-mono font-medium rounded-t-lg bg-slate-800 text-brand-400 border-t-2 border-brand-500 flex items-center space-x-1.5 transition-colors">
+                <i data-lucide="database" class="w-3.5 h-3.5"></i>
+                <span>1. SIMRS Staging Envelope (SQL)</span>
+              </button>
+              <button id="tabCoreBtn" onclick="switchDemoTab('core')" class="demo-tab-btn px-3.5 py-1.5 text-xs font-mono font-medium rounded-t-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 flex items-center space-x-1.5 transition-colors">
+                <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+                <span>2. Normalizer & Kanonikal (PHP)</span>
+              </button>
+              <button id="tabFhirBtn" onclick="switchDemoTab('fhir')" class="demo-tab-btn px-3.5 py-1.5 text-xs font-mono font-medium rounded-t-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 flex items-center space-x-1.5 transition-colors">
+                <i data-lucide="file-json" class="w-3.5 h-3.5"></i>
+                <span>3. Kemenkes FHIR R4 (JSON)</span>
+              </button>
+            </div>
+
+            <button onclick="copyCurrentDemoCode()" class="text-[11px] text-slate-400 hover:text-brand-400 flex items-center space-x-1 px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 transition-colors">
+              <i data-lucide="copy" class="w-3 h-3"></i>
+              <span id="copyDemoBtnText">Salin Cuplikan</span>
+            </button>
+          </div>
+
+          <!-- Code View Area -->
+          <div class="p-4 sm:p-5 font-mono text-xs overflow-x-auto bg-navy-950/90 leading-relaxed min-h-[220px]">
+            <pre id="demoCodeDisplay" class="text-slate-200"></pre>
+          </div>
+
+          <!-- Flow Summary Footer -->
+          <div class="px-4 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between text-[11px] text-slate-400 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="text-brand-400 font-semibold">ALUR KERJA:</span>
+              <span class="text-slate-300">SIMRS Insert Staging</span>
+              <span class="text-slate-500">➔</span>
+              <span class="text-slate-300">Kanonikal Normalizer</span>
+              <span class="text-slate-500">➔</span>
+              <span class="text-slate-300">Queue Worker</span>
+              <span class="text-slate-500">➔</span>
+              <span class="text-brand-400 font-semibold">SATUSEHAT & BPJS</span>
+            </div>
+            <div class="text-slate-500 font-mono">DDL Rekam Medis SIMRS: 100% Utuh</div>
+          </div>
+
+        </div>
       </div>
 
       <!-- Quick Metrics Strip -->
-      <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
-        <div class="glass-card p-4 rounded-xl">
-          <div class="text-brand-400 font-mono text-2xl font-bold">47 Profil</div>
-          <div class="text-xs text-slate-400 mt-1">Playbook Alur Kerja Klinis Kemenkes DTO & Klaim BPJS</div>
+      <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+        <div class="glass-card glass-card-hover p-4 rounded-xl border border-slate-800">
+          <div class="flex items-center justify-between">
+            <div class="text-brand-400 font-mono text-2xl font-bold">47 Profil</div>
+            <i data-lucide="layers" class="w-5 h-5 text-brand-400/60"></i>
+          </div>
+          <div class="text-xs text-slate-400 mt-1">Playbook Alur Kerja Klinis Kemenkes DTO & E-Klaim BPJS</div>
         </div>
-        <div class="glass-card p-4 rounded-xl">
-          <div class="text-cyan-400 font-mono text-2xl font-bold">33 Tipe FHIR</div>
-          <div class="text-xs text-slate-400 mt-1">Tipe Resource FHIR R4 Unik Terpetakan Terstandar</div>
+        <div class="glass-card glass-card-hover p-4 rounded-xl border border-slate-800">
+          <div class="flex items-center justify-between">
+            <div class="text-cyan-400 font-mono text-2xl font-bold">33 Tipe FHIR</div>
+            <i data-lucide="file-code-2" class="w-5 h-5 text-cyan-400/60"></i>
+          </div>
+          <div class="text-xs text-slate-400 mt-1">Tipe Resource HL7 FHIR R4 Unik Terpetakan Terstandar</div>
         </div>
-        <div class="glass-card p-4 rounded-xl">
-          <div class="text-purple-400 font-mono text-2xl font-bold">Dual Adapter</div>
-          <div class="text-xs text-slate-400 mt-1">REST API JSON + Table Adapter (SQL Server, MySQL, PG)</div>
+        <div class="glass-card glass-card-hover p-4 rounded-xl border border-slate-800">
+          <div class="flex items-center justify-between">
+            <div class="text-purple-400 font-mono text-2xl font-bold">Dual Adapter</div>
+            <i data-lucide="database" class="w-5 h-5 text-purple-400/60"></i>
+          </div>
+          <div class="text-xs text-slate-400 mt-1">REST API Langsung + Staging Table (SQL Server, MySQL, PG)</div>
         </div>
-        <div class="glass-card p-4 rounded-xl">
-          <div class="text-amber-400 font-mono text-2xl font-bold">Rp 0 / Bulan</div>
+        <div class="glass-card glass-card-hover p-4 rounded-xl border border-slate-800">
+          <div class="flex items-center justify-between">
+            <div class="text-amber-400 font-mono text-2xl font-bold">Rp 0 / Bulan</div>
+            <i data-lucide="check-shield" class="w-5 h-5 text-amber-400/60"></i>
+          </div>
           <div class="text-xs text-slate-400 mt-1">Lisensi Permanen Tunggal. Tanpa Biaya Rutin Apapun.</div>
         </div>
       </div>
@@ -170,34 +298,39 @@
   <!-- ============================================================================== -->
   <!-- ARSITEKTUR & KEAMANAN SECTION -->
   <!-- ============================================================================== -->
-  <section id="arsitektur" class="py-16 border-b border-slate-800/80 bg-navy-900/40">
+  <section id="arsitektur" class="py-16 border-b border-slate-800/80 bg-navy-900/40 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
       <div class="text-center max-w-3xl mx-auto mb-12">
         <h2 class="text-xs font-semibold text-brand-400 uppercase tracking-wider font-mono">Arsitektur & Perlindungan Data</h2>
         <p class="mt-2 text-3xl font-extrabold text-white">Bagaimana SATUSEHAT Bridge Bekerja?</p>
-        <p class="mt-3 text-sm text-slate-400">Pemisahan fisik tegas antara basis data internal SIMRS dan server Kemenkes. Tidak ada perubahan struktur tabel produksi rumah sakit.</p>
+        <p class="mt-3 text-sm text-slate-400">Pemisahan fisik tegas antara basis data internal SIMRS dan server Kemenkes. Tidak ada perubahan struktur tabel produksi rekam medis rumah sakit.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Card 1 -->
-        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+      <!-- 3-Stage Visual Pipeline Architecture -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+        
+        <!-- Stage 1 -->
+        <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between border border-slate-800 relative">
+          <div class="absolute top-4 right-4 text-xs font-mono font-bold text-slate-500">STAGE 01</div>
           <div>
             <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-4">
               <i data-lucide="database" class="w-6 h-6"></i>
             </div>
             <h3 class="text-lg font-bold text-white mb-2">1. Table Adapter Staging</h3>
             <p class="text-xs text-slate-300 leading-relaxed">
-              SIMRS cukup melakukan <code class="text-blue-300 bg-slate-800 px-1 py-0.5 rounded">INSERT</code> baris data ke tabel staging terpisah (<code class="text-blue-300 bg-slate-800 px-1 py-0.5 rounded">satusehat_bridge_staging_envelope</code>). Mendukung Microsoft SQL Server 2008+, MySQL 5.7+, dan PostgreSQL 12+.
+              SIMRS cukup melakukan <code class="text-blue-300 bg-slate-800/80 px-1 py-0.5 rounded font-mono">INSERT</code> baris data ke tabel staging terpisah (<code class="text-blue-300 bg-slate-800/80 px-1 py-0.5 rounded font-mono">satusehat_bridge_staging_envelope</code>). Mendukung Microsoft SQL Server 2008+, MySQL 5.7+, dan PostgreSQL 12+.
             </p>
           </div>
-          <div class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center space-x-1">
-            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400"></i>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center space-x-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
             <span>Nol modifikasi DDL tabel rekam medis SIMRS</span>
           </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+        <!-- Stage 2 -->
+        <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between border border-slate-800 relative">
+          <div class="absolute top-4 right-4 text-xs font-mono font-bold text-slate-500">STAGE 02</div>
           <div>
             <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400 flex items-center justify-center mb-4">
               <i data-lucide="cpu" class="w-6 h-6"></i>
@@ -207,29 +340,48 @@
               Mesin internal memvalidasi skema, memetakan terminologi (ICD-10, LOINC, SNOMED, KFA), mengenkripsi rahasia dengan AES-256-GCM, dan mengantrekan pengiriman secara asinkron dengan kontrol konkurensi (lease lock).
             </p>
           </div>
-          <div class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center space-x-1">
-            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400"></i>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center space-x-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
             <span>Idempotensi ketat & anti duplikasi pengiriman</span>
           </div>
         </div>
 
-        <!-- Card 3 -->
-        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+        <!-- Stage 3 -->
+        <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between border border-slate-800 relative">
+          <div class="absolute top-4 right-4 text-xs font-mono font-bold text-slate-500">STAGE 03</div>
           <div>
             <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-4">
               <i data-lucide="send" class="w-6 h-6"></i>
             </div>
             <h3 class="text-lg font-bold text-white mb-2">3. Outbound Worker Delivery</h3>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Pekerja latar belakang (Queue Worker) mengubah entitas menjadi bundle FHIR R4 resmi Kemenkes DTO, menangani rotasi token OAuth2 otomatis, serta mencatat status HTTP dan audit log pengiriman.
+              Pekerja latar belakang (Queue Worker) mengubah entitas menjadi bundle FHIR R4 resmi Kemenkes DTO, menangani rotasi token OAuth2 otomatis, serta mencatat status HTTP dan audit log pengiriman secara real-time.
             </p>
           </div>
-          <div class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center space-x-1">
-            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400"></i>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center space-x-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
             <span>Retry eksponensial cerdas jika Kemenkes down</span>
           </div>
         </div>
+
       </div>
+
+      <!-- Technical Guarantees Strip -->
+      <div class="mt-8 p-4 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-300 gap-4">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+          <span>Enkripsi Host: <strong>AES-256-GCM + HMAC-SHA256</strong></span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <i data-lucide="lock" class="w-4 h-4 text-cyan-400"></i>
+          <span>Multi-Tenant Boundary: <strong>Isolasi rumah_sakit_id</strong></span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <i data-lucide="server" class="w-4 h-4 text-purple-400"></i>
+          <span>Kepatuhan Privasi: <strong>100% On-Premise Sesuai UU PDP</strong></span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -238,33 +390,40 @@
   <!-- ============================================================================== -->
   <section id="katalog" class="py-16 border-b border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
-          <h2 class="text-xs font-semibold text-brand-400 uppercase tracking-wider font-mono">Eksplorasi Katalog Komprehensif</h2>
-          <p class="mt-2 text-3xl font-extrabold text-white">47 Profil Playbook Kemenkes DTO</p>
-          <p class="mt-1 text-xs text-slate-400">Mencakup 33 Tipe Resource FHIR R4 Target Unik dan 4 Kategori Implementasi</p>
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-mono mb-2">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            <span>Kamus Standar DTO Kemenkes RI</span>
+          </div>
+          <h2 class="text-3xl font-extrabold text-white">47 Profil Playbook Kemenkes DTO</h2>
+          <p class="mt-1 text-xs text-slate-400">Mencakup 33 Tipe Resource FHIR R4 Target Unik dan 4 Kategori Arsitektur Implementasi</p>
         </div>
         
-        <!-- Search & Filter Controls -->
-        <div class="flex flex-col sm:flex-row gap-3">
-          <div class="relative">
+        <!-- Search & Counter -->
+        <div class="flex flex-col sm:flex-row items-center gap-3">
+          <div id="profilesCounterBadge" class="text-xs font-mono text-slate-400 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800">
+            Menampilkan <span id="matchCountText" class="text-brand-400 font-bold">47</span> dari 47 Profil
+          </div>
+          <div class="relative w-full sm:w-auto">
             <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
-            <input id="profileSearchInput" type="text" placeholder="Cari profil, LOINC, FHIR..." class="w-full sm:w-64 pl-9 pr-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors">
+            <input id="profileSearchInput" type="text" placeholder="Cari nama profil, FHIR, LOINC..." class="w-full sm:w-64 pl-9 pr-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors">
           </div>
         </div>
       </div>
 
-      <!-- Category Filter Tabs -->
+      <!-- Category Filter Tabs with Tactile Styling -->
       <div class="flex items-center space-x-2 overflow-x-auto pb-4 mb-6 text-xs font-medium text-slate-300" id="categoryTabs">
-        <button onclick="filterCategory('ALL')" class="category-btn active px-3 py-1.5 rounded-lg bg-brand-500 text-navy-950 font-bold whitespace-nowrap">Semua (47)</button>
-        <button onclick="filterCategory('Clinical Core')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Klinis Inti</button>
-        <button onclick="filterCategory('Pharmacy')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Farmasi & BMHP</button>
-        <button onclick="filterCategory('Diagnostic')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Penunjang (Lab & Rad)</button>
-        <button onclick="filterCategory('Emergency')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Triase IGD</button>
-        <button onclick="filterCategory('Surgical')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Bedah & Anestesi</button>
-        <button onclick="filterCategory('Financial')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Billing & Pre-Klaim</button>
-        <button onclick="filterCategory('Medical Device')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">Alat Kesehatan</button>
-        <button onclick="filterCategory('TTE & Legal Integrity')" class="category-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap">TTE Digital Sign</button>
+        <button onclick="filterCategory('ALL')" class="category-btn active px-3.5 py-1.5 rounded-lg bg-brand-500 text-navy-950 font-bold whitespace-nowrap active:scale-95 transition-all">Semua (47)</button>
+        <button onclick="filterCategory('Clinical Core')" class="category-btn px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap active:scale-95 transition-all">Klinis Inti</button>
+        <button onclick="filterCategory('Pharmacy')" class="category-btn px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap active:scale-95 transition-all">Farmasi & BMHP</button>
+        <button onclick="filterCategory('Diagnostic')" class="category-btn px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap active:scale-95 transition-all">Penunjang (Lab & Rad)</button>
+        <button onclick="filterCategory('Emergency')" class="category-btn px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap active:scale-95 transition-all">Triase IGD</button>
+        <button onclick="filterCategory('Surgical')" class="category-btn px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap active:scale-95 transition-all">Bedah & Anestesi</button>
+        <button onclick="filterCategory('Financial')" class="category-btn px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap active:scale-95 transition-all">Billing & Pre-Klaim</button>
+        <button onclick="filterCategory('Medical Device')" class="category-btn px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap active:scale-95 transition-all">Alat Kesehatan</button>
+        <button onclick="filterCategory('TTE & Legal Integrity')" class="category-btn px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 whitespace-nowrap active:scale-95 transition-all">TTE BSrE Sign</button>
       </div>
 
       <!-- Profile Cards Grid -->
@@ -279,80 +438,91 @@
   </section>
 
   <!-- ============================================================================== -->
-  <!-- LIVE AGENT (AI TECHNICAL ASSISTANT) -->
+  <!-- INTERACTIVE TECHNICAL ASSISTANT SHOWCASE (Distinctive, Command-Center Card) -->
   <!-- ============================================================================== -->
-  <section id="live-agent" class="py-16 border-b border-slate-800/80 bg-gradient-to-b from-navy-950 via-navy-900/50 to-navy-950">
+  <section id="live-agent" class="py-16 border-b border-slate-800/80 bg-gradient-to-b from-navy-950 via-navy-900/40 to-navy-950">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-2xl mx-auto mb-8">
-        <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-3">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-3">
           <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-          <span>Interactive AI Assistant • Konsultasi Teknis 24/7</span>
+          <span>Pusat Konsultasi Teknis Interaktif</span>
         </div>
-        <h2 class="text-3xl font-extrabold text-white">SATUSEHAT Bridge Live Agent</h2>
+        <h2 class="text-3xl font-extrabold text-white">Konsultasi Teknis SIMRS & FHIR 24/7</h2>
         <p class="mt-2 text-xs sm:text-sm text-slate-300">
-          Asisten teknis interaktif untuk konsultasi spesifikasi arsitektur, kamus data 47 profil, integrasi Table Adapter, dan estimasi implementasi fasyankes Anda.
+          Asisten teknis interaktif siap menjawab spesifikasi arsitektur, kamus data 47 profil, integrasi Table Adapter, dan estimasi implementasi fasyankes Anda.
         </p>
       </div>
 
-      <!-- Feature Grid Card with Chat Launcher -->
+      <!-- Command Center Card -->
       <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-700/80 shadow-2xl relative overflow-hidden">
-        <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start space-x-3.5">
-            <div class="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex-shrink-0">
+          
+          <button onclick="sendQuickPrompt('Bagaimana cara kerja Table Adapter tanpa merusak database SIMRS?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-cyan-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
+            <div class="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex-shrink-0 group-hover:bg-cyan-500/20">
               <i data-lucide="database" class="w-5 h-5"></i>
             </div>
             <div>
-              <h4 class="text-white font-bold text-sm">Arsitektur Table Adapter Staging</h4>
+              <div class="text-white font-bold text-sm flex items-center space-x-1.5">
+                <span>Arsitektur Table Adapter Staging</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+              </div>
               <p class="text-slate-400 text-xs mt-1 leading-relaxed">Konsultasi cara kerja tabel perantara tanpa menyentuh atau merusak tabel transaksi produksi SIMRS Anda.</p>
             </div>
-          </div>
+          </button>
 
-          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start space-x-3.5">
-            <div class="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 flex-shrink-0">
+          <button onclick="sendQuickPrompt('Apa perbedaan 47 profil Playbook dengan 33 tipe FHIR unik?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-blue-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
+            <div class="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 flex-shrink-0 group-hover:bg-blue-500/20">
               <i data-lucide="layers" class="w-5 h-5"></i>
             </div>
             <div>
-              <h4 class="text-white font-bold text-sm">47 Profil Playbook & 33 FHIR</h4>
+              <div class="text-white font-bold text-sm flex items-center space-x-1.5">
+                <span>47 Profil Playbook & 33 FHIR</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+              </div>
               <p class="text-slate-400 text-xs mt-1 leading-relaxed">Eksplorasi pemetaan LOINC, SNOMED CT, KFA Farmasi, ICD-10/9-CM, hingga 12 staging generic envelope.</p>
             </div>
-          </div>
+          </button>
 
-          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start space-x-3.5">
-            <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 flex-shrink-0">
+          <button onclick="sendQuickPrompt('Bagaimana modul TTE BSrE dan validasi klaim BPJS bekerja?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
+            <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 flex-shrink-0 group-hover:bg-amber-500/20">
               <i data-lucide="shield-check" class="w-5 h-5"></i>
             </div>
             <div>
-              <h4 class="text-white font-bold text-sm">TTE BSrE Dynamic QR & Validasi BPJS</h4>
+              <div class="text-white font-bold text-sm flex items-center space-x-1.5">
+                <span>TTE BSrE QR & Validasi BPJS</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+              </div>
               <p class="text-slate-400 text-xs mt-1 leading-relaxed">Spesifikasi QR Code 10s TTL dan 12 aturan pra-klaim INA-CBG untuk mencegah status berkas klaim pending.</p>
             </div>
-          </div>
+          </button>
 
-          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start space-x-3.5">
-            <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex-shrink-0">
+          <button onclick="sendQuickPrompt('Berapa biaya lisensi dan apa saja yang didapat?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
+            <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex-shrink-0 group-hover:bg-emerald-500/20">
               <i data-lucide="credit-card" class="w-5 h-5"></i>
             </div>
             <div>
-              <h4 class="text-white font-bold text-sm">Lisensi Permanen Rp 4.750.000 ($299)</h4>
+              <div class="text-white font-bold text-sm flex items-center space-x-1.5">
+                <span>Lisensi Permanen Rp 4.750.000 ($299)</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+              </div>
               <p class="text-slate-400 text-xs mt-1 leading-relaxed">Konsultasi skema lisensi tanpa biaya langganan bulanan seumur hidup dan tata cara pengiriman paket rilis.</p>
             </div>
-          </div>
+          </button>
+
         </div>
 
         <div class="pt-5 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center space-x-3 text-xs text-slate-300">
-            <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
+          <div class="flex items-center space-x-2.5 text-xs text-slate-300">
+            <span class="halo-indicator text-emerald-400">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
             </span>
-            <span>AI Copilot Aktif 24/7 di Pojok Kanan Bawah</span>
+            <span>AI Copilot Siap Melayani di Pojok Kanan Bawah</span>
           </div>
 
-          <button onclick="toggleChat(true)" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-navy-950 font-bold text-xs shadow-xl shadow-cyan-500/25 flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.02]">
+          <button onclick="toggleChat(true)" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-navy-950 font-bold text-xs shadow-xl shadow-cyan-500/25 flex items-center justify-center space-x-2 transition-all active:scale-95">
             <i data-lucide="message-square" class="w-4 h-4"></i>
-            <span>Buka Live Chat AI di Pojok Kanan Bawah</span>
+            <span>Buka Live Chat AI Sekarang</span>
           </button>
         </div>
       </div>
@@ -361,20 +531,19 @@
   </section>
 
   <!-- ============================================================================== -->
-  <!-- KALKULATOR ROI / TCO -->
-  <!-- ============================================================================== -->
-    <!-- ============================================================================== -->
-  <!-- KALKULATOR TCO: LISENSI PERMANEN VS LANGGANAN VENDOR SAAS -->
+  <!-- KALKULATOR TCO & SIMULASI FINANSIAL -->
   <!-- ============================================================================== -->
   <section id="kalkulator" class="py-16 border-b border-slate-800/80 bg-navy-900/40">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
       <div class="text-center max-w-2xl mx-auto mb-10">
         <h2 class="text-xs font-semibold text-brand-400 uppercase tracking-wider font-mono">Simulasi Finansial Fasyankes</h2>
         <p class="mt-2 text-3xl font-extrabold text-white">Komparasi Total Biaya Kepemilikan (TCO)</p>
         <p class="mt-2 text-xs text-slate-400">Bandingkan skema sewa bulanan vendor cloud dengan kepemilikan lisensi permanen on-premise.</p>
       </div>
 
-      <div class="glass-card p-6 sm:p-8 rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div class="glass-card p-6 sm:p-8 rounded-2xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center border border-slate-800">
+        
         <!-- Interactive Controls -->
         <div class="space-y-6">
           <div>
@@ -388,24 +557,41 @@
 
           <div>
             <div class="flex justify-between text-xs font-semibold mb-2">
-              <span class="text-slate-300">Horison Waktu Operasional</span>
+              <span class="text-slate-300">Horison Waktu Evaluasi Operasional</span>
               <span id="yearsLabel" class="text-brand-400 font-mono">3 Tahun (36 Bulan)</span>
             </div>
             <input id="yearsSlider" type="range" min="1" max="5" step="1" value="3" oninput="calculateTco()" class="w-full accent-brand-500 cursor-pointer">
             <span class="text-[10px] text-slate-400">Periode evaluasi operasional rumah sakit atau klinik.</span>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300 space-y-1">
-            <div class="font-semibold text-white">Keunggulan Model SATUSEHAT Bridge:</div>
-            <div>• Lisensi Permanen (Sekali Bayar): <strong>Rp 4.750.000 (US$ 299)</strong></div>
-            <div>• Biaya Langganan Bulanan: <strong>Rp 0 (Nol Biaya Rutin)</strong></div>
-            <div>• Biaya Tambahan per Transaksi / Pasien: <strong>Rp 0</strong></div>
-            <div>• Kedaulatan Data: <strong>100% Server Mandiri (Privasi Pasien Terjamin)</strong></div>
+          <!-- Comparative Bar Chart -->
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+            <div class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider font-mono">Visualisasi Komparasi Anggaran</div>
+            
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-rose-400 font-medium">Vendor SaaS Cloud (Kumulatif Sewa)</span>
+                <span id="barSaasLabel" class="text-rose-400 font-mono font-bold">Rp 126.000.000</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
+                <div id="barSaasFill" class="bg-gradient-to-r from-rose-500 to-amber-500 h-full rounded-full transition-all duration-500" style="width: 100%;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-brand-400 font-medium">SATUSEHAT Bridge (Permanen Sekali Bayar)</span>
+                <span class="text-brand-400 font-mono font-bold">Rp 4.750.000</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
+                <div id="barBridgeFill" class="bg-gradient-to-r from-brand-500 to-cyan-400 h-full rounded-full transition-all duration-500" style="width: 3.8%;"></div>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Result Box -->
-        <div class="bg-gradient-to-br from-slate-900 to-navy-950 p-6 rounded-xl border border-brand-500/30 flex flex-col justify-between text-center">
+        <div class="bg-gradient-to-br from-slate-900 to-navy-950 p-6 sm:p-7 rounded-2xl border border-brand-500/30 flex flex-col justify-between text-center shadow-xl">
           <div>
             <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Total Biaya Vendor Langganan (SaaS)</span>
             <div id="saasTotalCost" class="text-3xl sm:text-4xl font-extrabold text-rose-400 font-mono mt-1">Rp 126.000.000</div>
@@ -418,11 +604,13 @@
             <div id="savingsPercent" class="text-xs text-brand-300 font-medium mt-1">Efisiensi Biaya: 96.2%</div>
           </div>
 
-          <button onclick="openOrderModal()" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-colors shadow-lg shadow-brand-500/20">
+          <button onclick="openOrderModal()" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-all shadow-lg shadow-brand-500/20 active:scale-95">
             Pesan Lisensi Permanen Rp 4.750.000
           </button>
         </div>
+
       </div>
+
     </div>
   </section>
 
@@ -454,27 +642,27 @@
           <p class="text-xs text-slate-400 mt-1">Sekali bayar untuk penggunaan permanen di 1 Fasilitas Kesehatan.</p>
 
           <div class="mt-6 pt-6 border-t border-slate-800 space-y-3 text-xs text-slate-300">
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2.5">
               <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
               <span>Full Source Code PHP 8.2+ / Laravel 10 (Tanpa Enkripsi IonCube)</span>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2.5">
               <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
               <span>Hak deploy mandiri (dev, staging, production, DR) di 1 RS</span>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2.5">
               <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
               <span>Cakupan 47 Profil Playbook Kemenkes & 29 Model Kanonikal</span>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2.5">
               <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
               <span>Modul Table Adapter Staging (SQL Server, MySQL, Postgres)</span>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2.5">
               <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
               <span>Sertifikat Lisensi Resmi & Panduan Penerapan Teknis</span>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2.5">
               <i data-lucide="check" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
               <span>Bebas biaya langganan bulanan / tahunan seumur hidup</span>
             </div>
@@ -482,14 +670,14 @@
 
           <!-- Action Buttons -->
           <div class="mt-8 space-y-3">
-            <a href="javascript:openOrderModal()" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs flex items-center justify-center space-x-2 transition-colors shadow-lg shadow-brand-500/20">
-              <i data-lucide="message-square" class="w-4 h-4"></i>
-              <span>Ajukan Pemesanan Lisensi Resmi</span>
-            </a>
+            <button onclick="openOrderModal()" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs flex items-center justify-center space-x-2 transition-all shadow-lg shadow-brand-500/20 active:scale-95">
+              <i data-lucide="file-text" class="w-4 h-4"></i>
+              <span>Ajukan Pemesanan & Proforma Invoice</span>
+            </button>
             
-            <button onclick="openOrderModal()" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-xs flex items-center justify-center space-x-2 transition-colors">
-              <i data-lucide="credit-card" class="w-4 h-4"></i>
-              <span>Konsultasi Teknis via Email</span>
+            <button onclick="toggleChat(true)" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95">
+              <i data-lucide="bot" class="w-4 h-4"></i>
+              <span>Konsultasi Teknis Pra-Beli</span>
             </button>
           </div>
 
@@ -601,7 +789,7 @@
 
           <div class="pt-2 flex items-center justify-end space-x-2">
             <button type="button" onclick="closeOrderModal()" class="px-4 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-300 font-medium transition-colors">Batal</button>
-            <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold flex items-center space-x-1.5 transition-colors shadow-lg shadow-brand-500/20">
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold flex items-center space-x-1.5 transition-colors shadow-lg shadow-brand-500/20 active:scale-95">
               <span>Terbitkan Proforma Invoice</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
@@ -662,11 +850,11 @@
         </div>
 
         <div class="mt-5 space-y-2">
-          <a id="invMailtoBtn" href="#" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs flex items-center justify-center space-x-2 transition-colors shadow-lg shadow-brand-500/20">
+          <a id="invMailtoBtn" href="#" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs flex items-center justify-center space-x-2 transition-colors shadow-lg shadow-brand-500/20 active:scale-95">
             <i data-lucide="mail" class="w-4 h-4"></i>
             <span>Kirim Email Konfirmasi Otomatis</span>
           </a>
-          <button onclick="copyInvoiceDetails()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center space-x-2 transition-colors">
+          <button onclick="copyInvoiceDetails()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center space-x-2 transition-colors active:scale-95">
             <i data-lucide="copy" class="w-4 h-4"></i>
             <span id="copyInvBtnText">Salin Rincian Pesanan ke Clipboard</span>
           </button>
@@ -759,7 +947,7 @@
     <div class="p-2.5 bg-slate-900 border-t border-slate-800">
       <form id="chatForm" onsubmit="handleChatSubmit(event)" class="flex items-center space-x-1.5">
         <input id="chatInput" type="text" placeholder="Ketik pertanyaan teknis..." class="flex-1 bg-slate-800/90 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 focus:outline-none focus:border-cyan-400 placeholder-slate-500">
-        <button type="submit" class="px-3.5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-navy-950 font-bold text-xs flex items-center space-x-1 transition-colors flex-shrink-0">
+        <button type="submit" class="px-3.5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-navy-950 font-bold text-xs flex items-center space-x-1 transition-colors flex-shrink-0 active:scale-95">
           <span>Kirim</span>
           <i data-lucide="send" class="w-3 h-3"></i>
         </button>
@@ -767,11 +955,10 @@
     </div>
   </div>
 
-  <!-- FLOATING CHAT BUTTON (FAB) -->
+  <!-- FLOATING CHAT BUTTON (FAB) With Elegant Halo Ring (No continuous ping) -->
   <button id="floatingChatBtn" onclick="toggleChat()" class="fixed bottom-6 right-4 sm:right-6 z-50 px-4 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold shadow-2xl shadow-cyan-500/40 flex items-center space-x-2.5 transition-all transform hover:scale-105 active:scale-95 border border-cyan-400/30" aria-label="Buka Live Chat AI Assistant">
-    <span class="relative flex h-3 w-3">
-      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-      <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
+    <span class="halo-indicator text-emerald-400">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
     </span>
     <img src="assets/satusehat-bridge-icon.svg" alt="Chat AI" class="w-6 h-6 rounded">
     <span class="text-xs font-bold text-white hidden sm:inline-block">Tanya AI Assistant</span>
@@ -783,10 +970,129 @@
   </button>
 
   <!-- ============================================================================== -->
-  <!-- CLIENT JAVASCRIPT: PROFILES DATABASE & LIVE AGENT LOGIC -->
+  <!-- CLIENT JAVASCRIPT: ARCHITECTURE DEMO, PROFILES & COPILOT LOGIC -->
   <!-- ============================================================================== -->
   <script>
-    // 1. 47 Playbook Profiles Database (Synchronized with Authoritative SSOT)
+    // ----------------------------------------------------------------------------
+    // 1. Architecture Terminal Code Snippets
+    // ----------------------------------------------------------------------------
+    const DEMO_SNIPPETS = {
+      sql: `-- [STEP 1: SIMRS DATABASE INGESTION]
+-- SIMRS melakukan insert baris data ke tabel staging tanpa merusak skema rekam medis utama:
+INSERT INTO satusehat_bridge_staging_envelope (
+  rumah_sakit_id,
+  target_module,
+  event_type,
+  idempotency_key,
+  payload_json,
+  created_at
+) VALUES (
+  'RS-SURYA-01',
+  'clinical/encounter',
+  'ENCOUNTER_CHECKIN',
+  'IDEM-ENC-2026-0042',
+  '{
+    "nomor_kunjungan": "REG-2026-0042",
+    "nik_pasien": "3273010101850001",
+    "nama_pasien": "Budi Santoso",
+    "poli_tujuan": "POLI-PENYAKIT-DALAM",
+    "nik_dpjp": "3171010203800002",
+    "tgl_masuk": "2026-10-16 08:30:00"
+  }',
+  NOW()
+);`,
+
+      core: `<?php
+// [STEP 2: BRIDGE CORE CANONICAL NORMALIZER & TERMINOLOGY ENGINE]
+// Mesin normalizer membaca staging envelope, memvalidasi skema, dan memetakan kode:
+
+$envelope   = $stagingRepository->acquirePendingEnvelope($batchLimit = 50);
+$canonical  = $normalizer->transformToCanonicalEncounter($envelope);
+
+// Resolusi Terminologi:
+// - Kelas Kunjungan : ActCode 'AMB' (Ambulatory / Rawat Jalan)
+// - Diagnosis ICD-10: 'I10' (Essential hypertension)
+// - Lokasi Poli     : 'POLI-PENYAKIT-DALAM' -> Kemenkes Location Identifier
+
+// Enkripsi Kredensial Host-Level (AES-256-GCM) & Kontrol Konkurensi Lease-Lock
+$lockTicket = $concurrencyManager->acquireLease($canonical->idempotency_key, 60);
+$outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
+
+      fhir: `{
+  "resourceType": "Encounter",
+  "id": "a9e8d47b-12fa-4890-84a2-7103e658390b",
+  "identifier": [
+    {
+      "system": "http://sys-ids.kemkes.go.id/encounter/RS-SURYA-01",
+      "value": "REG-2026-0042"
+    }
+  ],
+  "status": "arrived",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/10000004",
+    "display": "Budi Santoso"
+  },
+  "participant": [
+    {
+      "type": [{ "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "code": "ATND" }] }],
+      "individual": { "reference": "Practitioner/10001928" }
+    }
+  ],
+  "period": { "start": "2026-10-16T08:30:00+07:00" }
+}`
+    };
+
+    let activeDemoTab = 'sql';
+
+    function switchDemoTab(tab) {
+      activeDemoTab = tab;
+      
+      const tabs = [
+        { id: 'tabSqlBtn', key: 'sql' },
+        { id: 'tabCoreBtn', key: 'core' },
+        { id: 'tabFhirBtn', key: 'fhir' }
+      ];
+
+      tabs.forEach(t => {
+        const btn = document.getElementById(t.id);
+        if (!btn) return;
+        if (t.key === tab) {
+          btn.className = 'demo-tab-btn active px-3.5 py-1.5 text-xs font-mono font-medium rounded-t-lg bg-slate-800 text-brand-400 border-t-2 border-brand-500 flex items-center space-x-1.5 transition-colors';
+        } else {
+          btn.className = 'demo-tab-btn px-3.5 py-1.5 text-xs font-mono font-medium rounded-t-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 flex items-center space-x-1.5 transition-colors';
+        }
+      });
+
+      renderDemoCode();
+    }
+
+    function renderDemoCode() {
+      const codeDisplay = document.getElementById('demoCodeDisplay');
+      if (codeDisplay) {
+        codeDisplay.textContent = DEMO_SNIPPETS[activeDemoTab] || '';
+      }
+    }
+
+    function copyCurrentDemoCode() {
+      const snippet = DEMO_SNIPPETS[activeDemoTab];
+      if (snippet) {
+        navigator.clipboard.writeText(snippet);
+        const textSpan = document.getElementById('copyDemoBtnText');
+        if (textSpan) {
+          textSpan.innerText = 'Tersalin!';
+          setTimeout(() => { textSpan.innerText = 'Salin Cuplikan'; }, 2000);
+        }
+      }
+    }
+
+    // ----------------------------------------------------------------------------
+    // 2. 47 Playbook Profiles Database (Synchronized with SSOT)
+    // ----------------------------------------------------------------------------
     const PLAYBOOK_PROFILES = [
       { id: 1, name: 'Encounter', fhir: 'Encounter', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'Permenkes ActCode AMB/IMP/EMER', endpoint: 'POST /api/v1/kunjungan', payload: { pasien_id_asal: 'PS-10001', dokter_id_asal: 'DR-20001', lokasi_id_asal: 'LOK-POLI-INT', nomor_kunjungan: 'REG-2026-0001', jenis_kunjungan: 'RAWAT_JALAN', status: 'aktif' } },
       { id: 2, name: 'Condition', fhir: 'Condition', category: 'Clinical Core', tier: 'DEDICATED CANONICAL', code: 'ICD-10 (Primer/Sekunder)', endpoint: 'POST /api/v1/diagnosis', payload: { kunjungan_id_asal: 'REG-2026-0001', kode_icd10: 'I10', nama_diagnosis: 'Essential hypertension', jenis_diagnosis: 'primer' } },
@@ -841,8 +1147,9 @@
 
     function renderProfiles() {
       const grid = document.getElementById('profilesGrid');
-      const search = document.getElementById('profileSearchInput').value.toLowerCase();
+      const search = (document.getElementById('profileSearchInput').value || '').toLowerCase();
       const noResults = document.getElementById('noResults');
+      const counterSpan = document.getElementById('matchCountText');
 
       grid.innerHTML = '';
       let matchCount = 0;
@@ -856,7 +1163,7 @@
         if (matchesCat && matchesSearch) {
           matchCount++;
           const card = document.createElement('div');
-          card.className = 'glass-card p-4 rounded-xl flex flex-col justify-between hover:border-slate-600 transition-colors';
+          card.className = 'glass-card glass-card-hover p-4 rounded-xl flex flex-col justify-between border border-slate-800 transition-all';
           
           let tierBadgeColor = 'bg-slate-800 text-slate-300 border-slate-700';
           if (p.tier === 'DEDICATED CANONICAL') tierBadgeColor = 'bg-brand-500/10 text-brand-400 border-brand-500/30';
@@ -880,7 +1187,7 @@
             
             <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
               <span class="text-[10px] text-slate-500 font-mono">${p.endpoint.split(' ')[0]}</span>
-              <button onclick="viewPayloadModal(${p.id})" class="text-xs text-brand-400 hover:text-brand-300 font-medium flex items-center space-x-1">
+              <button onclick="viewPayloadModal(${p.id})" class="text-xs text-brand-400 hover:text-brand-300 font-medium flex items-center space-x-1 active:scale-95 transition-transform">
                 <span>Lihat JSON</span>
                 <i data-lucide="arrow-right" class="w-3 h-3"></i>
               </button>
@@ -890,6 +1197,7 @@
         }
       });
 
+      if (counterSpan) counterSpan.innerText = matchCount;
       noResults.classList.toggle('hidden', matchCount > 0);
       lucide.createIcons();
     }
@@ -907,7 +1215,9 @@
 
     document.getElementById('profileSearchInput').addEventListener('input', renderProfiles);
 
-    // Modal logic
+    // ----------------------------------------------------------------------------
+    // 3. Payload Modal Logic
+    // ----------------------------------------------------------------------------
     let currentModalPayload = null;
     function viewPayloadModal(id) {
       const profile = PLAYBOOK_PROFILES.find(p => p.id === id);
@@ -932,16 +1242,9 @@
       setTimeout(() => { document.getElementById('copyBtnText').innerText = 'Salin JSON'; }, 2000);
     }
 
-    function openOrderModal() {
-      document.getElementById('orderModal').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function closeOrderModal() {
-      document.getElementById('orderModal').classList.add('hidden');
-    }
-
-    // TCO Calculator logic
+    // ----------------------------------------------------------------------------
+    // 4. TCO Calculator & Visual Comparison
+    // ----------------------------------------------------------------------------
     function calculateTco() {
       const saasMonthly = parseInt(document.getElementById("saasSlider").value);
       const years = parseInt(document.getElementById("yearsSlider").value);
@@ -956,12 +1259,22 @@
       const percent = ((savings / saasTotal) * 100).toFixed(1);
 
       document.getElementById("saasTotalCost").innerText = `Rp ${saasTotal.toLocaleString("id-ID")}`;
+      document.getElementById("barSaasLabel").innerText = `Rp ${saasTotal.toLocaleString("id-ID")}`;
       document.getElementById("saasPeriodNote").innerText = `Akumulasi biaya sewa selama periode ${months} bulan`;
       document.getElementById("savingsCost").innerText = `Rp ${savings.toLocaleString("id-ID")}`;
       document.getElementById("savingsPercent").innerText = `Efisiensi Biaya: ${percent}%`;
+
+      // Update comparative bar
+      const bridgeBarWidthPct = Math.max(3.5, Math.min(100, (bridgeLicense / saasTotal) * 100)).toFixed(1);
+      const barBridgeFill = document.getElementById("barBridgeFill");
+      if (barBridgeFill) {
+        barBridgeFill.style.width = `${bridgeBarWidthPct}%`;
+      }
     }
 
-    // Order Modal logic
+    // ----------------------------------------------------------------------------
+    // 5. Order Modal & Proforma Invoice Logic
+    // ----------------------------------------------------------------------------
     let generatedOrderData = null;
 
     function openOrderModal() {
@@ -1029,24 +1342,24 @@
       setTimeout(() => { document.getElementById("copyInvBtnText").innerText = "Salin Rincian Pesanan ke Clipboard"; }, 2500);
     }
 
-    // ==============================================================================
-    // LIVE TECHNICAL ASSISTANT (AI COPILOT) ENGINE
-    // ==============================================================================
+    // ----------------------------------------------------------------------------
+    // 6. Live Technical Assistant (AI Copilot Engine)
+    // ----------------------------------------------------------------------------
     const INITIAL_CHAT_HTML = `
-      <div class="flex items-start space-x-3">
+      <div class="flex items-start space-x-2.5">
         <div class="w-7 h-7 rounded-lg bg-cyan-600/20 border border-cyan-500/30 text-cyan-400 flex items-center justify-center flex-shrink-0">
           <img src="assets/satusehat-bridge-icon.svg" alt="AI" class="w-5 h-5 rounded">
         </div>
         <div class="bg-slate-800/90 border border-slate-700/80 rounded-2xl rounded-tl-none p-3.5 text-slate-200 max-w-[85%] leading-relaxed">
-          Halo! Saya adalah <strong>Live Technical Assistant SATUSEHAT Bridge</strong>. Saya dapat menjawab pertanyaan teknis mengenai:
-          <ul class="list-disc list-inside mt-2 space-y-1 text-slate-300">
+          Halo! Saya adalah <strong>Live Technical Assistant SATUSEHAT Bridge</strong>. Saya siap menjawab pertanyaan teknis Anda seputar:
+          <ul class="list-disc list-inside mt-2 space-y-1 text-slate-300 text-[11px]">
             <li>Arsitektur Table Adapter (SQL Server, MySQL, Postgres).</li>
-            <li>Daftar 47 Profil Playbook Kemenkes DTO & 33 tipe FHIR unik.</li>
-            <li>Perbedaan model Kanonikal terdedikasi vs Generic Staging Envelope.</li>
-            <li>Enkripsi data, skema keamanan, dan prosedur upgrade tanpa downtime.</li>
-            <li>Lisensi komersial permanen $299 tanpa biaya langganan bulanan.</li>
+            <li>Daftar 47 Profil Playbook Kemenkes DTO & 33 tipe FHIR.</li>
+            <li>Perbedaan model Kanonikal vs Generic Staging Envelope.</li>
+            <li>Enkripsi on-premise AES-256-GCM & privasi pasien.</li>
+            <li>Lisensi komersial permanen $299 tanpa langganan bulanan.</li>
           </ul>
-          Silakan pilih pertanyaan cepat di atas atau ketik pertanyaan teknis Anda!
+          Pilih pertanyaan cepat di bawah atau ketik langsung pertanyaan Anda!
         </div>
       </div>
     `;
@@ -1059,6 +1372,7 @@
     }
 
     function sendQuickPrompt(promptText) {
+      toggleChat(true);
       const input = document.getElementById('chatInput');
       if (input) {
         input.value = promptText;
@@ -1073,19 +1387,16 @@
       const query = input.value.trim();
       if (!query) return;
 
-      // 1. Render User Message
       appendChatMessage('user', escapeHtml(query));
       input.value = '';
 
-      // 2. Render Loading Indicator
       const loadingDiv = appendChatMessage('ai', `
         <div class="flex items-center space-x-2 text-slate-400 text-xs py-1">
-          <div class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></div>
+          <span class="w-2 h-2 rounded-full bg-cyan-400 halo-indicator"></span>
           <span>Menganalisis basis pengetahuan teknis SATUSEHAT Bridge...</span>
         </div>
       `);
 
-      // 3. Process AI Response with natural response timing
       setTimeout(() => {
         const responseHtml = getTechnicalResponse(query);
         const cardBubble = loadingDiv.querySelector('.bg-slate-800\\/90') || loadingDiv.lastElementChild;
@@ -1118,12 +1429,23 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Attach to window for inline HTML handlers
+    // Attach to window for global access
     window.handleChatSubmit = handleChatSubmit;
     window.sendQuickPrompt = sendQuickPrompt;
     window.resetChat = resetChat;
     window.toggleChat = toggleChat;
     window.scrollToTop = scrollToTop;
+    window.switchDemoTab = switchDemoTab;
+    window.copyCurrentDemoCode = copyCurrentDemoCode;
+    window.calculateTco = calculateTco;
+    window.filterCategory = filterCategory;
+    window.viewPayloadModal = viewPayloadModal;
+    window.closePayloadModal = closePayloadModal;
+    window.copyModalJson = copyModalJson;
+    window.openOrderModal = openOrderModal;
+    window.closeOrderModal = closeOrderModal;
+    window.handleFacilityOrderSubmit = handleFacilityOrderSubmit;
+    window.copyInvoiceDetails = copyInvoiceDetails;
 
     window.addEventListener('scroll', () => {
       const topBtn = document.getElementById('scrollToTopBtn');
@@ -1140,7 +1462,7 @@
     function appendChatMessage(role, htmlContent) {
       const container = document.getElementById('chatMessages');
       const msgDiv = document.createElement('div');
-      msgDiv.className = 'flex items-start space-x-3 ' + (role === 'user' ? 'justify-end' : '');
+      msgDiv.className = 'flex items-start space-x-2.5 ' + (role === 'user' ? 'justify-end' : '');
 
       if (role === 'user') {
         msgDiv.innerHTML = `
@@ -1164,94 +1486,82 @@
 
       container.appendChild(msgDiv);
       container.scrollTop = container.scrollHeight;
-      lucide.createIcons();
       return msgDiv;
     }
 
     function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.innerText = text;
-      return div.innerHTML;
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return text.replace(/[&<>"']/g, m => map[m]);
     }
 
     function getTechnicalResponse(rawQuery) {
       const q = rawQuery.toLowerCase();
 
-      // 1. Table Adapter / Database Staging
-      if (q.includes('table adapter') || q.includes('database') || q.includes('merusak') || q.includes('sql server') || q.includes('mysql') || q.includes('postgres') || q.includes('staging') || q.includes('cursor')) {
+      // 1. Table Adapter & Database Staging
+      if (q.includes('table adapter') || q.includes('database') || q.includes('staging') || q.includes('sql server') || q.includes('merusak') || q.includes('ddl') || q.includes('mysql') || q.includes('postgres')) {
         return `
           <div class="font-bold text-cyan-400 flex items-center space-x-1.5">
             <i data-lucide="database" class="w-4 h-4"></i>
-            <span>Arsitektur Table Adapter (Zero Impact SIMRS)</span>
+            <span>Arsitektur Table Adapter Staging (Zero-DDL)</span>
           </div>
-          <p>Table Adapter dirancang dengan filosofi <strong>isolasi fisik tanpa mengubah skema tabel produksi SIMRS Anda</strong>:</p>
-          <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-[11px]">
-            <li><strong>Tabel Perantara (Staging Tables):</strong> SIMRS hanya menulis ke tabel staging (seperti <code>stg_kunjungan</code>, <code>stg_diagnosis</code>, <code>stg_tindakan</code>, <code>stg_obat</code>). Tabel operasional utama SIMRS tidak pernah disentuh atau dimodifikasi oleh Bridge.</li>
-            <li><strong>Monotonic Cursor Tracking:</strong> Worker membaca data dengan kueri bertahap (<code>id &gt; last_cursor</code>), memproses pemetaan terminologi, dan mencatat status pengiriman secara independen.</li>
-            <li><strong>Basis Data Didukung:</strong> Kompatibel langsung dengan Microsoft SQL Server (2012+), MySQL/MariaDB (5.7+/10.3+), dan PostgreSQL (12+).</li>
-            <li><strong>Fail-safe:</strong> Jika koneksi Kemenkes terputus, data SIMRS tetap tersimpan aman di tabel staging tanpa menyebabkan aplikasi kasir/poli menjadi lambat.</li>
+          <p>Table Adapter dirancang agar SIMRS tidak perlu diubah struktur tabel utamanya:</p>
+          <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+            <li><strong>Mekanisme Kerja:</strong> SIMRS cukup melakukan <code>INSERT</code> data klinis ke tabel perantara <code>satusehat_bridge_staging_envelope</code>.</li>
+            <li><strong>Database Kompatibel:</strong> Microsoft SQL Server 2008+, MySQL 5.7+, MariaDB, dan PostgreSQL 12+.</li>
+            <li><strong>Keamanan Transaksi:</strong> Nol perubahan DDL pada tabel rekam medis produksi Anda. Tidak ada trigger yang mengunci baris billing rumah sakit.</li>
+            <li><strong>Throughput:</strong> Queue Worker memproses staging secara batch asinkron tanpa membebani performa kasir atau IGD.</li>
           </ul>
         `;
       }
 
-      // 2. 47 Profil Playbook vs 33 FHIR
-      if (q.includes('47') || q.includes('33') || q.includes('tipe fhir') || q.includes('playbook') || q.includes('profil vs')) {
+      // 2. 47 Profil Playbook vs 33 FHIR Resource
+      if (q.includes('47') || q.includes('profil') || q.includes('playbook') || q.includes('33') || q.includes('fhir') || q.includes('loinc') || q.includes('snomed') || q.includes('icd')) {
         return `
           <div class="font-bold text-brand-400 flex items-center space-x-1.5">
             <i data-lucide="layers" class="w-4 h-4"></i>
-            <span>Cakupan 47 Profil Playbook & 33 Tipe FHIR Unik</span>
+            <span>Cakupan 47 Profil Playbook & 33 Resource FHIR R4</span>
           </div>
-          <p>Katalog interoperabilitas SATUSEHAT Bridge mencakup <strong>47 alur kerja klinis Playbook Kemenkes DTO</strong> yang dipetakan ke dalam <strong>33 tipe resource HL7 FHIR R4 unik</strong>:</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 text-[11px]">
-            <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700/80">
-              <span class="font-bold text-white">17 Dedicated Canonical:</span>
-              <p class="text-slate-400 mt-0.5">Memiliki tabel dan serializer mandiri (Encounter, Condition, Procedure, Observation, MedicationRequest, Specimen, dll).</p>
-            </div>
-            <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700/80">
-              <span class="font-bold text-blue-400">16 Shared Serializer:</span>
-              <p class="text-slate-400 mt-0.5">Berbagi model kanonikal dengan terminologi baku (5 varian Composition resume/triase/operasi, Lab, Radiology, dll).</p>
-            </div>
-            <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700/80">
-              <span class="font-bold text-purple-400">12 Generic Staging Buffer:</span>
-              <p class="text-slate-400 mt-0.5">Penampung buffer aman data billing & alkes (ChargeItem, Invoice, Device, SupplyRequest, Coverage, dll).</p>
-            </div>
-            <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700/80">
-              <span class="font-bold text-amber-400">2 Special Services:</span>
-              <p class="text-slate-400 mt-0.5">ClaimGradeQualityValidator (12 aturan INA-CBG) dan TteSigningService (BSrE Dynamic QR 10s TTL).</p>
-            </div>
-          </div>
-        `;
-      }
-
-      // 3. Generic Envelope Ingestion
-      if (q.includes('generic') || q.includes('envelope') || q.includes('ingestion') || q.includes('buffer')) {
-        return `
-          <div class="font-bold text-purple-400 flex items-center space-x-1.5">
-            <i data-lucide="package" class="w-4 h-4"></i>
-            <span>Peran Generic Envelope Ingestion</span>
-          </div>
-          <p>Status <strong>Generic Envelope Ingestion</strong> menandakan mekanisme <em>data staging buffer</em> untuk modul pra-klaim keuangan dan logistik alkes:</p>
-          <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-[11px]">
-            <li><strong>Profil Terkait:</strong> <code>ChargeItem</code>, <code>Invoice</code>, <code>Account</code>, <code>NutritionOrder</code>, <code>Device</code>, <code>DeviceRequest</code>, <code>SupplyRequest</code>, <code>Coverage</code>.</li>
-            <li><strong>Tujuan Operasional:</strong> Mencegah penolakan input dari SIMRS ketika mengirimkan rincian biaya atau alkes, sehingga operasional billing fasyankes tidak terganggu.</li>
-            <li><strong>Status Outbound:</strong> Payload dienkripsi dan disimpan di staging internal. Pengiriman outbound FHIR akan otomatis aktif begitu Kemenkes DTO merilis gateway endpoint spesifik di lingkungan produksi.</li>
+          <p>SATUSEHAT Bridge memetakan 47 alur kerja klinis fasyankes ke dalam 33 resource HL7 FHIR R4 unik resmi Kemenkes DTO:</p>
+          <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+            <li><strong>Klinis Inti:</strong> Encounter, Condition (ICD-10), Procedure (ICD-9), Observation Tanda Vital (LOINC), AllergyIntolerance, CarePlan, Composition Resume Medis.</li>
+            <li><strong>Farmasi & BMHP:</strong> MedicationRequest, MedicationDispense, MedicationAdministration dengan terminologi KFA Browser Kemenkes.</li>
+            <li><strong>Penunjang Lab & Radiologi:</strong> ServiceRequest, Specimen, Observation LOINC, DiagnosticReport, ImagingStudy (DICOM).</li>
+            <li><strong>Triase & Bedah:</strong> ATS/ESI Emergency Triage, Laporan Operasi Bedah, Resume Anestesi Spinal.</li>
+            <li><strong>E-Klaim BPJS:</strong> Integrasi Coverage (No Kartu), CoverageEligibilityResponse (SEP), dan validasi pra-klaim INA-CBG.</li>
           </ul>
         `;
       }
 
-      // 4. Harga, Lisensi & Pemesanan
-      if (q.includes('harga') || q.includes('biaya') || q.includes('lisensi') || q.includes('beli') || q.includes('bayar') || q.includes('order') || q.includes('pesan') || q.includes('murah') || q.includes('tco') || q.includes('tarif')) {
+      // 3. Generic Envelope & Arsitektur Model Kanonikal
+      if (q.includes('generic') || q.includes('envelope') || q.includes('kanonikal') || q.includes('canonical') || q.includes('staging envelope')) {
         return `
-          <div class="font-bold text-brand-400 flex items-center space-x-1.5">
-            <i data-lucide="credit-card" class="w-4 h-4"></i>
-            <span>Transparansi Lisensi & Harga SATUSEHAT Bridge</span>
+          <div class="font-bold text-purple-400 flex items-center space-x-1.5">
+            <i data-lucide="cpu" class="w-4 h-4"></i>
+            <span>Arsitektur Kanonikal vs Generic Envelope</span>
           </div>
-          <p>SATUSEHAT Bridge menggunakan skema kepemilikan permanen (*perpetual license*) yang dirancang khusus untuk membebaskan fasyankes dari beban vendor lock-in:</p>
+          <p>SATUSEHAT Bridge menggunakan arsitektur 4-tier berjenjang untuk memastikan 100% dari 47 profil tercover tanpa celah:</p>
+          <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-[11px]">
+            <li><strong>Tier 1 — Dedicated Canonical (13 Profil):</strong> Model kanonikal lengkap dengan skema tabel terdedikasi (misal: <code>encounter</code>, <code>condition</code>, <code>medication</code>).</li>
+            <li><strong>Tier 2 — Shared Serializer (16 Profil):</strong> Menggunakan tabel kanonikal terpadu (misal: <code>resume_medis</code>) untuk menyusun resource FHIR spesifik seperti Triase IGD, Laporan OK, atau Edukasi KIE.</li>
+            <li><strong>Tier 3 — Generic Envelope (16 Profil):</strong> Menampung modul sekunder seperti Device, NutritionOrder, ChargeItem, SupplyRequest melalui 12 generic envelope perantara.</li>
+            <li><strong>Tier 4 — Special Service (2 Profil):</strong> Layanan khusus pra-klaim INA-CBG (ClaimGradeQualityValidator) dan Modul TTE BSrE Dynamic QR 10s TTL.</li>
+          </ul>
+        `;
+      }
+
+      // 4. Harga, Lisensi, Biaya Bulanan, & Pengiriman
+      if (q.includes('harga') || q.includes('biaya') || q.includes('lisensi') || q.includes('order') || q.includes('beli') || q.includes('pesan') || q.includes('299') || q.includes('4.750.000') || q.includes('langganan') || q.includes('saas')) {
+        return `
+          <div class="font-bold text-emerald-400 flex items-center space-x-1.5">
+            <i data-lucide="tag" class="w-4 h-4"></i>
+            <span>Struktur Lisensi Permanen SATUSEHAT Bridge</span>
+          </div>
+          <p>Kami menerapkan transparansi penuh tanpa skema jebakan vendor cloud:</p>
           <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
             <li><strong>Biaya Lisensi:</strong> <span class="text-white font-bold">Rp 4.750.000 (US$ 299)</span> sekali bayar untuk 1 Fasilitas Kesehatan.</li>
             <li><strong>Biaya Langganan Bulanan:</strong> <span class="text-brand-400 font-bold">Rp 0 (Nol Biaya Rutin Selamanya)</span>.</li>
-            <li><strong>Biaya per Transaksi Pasien:</strong> <span class="text-brand-400 font-bold">Rp 0</span>.</li>
-            <li><strong>Termasuk:</strong> Paket source code lengkap, 49 tabel skema database, Table Adapter DDL, Web Dashboard monitoring, panduan implementasi, dan modul integrasi TTE BSrE.</li>
+            <li><strong>Biaya per Transaksi Pasien:</strong> <span class="text-brand-400 font-bold">Rp 0 (Unlimited Pasien)</span>.</li>
+            <li><strong>Termasuk:</strong> Full source code PHP 8.2 / Laravel 10 (tanpa IonCube), 49 tabel skema, Table Adapter DDL, Web Dashboard monitoring, modul TTE BSrE, dan sertifikat lisensi resmi.</li>
           </ul>
           <p class="text-[11px] text-slate-400">Untuk melakukan pemesanan, silakan gunakan tombol <strong>'Pesan Lisensi'</strong> di kanan atas atau klik tautan di bawah.</p>
           <div class="pt-1">
@@ -1327,7 +1637,9 @@
       `;
     }
 
+    // Initialize on DOM load
     window.addEventListener('DOMContentLoaded', () => {
+      renderDemoCode();
       renderProfiles();
       calculateTco();
       lucide.createIcons();

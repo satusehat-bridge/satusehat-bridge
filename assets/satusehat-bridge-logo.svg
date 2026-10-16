@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 128" role="img" aria-labelledby="title desc">
+<title id="title">SATUSEHAT-Bridge</title><desc id="desc">Konsep logo kesehatan digital dan konektivitas sistem.</desc>
+<defs>
+ <linearGradient id="lime" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#D4E600"/><stop offset="1" stop-color="#B8D900"/></linearGradient>
+ <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00BFA5"/><stop offset="1" stop-color="#009E8A"/></linearGradient>
+ <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00AEEF"/><stop offset="1" stop-color="#0066E6"/></linearGradient>
+</defs>
+<g transform="translate(4,4) scale(.92)">
+ <path d="M18 43V28a13 13 0 0 1 26 0v9h9a13 13 0 0 1 0 26H28A10 10 0 0 1 18 53Z" fill="url(#lime)"/>
+ <path d="M58 15a13 13 0 0 1 26 0v10h9a13 13 0 0 1 0 26H58Z" fill="url(#teal)"/>
+ <path d="M58 77h35a13 13 0 0 1 0 26h-9v10a13 13 0 0 1-26 0Z" fill="url(#blue)"/>
+ <path d="M18 75h35v38a13 13 0 0 1-26 0v-10h-9a13 13 0 0 1 0-26Z" fill="url(#teal)"/>
+ <path d="M8 64h29c10 0 12-14 23-14h19" fill="none" stroke="#00AEEF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle cx="8" cy="64" r="6" fill="#fff" stroke="#00B388" stroke-width="5"/>
+ <circle cx="79" cy="50" r="6" fill="#fff" stroke="#0066E6" stroke-width="5"/>
+</g>
+<text x="125" y="59" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#1F2937" letter-spacing="-1.6">SATUSEHAT</text>
+<text x="376" y="59" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#0066E6" letter-spacing="-1.6">-Bridge</text>
+<text x="128" y="88" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" fill="#526174" letter-spacing="3">INTEGRASI KESEHATAN, LEBIH BERDAMPAK</text>
+</svg>

@@ -1246,10 +1246,10 @@
         <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90 flex-shrink-0">
           <div>
             <h3 class="text-base sm:text-lg font-bold text-white flex items-center space-x-2">
-              <i data-lucide="bot" class="w-5 h-5 text-brand-400"></i>
-              <span>Aktivasi Mandiri & Penyerahan Produk Instan</span>
+              <i data-lucide="receipt" class="w-5 h-5 text-emerald-400"></i>
+              <span>Generate Proforma Invoice & Lisensi</span>
             </h3>
-            <p class="text-xs text-slate-400 mt-0.5">Diproses dan diserahkan 100% otonom oleh AI Agent — Tanpa campur tangan manual owner</p>
+            <p class="text-xs text-slate-400 mt-0.5">Diterbitkan dan diserahkan 100% otonom oleh AI Agent — Tanpa campur tangan manual owner</p>
           </div>
           <button onclick="closeOrderModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -1305,13 +1305,12 @@
               <i data-lucide="zap" class="w-3.5 h-3.5 text-emerald-400"></i>
               <span>Proses Otonom oleh AI Agent:</span>
             </span>
-            <p>Setelah formulir dikirim, AI Agent langsung melakukan validasi kompatibilitas SIMRS, mengikat lisensi permanen secara kriptografis ke fasyankes Anda, dan <strong>menyerahkan paket rilis beserta file konfigurasi deployment secara instan tanpa proses manual owner</strong>.</p>
+            <p>Setelah formulir dikirim, AI Agent langsung melakukan validasi kompatibilitas SIMRS, menerbitkan Proforma Invoice resmi, mengikat lisensi permanen secara kriptografis ke fasyankes Anda, dan <strong>menyerahkan paket rilis beserta file konfigurasi deployment secara instan tanpa proses manual owner</strong>.</p>
           </div>
 
           <div class="pt-2 flex items-center justify-end space-x-2">
             <button type="button" onclick="closeOrderModal()" class="px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-800 text-slate-300 font-medium transition-colors active:scale-95">Batal</button>
             <button type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black flex items-center space-x-2 transition-all shadow-lg shadow-emerald-500/35 active:scale-95">
-              <i data-lucide="file-text" class="w-4 h-4"></i>
               <span>Generate Proforma Invoice & Lisensi</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
@@ -1325,14 +1324,14 @@
         <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90 flex-shrink-0">
           <div class="flex items-center space-x-3">
             <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-md shadow-emerald-500/20">
-              <i data-lucide="sparkles" class="w-5 h-5"></i>
+              <i data-lucide="receipt" class="w-5 h-5"></i>
             </div>
             <div>
               <div class="flex items-center space-x-2">
-                <span class="font-bold text-white text-base sm:text-lg">Paket Produk & Lisensi Diserahkan oleh AI Agent</span>
+                <span class="font-bold text-white text-base sm:text-lg">Proforma Invoice & Lisensi Diserahkan AI Agent</span>
                 <span id="invOrderId" class="hidden sm:inline-block px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold">SB-ORD-...</span>
               </div>
-              <p class="text-[11px] text-slate-400">Verifikasi & penerbitan lisensi selesai secara 100% otonom. Produk Anda siap diunduh & dijalankan.</p>
+              <p class="text-[11px] text-slate-400">Verifikasi, invoice & penerbitan lisensi selesai secara 100% otonom. Produk Anda siap diunduh & dijalankan.</p>
             </div>
           </div>
           <button onclick="closeOrderModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
@@ -1404,18 +1403,17 @@
               <div class="space-y-2.5 pt-1">
                 <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono flex items-center space-x-1.5">
                   <i data-lucide="package-check" class="w-4 h-4 text-emerald-400"></i>
-                  <span>Artefak Produk Diserahkan Langsung:</span>
+                  <span>Dokumen Invoice & Artefak Diserahkan Langsung:</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <button onclick="printProformaInvoice()" class="py-3 px-4 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-cyan-500/25 transform hover:-translate-y-0.5 active:scale-95">
+                  <button onclick="printInvoice()" class="py-3 px-3.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-500/30 transform hover:-translate-y-0.5 active:scale-95">
                     <i data-lucide="printer" class="w-4 h-4"></i>
-                    <span>Cetak / Unduh Invoice (PDF)</span>
+                    <span>Cetak / PDF Invoice</span>
                   </button>
-
-                  <button onclick="downloadLicenseCertificate()" class="py-3 px-4 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-500/25 transform hover:-translate-y-0.5 active:scale-95">
-                    <i data-lucide="file-check-2" class="w-4 h-4"></i>
-                    <span>Unduh Lisensi Resmi (.md)</span>
+                  <button onclick="downloadLicenseCertificate()" class="py-3 px-3.5 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-colors active:scale-95">
+                    <i data-lucide="file-check-2" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Sertifikat Lisensi (.md)</span>
                   </button>
                 </div>
 
@@ -2003,7 +2001,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
     }
 
     // ----------------------------------------------------------------------------
-    // 5. Order Modal & Proforma Invoice / Autonomous Delivery Engine
+    // 5. Order Modal & Autonomous AI Agent Delivery Engine
     // ----------------------------------------------------------------------------
     let generatedOrderData = null;
 
@@ -2093,145 +2091,125 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       URL.revokeObjectURL(url);
     }
 
-    function printProformaInvoice() {
+    function printInvoice() {
       if (!generatedOrderData) return;
       const d = generatedOrderData;
-      const printWin = window.open('', '_blank', 'width=880,height=920');
-      if (!printWin) {
-        alert('Mohon izinkan pop-up di browser Anda untuk mencetak atau mengunduh invoice.');
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) {
+        alert('Mohon izinkan pop-up window untuk mencetak invoice.');
         return;
       }
-      
       const invoiceHtml = `<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Proforma Invoice - ${d.orderId} - SATUSEHAT Bridge</title>
+  <title>Proforma Invoice - ${d.orderId}</title>
   <style>
-    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-    body { margin: 0; padding: 40px; color: #1e293b; background: #fff; font-size: 13px; line-height: 1.5; }
-    .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #059669; padding-bottom: 20px; margin-bottom: 24px; }
-    .brand h1 { margin: 0; font-size: 24px; color: #059669; font-weight: 800; letter-spacing: -0.5px; }
-    .brand p { margin: 4px 0 0 0; color: #64748b; font-size: 12px; }
-    .inv-title { text-align: right; }
-    .inv-badge { display: inline-block; background: #059669; color: #fff; font-weight: 700; font-size: 11px; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; margin-bottom: 6px; }
-    .inv-meta { font-size: 12px; color: #475569; }
-    .inv-meta strong { color: #0f172a; }
-    .grid { display: flex; justify-content: space-between; margin-bottom: 28px; gap: 20px; }
-    .box { flex: 1; padding: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; }
-    .box-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 8px; letter-spacing: 0.5px; }
-    .table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
-    .table th { background: #f1f5f9; padding: 10px 12px; text-align: left; font-size: 11px; text-transform: uppercase; color: #475569; border-bottom: 2px solid #cbd5e1; }
-    .table td { padding: 12px; border-bottom: 1px solid #e2e8f0; font-size: 12px; }
-    .text-right { text-align: right; }
-    .totals { width: 340px; margin-left: auto; margin-bottom: 30px; }
-    .totals-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 12px; color: #475569; }
-    .totals-row.grand { font-size: 16px; font-weight: 800; color: #059669; border-top: 2px solid #cbd5e1; padding-top: 10px; margin-top: 6px; }
-    .license-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 14px; margin-bottom: 24px; font-family: monospace; font-size: 11px; color: #166534; }
-    .footer { font-size: 11px; color: #94a3b8; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; margin: 0; padding: 40px; background: #fff; line-height: 1.5; }
+    .header { display: flex; justify-content: space-between; border-bottom: 2px solid #0f172a; padding-bottom: 20px; margin-bottom: 30px; }
+    .logo-title { font-size: 24px; font-weight: 800; color: #059669; letter-spacing: -0.5px; }
+    .badge { display: inline-block; padding: 4px 10px; background: #ecfdf5; border: 1px solid #10b981; color: #047857; font-size: 11px; font-weight: 700; border-radius: 9999px; margin-top: 5px; }
+    .inv-meta { text-align: right; }
+    .inv-title { font-size: 20px; font-weight: 800; margin: 0 0 5px 0; color: #1e293b; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+    .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
+    .card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 10px; letter-spacing: 0.5px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+    th { background: #f1f5f9; padding: 12px; text-align: left; font-size: 12px; font-weight: 700; border-bottom: 2px solid #cbd5e1; }
+    td { padding: 14px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+    .total-row td { font-weight: 800; font-size: 15px; border-top: 2px solid #0f172a; border-bottom: none; }
+    .security-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 16px; margin-bottom: 30px; font-size: 12px; color: #065f46; }
+    .footer { text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 20px; }
     @media print {
       body { padding: 20px; }
-      .no-print { display: none !important; }
+      .no-print { display: none; }
     }
   </style>
 </head>
 <body>
-  <div class="no-print" style="margin-bottom: 20px; padding: 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-    <span style="font-weight: 600; color: #065f46;">Dokumen Resmi Proforma Invoice siap dicetak atau disimpan sebagai PDF.</span>
-    <button onclick="window.print()" style="padding: 8px 18px; background: #059669; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Cetak / Simpan PDF</button>
+  <div class="no-print" style="margin-bottom: 20px; text-align: right;">
+    <button onclick="window.print()" style="background: #059669; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer;">Cetak / Simpan PDF</button>
   </div>
-  
   <div class="header">
-    <div class="brand">
-      <h1>SATUSEHAT BRIDGE</h1>
-      <p>Universal SIMRS Integration Bridge Layer • Autonomous Core</p>
-      <p style="font-size: 11px; color: #64748b;">Standar Kemenkes DTO (47 Profil Playbook) & HL7 FHIR R4</p>
+    <div>
+      <div class="logo-title">SATUSEHAT Bridge</div>
+      <div style="font-size: 13px; color: #475569;">Universal SIMRS Integration Engine v2.2.0</div>
+      <div class="badge">DITERBITKAN OTONOM OLEH AI AGENT</div>
     </div>
-    <div class="inv-title">
-      <div class="inv-badge">Proforma Invoice Resmi</div>
-      <div class="inv-meta">No. Invoice: <strong>${d.orderId}</strong></div>
-      <div class="inv-meta">Tanggal: <strong>${d.issuedDate}</strong></div>
-      <div class="inv-meta">Otoritas Penerbit: <strong style="color: #059669;">AI Autonomous Agent v2.2.0</strong></div>
+    <div class="inv-meta">
+      <h1 class="inv-title">PROFORMA INVOICE</h1>
+      <div style="font-size: 13px; font-family: monospace; font-weight: bold;">${d.orderId}</div>
+      <div style="font-size: 12px; color: #64748b;">Tanggal: ${d.issuedDate}</div>
     </div>
   </div>
 
   <div class="grid">
-    <div class="box">
-      <div class="box-title">Diterbitkan Untuk (Bill To)</div>
-      <div style="font-size: 14px; font-weight: 700; color: #0f172a;">${d.facility}</div>
-      <div style="color: #475569; font-size: 12px; margin-top: 2px;">Tipe Fasyankes: ${d.type}</div>
-      <div style="color: #475569; font-size: 12px;">Target SIMRS: ${d.db}</div>
+    <div class="card">
+      <div class="card-title">Diterbitkan Untuk:</div>
+      <div style="font-weight: 700; font-size: 15px; color: #0f172a;">${d.facility}</div>
+      <div style="font-size: 13px; color: #475569; margin-top: 4px;">Tipe: ${d.type}</div>
+      <div style="font-size: 13px; color: #475569;">PIC: ${d.pic}</div>
+      <div style="font-size: 13px; color: #475569;">Email: ${d.email} | Telp: ${d.phone}</div>
+      <div style="font-size: 13px; color: #475569;">Database SIMRS: ${d.db}</div>
     </div>
-    <div class="box">
-      <div class="box-title">Kontak PIC Teknis</div>
-      <div style="font-size: 13px; font-weight: 600; color: #0f172a;">${d.pic}</div>
-      <div style="color: #475569; font-size: 12px; margin-top: 2px;">Email: ${d.email}</div>
-      <div style="color: #475569; font-size: 12px;">WhatsApp/Telp: ${d.phone}</div>
+    <div class="card">
+      <div class="card-title">Detail Lisensi & Penyerahan:</div>
+      <div style="font-size: 13px; color: #0f172a;"><strong>Model Lisensi:</strong> Lifetime On-Premise Perpetual</div>
+      <div style="font-size: 13px; color: #0f172a; margin-top: 4px;"><strong>Cakupan:</strong> 47 Profil Playbook Kemenkes DTO & 33 FHIR R4</div>
+      <div style="font-size: 13px; color: #0f172a; margin-top: 4px;"><strong>Kunci Lisensi:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 11px;">${d.licenseKey}</code></div>
+      <div style="font-size: 13px; color: #0f172a; margin-top: 4px;"><strong>SHA-256:</strong> <span style="font-family: monospace; font-size: 10px;">${d.shaFingerprint}</span></div>
     </div>
   </div>
 
-  <table class="table">
+  <table>
     <thead>
       <tr>
-        <th style="width: 50%;">Deskripsi Produk & Lisensi Komersial</th>
-        <th class="text-right">Harga Normal</th>
-        <th class="text-right">Diskon Promo</th>
-        <th class="text-right">Jumlah (USD)</th>
+        <th>Deskripsi Layanan / Paket Lisensi</th>
+        <th style="text-align: center;">Qty</th>
+        <th style="text-align: right;">Harga Normal</th>
+        <th style="text-align: right;">Total Diskon Promo</th>
+        <th style="text-align: right;">Subtotal (USD)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          <div style="font-weight: 700; color: #0f172a;">SATUSEHAT Bridge Enterprise Core Perpetual License</div>
-          <div style="font-size: 11px; color: #64748b; margin-top: 3px;">
-            • Hak penggunaan permanen on-premise seumur hidup untuk 1 Fasilitas Kesehatan<br>
-            • Cakupan 47 Profil Playbook Kemenkes DTO & 33 Resource HL7 FHIR R4<br>
-            • Universal SIMRS Table Adapter Engine (MSSQL / MySQL / PostgreSQL)<br>
-            • Outbound Queue Worker, Dashboard Monitoring, & Modul TTE BSrE Dynamic QR<br>
-            • Tanpa biaya langganan bulanan & tanpa royalti per transaksi pasien
-          </div>
+          <strong>SATUSEHAT Bridge Enterprise On-Premise License (Full Source Code)</strong><br>
+          <span style="font-size: 12px; color: #64748b;">
+            &bull; PHP 8.2 / Laravel 10 full source code tanpa enkripsi (bebas audit & oprek mandiri)<br>
+            &bull; Dual Ingestion (Direct REST API + Table Adapter MSSQL/MySQL/Postgres)<br>
+            &bull; Worker Queue Redis, Local Storage Encryption AES-256-GCM, Audit Trail Kemenkes<br>
+            &bull; Dokumen Playbook, DDL Schema, docker-compose.yml & starter .env produksi
+          </span>
         </td>
-        <td class="text-right" style="color: #94a3b8; text-decoration: line-through;">$500.00</td>
-        <td class="text-right" style="color: #e11d48; font-weight: 600;">-$201.00 (40%)</td>
-        <td class="text-right" style="font-weight: 700; color: #059669;">$299.00</td>
+        <td style="text-align: center;">1 Fasyankes</td>
+        <td style="text-align: right; text-decoration: line-through; color: #94a3b8;">$500.00</td>
+        <td style="text-align: right; color: #059669; font-weight: 600;">-$201.00 (Promo Launch)</td>
+        <td style="text-align: right; font-weight: 700;">$299.00 USD</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="4" style="text-align: right;">TOTAL TAGIHAN LISENSI RESMI:</td>
+        <td style="text-align: right; color: #059669; font-size: 18px;">$299.00 USD</td>
+      </tr>
+      <tr>
+        <td colspan="4" style="text-align: right; font-size: 12px; color: #64748b; border: none; padding-top: 4px;">Estimasi Konversi IDR (Kurs Live):</td>
+        <td style="text-align: right; font-size: 13px; font-weight: bold; color: #0f172a; border: none; padding-top: 4px;">± Rp ${d.idrAmount.toLocaleString('id-ID')}</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="totals">
-    <div class="totals-row">
-      <span>Subtotal Normal:</span>
-      <span>$500.00 USD</span>
-    </div>
-    <div class="totals-row" style="color: #e11d48;">
-      <span>Diskon Promo Peluncuran:</span>
-      <span>-$201.00 USD</span>
-    </div>
-    <div class="totals-row grand">
-      <span>Total Tagihan USD:</span>
-      <span>$299.00 USD</span>
-    </div>
-    <div class="totals-row" style="font-size: 11px; color: #059669; font-weight: 600; padding-top: 4px;">
-      <span>Estimasi Nilai IDR (Kurs Live):</span>
-      <span>± Rp ${d.idrAmount.toLocaleString('id-ID')}</span>
-    </div>
-  </div>
-
-  <div class="license-box">
-    <div style="font-weight: bold; margin-bottom: 4px; color: #15803d; font-family: sans-serif; font-size: 11px; text-transform: uppercase;">Kunci Lisensi Fasyankes Resmi (Terikat Kriptografis):</div>
-    <div style="font-size: 12px; font-weight: bold; word-break: break-all;">${d.licenseKey}</div>
-    <div style="font-size: 10px; color: #166534; margin-top: 4px;">SHA-256 Checksum: ${d.shaFingerprint}</div>
+  <div class="security-box">
+    <strong>Keterangan & Legalitas Penggunaan:</strong><br>
+    Invoice ini diterbitkan secara otomatis dan terverifikasi oleh AI Autonomous Engine SATUSEHAT Bridge v2.2.0. Paket rilis, skema database, dan kunci lisensi telah diserahkan langsung secara digital dan mandiri tanpa campur tangan perantara. Sesuai arsitektur on-premise, fasyankes memegang kepemilikan penuh dan kedaulatan atas seluruh data rekam medis pasien sesuai regulasi UU PDP.
   </div>
 
   <div class="footer">
-    <p>Dokumen Proforma Invoice ini diterbitkan secara otonom dan sah oleh AI Autonomous Agent Engine v2.2.0.</p>
-    <p>© 2026 SATUSEHAT Bridge Core Team • Universal Health Interoperability Standards</p>
+    Dokumen Elektronik Resmi &bull; SATUSEHAT Bridge Universal SIMRS Integration Engine &bull; https://satusehat-bridge-portal.web.app
   </div>
 </body>
 </html>`;
-      printWin.document.open();
-      printWin.document.write(invoiceHtml);
-      printWin.document.close();
+      printWindow.document.write(invoiceHtml);
+      printWindow.document.close();
     }
 
     function downloadLicenseCertificate() {
@@ -2389,17 +2367,17 @@ REDIS_PORT=6379
     function copyInvoiceDetails() {
       if (!generatedOrderData) return;
       const d = generatedOrderData;
-      const text = `BUKTI REGISTRASI & PENYERAHAN LISENSI SATUSEHAT BRIDGE\\n` +
-        `=======================================================\\n` +
-        `Order ID: ${d.orderId}\\n` +
-        `Fasilitas Kesehatan: ${d.facility} (${d.type})\\n` +
-        `PIC Teknis: ${d.pic} (${d.email} / ${d.phone})\\n` +
-        `Target Database SIMRS: ${d.db}\\n` +
-        `Kunci Lisensi Kriptografis: ${d.licenseKey}\\n` +
-        `SHA-256 Hash: ${d.shaFingerprint}\\n` +
-        `Tagihan Lisensi Promo: ${d.price}\\n` +
-        `Status Penyerahan: 100% OTONOM OLEH AI AGENT (INSTAN)\\n` +
-        `Masa Berlaku: Permanen On-Premise Seumur Hidup\\n` +
+      const text = `BUKTI REGISTRASI & PENYERAHAN LISENSI SATUSEHAT BRIDGE\n` +
+        `=======================================================\n` +
+        `Order ID: ${d.orderId}\n` +
+        `Fasilitas Kesehatan: ${d.facility} (${d.type})\n` +
+        `PIC Teknis: ${d.pic} (${d.email} / ${d.phone})\n` +
+        `Target Database SIMRS: ${d.db}\n` +
+        `Kunci Lisensi Kriptografis: ${d.licenseKey}\n` +
+        `SHA-256 Hash: ${d.shaFingerprint}\n` +
+        `Tagihan Lisensi Promo: ${d.price}\n` +
+        `Status Penyerahan: 100% OTONOM OLEH AI AGENT (INSTAN)\n` +
+        `Masa Berlaku: Permanen On-Premise Seumur Hidup\n` +
         `=======================================================`;
 
       navigator.clipboard.writeText(text);
@@ -2511,11 +2489,11 @@ REDIS_PORT=6379
     window.closeOrderModal = closeOrderModal;
     window.handleFacilityOrderSubmit = handleFacilityOrderSubmit;
     window.downloadLicenseCertificate = downloadLicenseCertificate;
-    window.printProformaInvoice = printProformaInvoice;
     window.downloadDockerCompose = downloadDockerCompose;
     window.downloadEnvStarter = downloadEnvStarter;
     window.copyLicenseKey = copyLicenseKey;
     window.copyInvoiceDetails = copyInvoiceDetails;
+    window.printInvoice = printInvoice;
 
     window.addEventListener('scroll', () => {
       const topBtn = document.getElementById('scrollToTopBtn');

@@ -734,34 +734,35 @@
   <!-- ============================================================================== -->
   <!-- MODAL: PEMESANAN & PROFORMA INVOICE -->
   <!-- ============================================================================== -->
-  <div id="orderModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="glass-card max-w-lg w-full rounded-2xl overflow-hidden border border-slate-700 shadow-2xl p-6">
+  <div id="orderModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md overflow-y-auto p-3 sm:p-6 lg:p-8 flex justify-center items-start sm:items-center">
+    <div id="orderModalCard" class="glass-card w-full max-w-xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95">
       
       <!-- Step 1: Input Form -->
-      <div id="orderFormStep">
-        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+      <div id="orderFormStep" class="flex flex-col max-h-[92vh]">
+        <!-- Sticky Header Step 1 -->
+        <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90 flex-shrink-0">
           <div>
-            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+            <h3 class="text-base sm:text-lg font-bold text-white flex items-center space-x-2">
               <i data-lucide="file-text" class="w-5 h-5 text-brand-400"></i>
               <span>Formulir Pemesanan Lisensi Fasyankes</span>
             </h3>
             <p class="text-xs text-slate-400 mt-0.5">SATUSEHAT Bridge Enterprise Core — Promo $299 USD (Normal $500 USD)</p>
           </div>
-          <button onclick="closeOrderModal()" class="text-slate-400 hover:text-white">
+          <button onclick="closeOrderModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
-        <form id="facilityOrderForm" onsubmit="handleFacilityOrderSubmit(event)" class="mt-4 space-y-3.5 text-xs">
+        <form id="facilityOrderForm" onsubmit="handleFacilityOrderSubmit(event)" class="overflow-y-auto p-4 sm:p-6 space-y-4 text-xs flex-1">
           <div>
             <label class="block font-medium text-slate-300 mb-1">Nama Fasilitas Kesehatan (RS / Klinik / Lab) *</label>
-            <input required id="ordFacilityName" type="text" placeholder="Contoh: RSU Surya Husada Bandung" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
+            <input required id="ordFacilityName" type="text" placeholder="Contoh: RSU Surya Husada Bandung" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
               <label class="block font-medium text-slate-300 mb-1">Tipe Fasilitas *</label>
-              <select id="ordFacilityType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-brand-500">
+              <select id="ordFacilityType" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-brand-500">
                 <option value="Rumah Sakit Umum">Rumah Sakit Umum (RSU)</option>
                 <option value="Rumah Sakit Khusus">Rumah Sakit Khusus</option>
                 <option value="Klinik Pratama / Utama">Klinik Pratama / Utama</option>
@@ -771,7 +772,7 @@
             </div>
             <div>
               <label class="block font-medium text-slate-300 mb-1">Basis Data SIMRS *</label>
-              <select id="ordDatabaseType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-brand-500">
+              <select id="ordDatabaseType" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-brand-500">
                 <option value="Microsoft SQL Server">Microsoft SQL Server</option>
                 <option value="MySQL / MariaDB">MySQL / MariaDB</option>
                 <option value="PostgreSQL">PostgreSQL</option>
@@ -782,23 +783,26 @@
 
           <div>
             <label class="block font-medium text-slate-300 mb-1">Nama PIC Teknis / IT Manager *</label>
-            <input required id="ordPicName" type="text" placeholder="Nama lengkap penanggung jawab" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
+            <input required id="ordPicName" type="text" placeholder="Nama lengkap penanggung jawab" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
               <label class="block font-medium text-slate-300 mb-1">Email Resmi Fasyankes *</label>
-              <input required id="ordPicEmail" type="email" placeholder="it@rumahsakit.co.id" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
+              <input required id="ordPicEmail" type="email" placeholder="it@rumahsakit.co.id" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
             </div>
             <div>
               <label class="block font-medium text-slate-300 mb-1">Nomor WhatsApp Aktif *</label>
-              <input required id="ordPicPhone" type="tel" placeholder="08xxxxxxxxxx" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
+              <input required id="ordPicPhone" type="tel" placeholder="08xxxxxxxxxx" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-500">
             </div>
           </div>
 
-          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-400 space-y-1">
-            <span class="text-slate-300 font-medium">Informasi Pembelian:</span>
-            <p>Setelah formulir dikirim, sistem menerbitkan <strong>Proforma Invoice resmi bernomor unik</strong>. Konfirmasi dikirim ke email sales untuk verifikasi mutasi rekening fasyankes.</p>
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 space-y-1">
+            <span class="text-slate-300 font-medium flex items-center space-x-1.5">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span>Prosedur Aktivasi Lisensi:</span>
+            </span>
+            <p>Setelah formulir dikirim, sistem menerbitkan <strong>Proforma Invoice resmi 2-kolom</strong> beserta barcode pembayaran QRIS DANA Bisnis. Bukti pembayaran akan diproses dan diverifikasi untuk pengiriman source code lisensi fasyankes.</p>
           </div>
 
           <div class="pt-2 flex items-center justify-end space-x-2">
@@ -811,106 +815,172 @@
         </form>
       </div>
 
-      <!-- Step 2: Proforma Invoice Display -->
-      <div id="orderInvoiceStep" class="hidden">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-          <div class="flex items-center space-x-2">
-            <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
-            <span class="font-bold text-white text-base">Proforma Invoice Terbit</span>
+      <!-- Step 2: Proforma Invoice Display (Responsive 2-Column Split on Desktop) -->
+      <div id="orderInvoiceStep" class="hidden flex flex-col max-h-[92vh]">
+        <!-- Sticky Header Step 2 -->
+        <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90 flex-shrink-0">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-lg bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400">
+              <i data-lucide="check-circle" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="font-bold text-white text-base sm:text-lg">Proforma Invoice Resmi Terbit</span>
+                <span id="invOrderId" class="hidden sm:inline-block px-2.5 py-0.5 rounded-md bg-brand-500/10 border border-brand-500/30 text-brand-400 font-mono text-xs font-bold">SB-ORD-...</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Selesaikan pembayaran melalui QRIS Statis DANA Bisnis untuk aktivasi lisensi.</p>
+            </div>
           </div>
-          <button onclick="closeOrderModal()" class="text-slate-400 hover:text-white">
+          <button onclick="closeOrderModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
-        <div class="mt-4 p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center pb-2 border-b border-slate-800">
-            <span class="text-slate-400">Order ID:</span>
-            <span id="invOrderId" class="text-brand-400 font-bold">SB-ORD-...</span>
-          </div>
-          <div class="flex justify-between items-center text-[11px]">
-            <span class="text-slate-400">Fasilitas:</span>
-            <span id="invFacility" class="text-white font-sans font-medium text-right">...</span>
-          </div>
-          <div class="flex justify-between items-center text-[11px]">
-            <span class="text-slate-400">PIC / Kontak:</span>
-            <span id="invPic" class="text-slate-300 font-sans text-right">...</span>
-          </div>
-          <div class="flex justify-between items-center text-[11px]">
-            <span class="text-slate-400">Database SIMRS:</span>
-            <span id="invDatabase" class="text-cyan-400 font-sans">...</span>
-          </div>
-          <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-sm">
-            <span class="text-slate-300 font-sans font-semibold">Total Tagihan Lisensi:</span>
-            <div class="text-right">
-              <div class="text-brand-400 font-bold font-mono text-base">$299 USD <span class="text-xs text-rose-400 line-through font-normal">(Normal $500)</span></div>
-              <div id="invIdrEquivalent" class="text-[11px] text-slate-300 font-mono">Estimasi IDR: Memuat kurs...</div>
-            </div>
-          </div>
-          <div class="text-[10px] text-slate-500 font-sans">
-            Status: <span class="text-amber-400 font-medium">Menunggu Pembayaran QRIS DANA Bisnis</span>
-          </div>
-        </div>
-
-        <!-- QRIS Statis DANA Bisnis Section -->
-        <div class="mt-4 p-4 rounded-xl bg-slate-900 border border-slate-700/80 text-center">
-          <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-xs">
-            <div class="flex items-center space-x-1.5 font-bold text-white">
-              <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30 font-mono text-[10px] font-bold">QRIS</span>
-              <span class="text-cyan-400 font-semibold">DANA Bisnis</span>
-            </div>
-            <span class="text-[10px] text-slate-400 font-mono">Merchant: SATUSEHAT BRIDGE</span>
-          </div>
-
-          <!-- QR Container -->
-          <div class="inline-block p-2.5 rounded-2xl bg-white shadow-xl mx-auto mb-2 relative group">
-            <a href="assets/qris-dana-bisnis.png" target="_blank" rel="noopener noreferrer" title="Klik untuk membuka QRIS ukuran penuh" class="block">
-              <div id="qrisImageContainer" class="w-52 h-52 sm:w-60 sm:h-60 bg-white rounded-xl flex flex-col items-center justify-center border border-slate-200 overflow-hidden relative">
-                <img id="qrisImg" src="assets/qris-dana-bisnis.png" alt="QRIS DANA Bisnis SATUSEHAT Bridge" class="w-full h-full object-contain">
+        <!-- Scrollable Modal Body: 2-Column Desktop Grid -->
+        <div class="overflow-y-auto p-4 sm:p-6 lg:p-7 flex-1">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            <!-- Left Column: Order Breakdown & Actions (7 cols) -->
+            <div class="lg:col-span-7 space-y-4">
+              <!-- Order Details Card -->
+              <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-3 font-mono text-xs">
+                <div class="flex justify-between items-center pb-2.5 border-b border-slate-800/80">
+                  <span class="text-slate-400 font-sans">Nomor Order:</span>
+                  <span id="invOrderIdMobile" class="text-brand-400 font-bold">SB-ORD-...</span>
+                </div>
+                <div class="flex justify-between items-start text-[11px]">
+                  <span class="text-slate-400 font-sans">Fasyankes Pemesan:</span>
+                  <span id="invFacility" class="text-white font-sans font-semibold text-right max-w-[65%]">...</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-400 font-sans">PIC & Kontak:</span>
+                  <span id="invPic" class="text-slate-300 font-sans text-right max-w-[65%] truncate">...</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-400 font-sans">Engine SIMRS Target:</span>
+                  <span id="invDatabase" class="text-cyan-400 font-sans font-medium">...</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-400 font-sans">Cakupan FHIR:</span>
+                  <span class="text-emerald-400 font-sans font-medium">47 Profil Playbook Kemenkes DTO</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-400 font-sans">Masa Berlaku Lisensi:</span>
+                  <span class="text-slate-200 font-sans font-medium">Seumur Hidup (Lifetime On-Premise)</span>
+                </div>
               </div>
-            </a>
-          </div>
-          <div class="mb-2">
-            <a href="assets/qris-dana-bisnis.png" download="QRIS-DANA-Bisnis-SATUSEHAT-Bridge.png" class="inline-flex items-center space-x-1 text-[11px] text-cyan-400 hover:text-cyan-300 font-medium">
-              <i data-lucide="download" class="w-3.5 h-3.5"></i>
-              <span>Unduh / Buka QRIS Penuh</span>
-            </a>
-          </div>
 
-          <div class="text-[11px] text-slate-300 space-y-1">
-            <div class="font-bold text-white">Pindai QRIS Statis DANA Bisnis</div>
-            <p class="text-[10px] text-slate-400">
-              Dapat di-scan menggunakan seluruh aplikasi m-Banking (BCA, Mandiri, BRI, BNI) dan e-Wallet (DANA, GoPay, OVO, ShopeePay).
-            </p>
-            <div class="text-xs font-mono text-brand-400 font-bold mt-1.5 p-2 rounded-lg bg-slate-950 border border-slate-800">
-              Nominal Transfer: <span id="qrisAmountText">Sesuai Tagihan IDR</span>
+              <!-- Price Box -->
+              <div class="p-4 rounded-xl bg-gradient-to-br from-brand-950/40 via-slate-900 to-slate-950 border border-brand-500/30 space-y-1.5">
+                <div class="flex items-center justify-between text-xs text-slate-300 font-medium">
+                  <span>Total Tagihan Lisensi Enterprise:</span>
+                  <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-bold">Promo Launch 40% OFF</span>
+                </div>
+                <div class="flex items-baseline justify-between pt-1">
+                  <div>
+                    <span class="text-2xl sm:text-3xl font-bold font-mono text-brand-400 tracking-tight">$299</span>
+                    <span class="text-sm font-bold font-mono text-brand-400 ml-1">USD</span>
+                    <span class="text-xs text-rose-400 line-through font-normal ml-2 font-mono">(Normal $500 USD)</span>
+                  </div>
+                </div>
+                <div id="invIdrEquivalent" class="text-xs text-cyan-300 font-mono flex items-center space-x-1.5 pt-1 border-t border-slate-800">
+                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                  <span>Estimasi IDR: Memuat kurs live...</span>
+                </div>
+              </div>
+
+              <!-- Payment Flow Instructions -->
+              <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 space-y-2">
+                <div class="font-bold text-slate-200 flex items-center space-x-1.5 text-xs">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-brand-400"></i>
+                  <span>Langkah Penyelesaian Pembayaran:</span>
+                </div>
+                <ol class="list-decimal list-inside space-y-1.5 text-[11px] text-slate-400 leading-relaxed">
+                  <li>Pindai QRIS DANA Bisnis pada panel kanan menggunakan m-Banking atau e-Wallet Anda.</li>
+                  <li>Masukkan nominal transfer sesuai nominal estimasi IDR di atas.</li>
+                  <li>Simpan tangkapan layar (screenshot) bukti transfer sukses.</li>
+                  <li>Klik tombol <strong class="text-white">Kirim Email Konfirmasi</strong> di bawah untuk membuka draft email resmi ke sales SATUSEHAT Bridge.</li>
+                </ol>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="space-y-2.5 pt-1">
+                <a id="invMailtoBtn" href="#" class="w-full py-3.5 px-4 rounded-xl bg-brand-500 hover:bg-brand-400 text-navy-950 font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-brand-500/25 active:scale-95">
+                  <i data-lucide="mail" class="w-4 h-4"></i>
+                  <span>Kirim Email Konfirmasi Otomatis</span>
+                </a>
+                <button onclick="copyInvoiceDetails()" class="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center space-x-2 transition-colors active:scale-95">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                  <span id="copyInvBtnText">Salin Rincian Pesanan ke Clipboard</span>
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="mt-3 p-3 rounded-xl bg-brand-500/10 border border-brand-500/20 text-xs text-slate-200 leading-relaxed space-y-1">
-          <div class="font-bold text-brand-400 flex items-center space-x-1.5">
-            <i data-lucide="check-circle" class="w-4 h-4"></i>
-            <span>Konfirmasi Pembayaran:</span>
-          </div>
-          <p class="text-[11px] text-slate-300">
-            Setelah transfer via QRIS berhasil, silakan klik tombol <strong>'Kirim Email Konfirmasi Otomatis'</strong> di bawah atau kirimkan bukti transfer screenshot ke email resmi kami 
-            <strong class="text-white">satusehatbridge@gmail.com</strong>.
-          </p>
-          <p class="text-[11px] text-slate-400">
-            Paket software berlisensi penuh beserta checksum integritas SHA-256 akan dikirimkan maksimal 1 jam setelah mutasi transfer terverifikasi.
-          </p>
-        </div>
+            <!-- Right Column: Dedicated QRIS DANA Bisnis Card (5 cols) -->
+            <div class="lg:col-span-5">
+              <div class="p-5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700/80 shadow-2xl text-center space-y-4">
+                
+                <!-- Card Header -->
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
+                  <div class="flex items-center space-x-1.5 font-bold text-white">
+                    <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30 font-mono text-[10px] font-bold">QRIS</span>
+                    <span class="text-cyan-400 font-semibold">DANA Bisnis</span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-medium flex items-center space-x-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span>Menunggu Pembayaran</span>
+                  </span>
+                </div>
 
-        <div class="mt-5 space-y-2">
-          <a id="invMailtoBtn" href="#" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs flex items-center justify-center space-x-2 transition-colors shadow-lg shadow-brand-500/20 active:scale-95">
-            <i data-lucide="mail" class="w-4 h-4"></i>
-            <span>Kirim Email Konfirmasi Otomatis</span>
-          </a>
-          <button onclick="copyInvoiceDetails()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center space-x-2 transition-colors active:scale-95">
-            <i data-lucide="copy" class="w-4 h-4"></i>
-            <span id="copyInvBtnText">Salin Rincian Pesanan ke Clipboard</span>
-          </button>
+                <div>
+                  <div class="text-xs font-semibold text-slate-300">Merchant Resmi:</div>
+                  <div class="text-sm font-bold text-white tracking-wide">SATUSEHAT BRIDGE</div>
+                  <div class="text-[10px] text-slate-500 font-mono mt-0.5">NMID: ID1020021151608 • DANA Bisnis</div>
+                </div>
+
+                <!-- QR Container Frame -->
+                <div class="inline-block p-3 rounded-2xl bg-white shadow-xl mx-auto relative group">
+                  <a href="assets/qris-dana-bisnis.png" target="_blank" rel="noopener noreferrer" title="Klik untuk membuka QRIS ukuran penuh" class="block">
+                    <div id="qrisImageContainer" class="w-44 h-44 sm:w-52 sm:h-52 bg-white rounded-xl flex items-center justify-center border border-slate-200 overflow-hidden relative">
+                      <img id="qrisImg" src="assets/qris-dana-bisnis.png" alt="QRIS DANA Bisnis SATUSEHAT Bridge" class="w-full h-full object-contain">
+                    </div>
+                  </a>
+                </div>
+
+                <div>
+                  <a href="assets/qris-dana-bisnis.png" download="QRIS-DANA-Bisnis-SATUSEHAT-Bridge.png" class="inline-flex items-center space-x-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+                    <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                    <span>Unduh Barcode QRIS (PNG)</span>
+                  </a>
+                </div>
+
+                <!-- Nominal Transfer Pill -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center space-y-1">
+                  <div class="text-[10px] text-slate-400 font-medium">Nominal Transfer (Sesuai Kurs Live):</div>
+                  <div id="qrisAmountText" class="text-base sm:text-lg font-bold font-mono text-brand-400">Rp ...</div>
+                  <div class="text-[10px] text-slate-500">Bebas biaya admin antar bank via QRIS</div>
+                </div>
+
+                <!-- Accepted Methods Badges -->
+                <div class="pt-1 border-t border-slate-800/80 text-[10px] text-slate-400 space-y-2">
+                  <div class="font-medium text-slate-300">Mendukung seluruh m-Banking & e-Wallet:</div>
+                  <div class="flex flex-wrap items-center justify-center gap-1.5 text-[9px] font-semibold text-slate-300">
+                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BCA</span>
+                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Mandiri</span>
+                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BRI</span>
+                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BNI</span>
+                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BSI</span>
+                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">DANA</span>
+                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">GoPay</span>
+                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">OVO</span>
+                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">ShopeePay</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
@@ -1404,6 +1474,10 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
     let generatedOrderData = null;
 
     function openOrderModal() {
+      const card = document.getElementById("orderModalCard");
+      if (card) {
+        card.className = "glass-card w-full max-w-xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95";
+      }
       document.getElementById("orderFormStep").classList.remove("hidden");
       document.getElementById("orderInvoiceStep").classList.add("hidden");
       document.getElementById("orderModal").classList.remove("hidden");
@@ -1432,7 +1506,16 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
 
       generatedOrderData = { orderId, facility, type, db, pic, email, phone, price: priceText, idrAmount: idrConverted };
 
+      const card = document.getElementById("orderModalCard");
+      if (card) {
+        card.className = "glass-card w-full max-w-4xl lg:max-w-5xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95";
+      }
+
       document.getElementById("invOrderId").innerText = orderId;
+      const invOrderMobile = document.getElementById("invOrderIdMobile");
+      if (invOrderMobile) {
+        invOrderMobile.innerText = orderId;
+      }
       document.getElementById("invFacility").innerText = `${facility} (${type})`;
       document.getElementById("invPic").innerText = `${pic} (${email} / ${phone})`;
       document.getElementById("invDatabase").innerText = db;

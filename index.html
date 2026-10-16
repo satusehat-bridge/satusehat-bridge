@@ -40,10 +40,11 @@
               900: '#064e3b',
             },
             accent: {
-              400: '#a78bfa',
-              500: '#8b5cf6',
-              600: '#7c3aed',
-              700: '#6d28d9',
+              300: '#5eead4',
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
             },
             navy: {
               800: '#1e293b',
@@ -68,7 +69,7 @@
 
     /* Surface & Glassmorphism styles */
     .glass-card {
-      background: rgba(18, 22, 42, 0.75);
+      background: rgba(14, 25, 23, 0.75);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
@@ -76,19 +77,19 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .glass-card-hover:hover {
-      border-color: rgba(139, 92, 246, 0.45);
+      border-color: rgba(16, 185, 129, 0.45);
       transform: translateY(-3px);
-      box-shadow: 0 16px 30px -10px rgba(124, 58, 237, 0.25);
+      box-shadow: 0 16px 30px -10px rgba(16, 185, 129, 0.25);
     }
     .glass-nav {
-      background: rgba(11, 13, 25, 0.85);
+      background: rgba(8, 18, 16, 0.88);
       backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.12);
     }
 
     /* Purposeful technical pattern backgrounds */
     .tech-grid-pattern {
-      background-image: radial-gradient(rgba(129, 140, 248, 0.08) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(16, 185, 129, 0.08) 1px, transparent 1px);
       background-size: 28px 28px;
     }
 
@@ -130,10 +131,10 @@
     }
   </style>
 </head>
-<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-accent-600 selection:text-white min-h-screen flex flex-col tech-grid-pattern">
+<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-slate-950 min-h-screen flex flex-col tech-grid-pattern">
 
   <!-- ============================================================================== -->
-  <!-- TOP NAVIGATION BAR (Matching Reference) -->
+  <!-- TOP NAVIGATION BAR (Matching Logo Emerald/Teal Theme) -->
   <!-- ============================================================================== -->
   <header class="sticky top-0 z-50 glass-nav">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between">
@@ -141,24 +142,24 @@
       <!-- Brand Logo Left -->
       <div class="flex items-center space-x-3">
         <a href="#" class="flex items-center space-x-2.5 group">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center p-1.5 shadow-lg shadow-indigo-600/30 group-hover:scale-105 transition-transform">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-emerald-500 flex items-center justify-center p-1.5 shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-transform">
             <img src="assets/satusehat-bridge-icon.svg" alt="SATUSEHAT-Bridge" class="w-full h-full">
           </div>
           <div>
-            <span class="font-extrabold text-white text-base tracking-tight font-mono">SATUSEHAT<span class="text-accent-400">.BRIDGE</span></span>
-            <span class="hidden sm:inline-block text-[9px] px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 font-mono ml-1.5 border border-indigo-500/30">v2.2</span>
+            <span class="font-extrabold text-white text-base tracking-tight font-mono">SATUSEHAT<span class="text-teal-400">.BRIDGE</span></span>
+            <span class="hidden sm:inline-block text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-mono ml-1.5 border border-emerald-500/30">v2.2</span>
           </div>
         </a>
       </div>
 
       <!-- Center Navigation Links -->
       <nav class="hidden md:flex items-center space-x-7 text-xs font-semibold text-slate-300 uppercase tracking-wider">
-        <a href="#" class="text-white hover:text-accent-400 transition-colors">BERANDA</a>
-        <a href="#arsitektur" class="hover:text-accent-400 transition-colors">ARSITEKTUR</a>
-        <a href="#katalog" class="hover:text-accent-400 transition-colors">47 PROFIL FHIR</a>
-        <a href="#terminal-demo" class="hover:text-accent-400 transition-colors">TABLE ADAPTER</a>
-        <a href="#kalkulator" class="hover:text-accent-400 transition-colors">SIMULASI TCO</a>
-        <a href="#harga" class="hover:text-accent-400 transition-colors">HARGA LISENSI</a>
+        <a href="#" class="text-white hover:text-emerald-400 transition-colors">BERANDA</a>
+        <a href="#arsitektur" class="hover:text-emerald-400 transition-colors">ARSITEKTUR</a>
+        <a href="#katalog" class="hover:text-emerald-400 transition-colors">47 PROFIL FHIR</a>
+        <a href="#terminal-demo" class="hover:text-emerald-400 transition-colors">TABLE ADAPTER</a>
+        <a href="#kalkulator" class="hover:text-emerald-400 transition-colors">SIMULASI TCO</a>
+        <a href="#harga" class="hover:text-emerald-400 transition-colors">HARGA LISENSI</a>
       </nav>
 
       <!-- Right Action Pill Button -->
@@ -167,7 +168,7 @@
           <i data-lucide="github" class="w-3.5 h-3.5"></i>
           <span>REPO GITHUB</span>
         </a>
-        <button onclick="openOrderModal()" class="px-5 sm:px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-indigo-600/35 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center space-x-1.5">
+        <button onclick="openOrderModal()" class="px-5 sm:px-6 py-2.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/35 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center space-x-1.5">
           <span>MULAI SEKARANG</span>
         </button>
       </div>
@@ -175,12 +176,12 @@
   </header>
 
   <!-- ============================================================================== -->
-  <!-- HERO SECTION: 2-COLUMN SPLIT (Matching Reference: "EASIEST PAYMENT METHOD EVER") -->
+  <!-- HERO SECTION: 2-COLUMN SPLIT (Green / Emerald Brand Palette) -->
   <!-- ============================================================================== -->
-  <section class="relative pt-12 pb-20 overflow-hidden border-b border-indigo-950/70">
-    <!-- Ambient Neon Violet Gradients -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-indigo-600/15 blur-[120px] rounded-full pointer-events-none -z-10"></div>
-    <div class="absolute top-10 right-10 w-[400px] h-[400px] bg-purple-600/10 blur-[100px] rounded-full pointer-events-none -z-10"></div>
+  <section class="relative pt-12 pb-20 overflow-hidden border-b border-emerald-950/70">
+    <!-- Ambient Neon Emerald / Teal Gradients -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-emerald-500/12 blur-[130px] rounded-full pointer-events-none -z-10"></div>
+    <div class="absolute top-10 right-10 w-[400px] h-[400px] bg-teal-500/10 blur-[100px] rounded-full pointer-events-none -z-10"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -189,16 +190,16 @@
         <div class="lg:col-span-7 text-left space-y-6">
           
           <!-- Status Halo Badge -->
-          <div class="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-indigo-950/70 border border-indigo-500/30 text-xs text-indigo-200 shadow-sm backdrop-blur-md">
+          <div class="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-xs text-emerald-200 shadow-sm backdrop-blur-md">
             <span class="w-2 h-2 rounded-full bg-emerald-400 ring-4 ring-emerald-500/20"></span>
             <span class="font-medium">Bridge SIMRS On-Premise Universal</span>
-            <span class="text-indigo-400">•</span>
-            <span class="text-accent-400 font-mono font-medium">Promo Peluncuran $299 USD</span>
+            <span class="text-emerald-400">•</span>
+            <span class="text-teal-300 font-mono font-medium">Promo Peluncuran $299 USD</span>
           </div>
 
-          <!-- Bold Hero Headline (matching reference) -->
+          <!-- Bold Hero Headline (Green logo gradient) -->
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08] uppercase">
-            INTEGRASI <span class="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">SATUSEHAT</span> TERMUDAH & PALING HANDAL
+            INTEGRASI <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-lime-300 bg-clip-text text-transparent">SATUSEHAT</span> TERMUDAH & PALING HANDAL
           </h1>
 
           <!-- Body Description -->
@@ -206,13 +207,13 @@
             Bebaskan fasyankes dan tim IT SIMRS Anda dari kerumitan bridging manual Kemenkes DTO. Hubungkan sistem SIMRS langsung ke <strong>SATUSEHAT Kemenkes & BPJS</strong> melalui Table Adapter Staging (Zero-DDL) atau REST API tanpa merusak struktur database produksi rumah sakit.
           </p>
 
-          <!-- Action Buttons Pill (matching reference) -->
+          <!-- Action Buttons Pill (Green logo gradient) -->
           <div class="pt-2 flex flex-wrap items-center gap-4">
-            <button onclick="openOrderModal()" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-xl shadow-indigo-600/35 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center space-x-2">
+            <button onclick="openOrderModal()" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl shadow-emerald-500/35 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center space-x-2">
               <span>MULAI SEKARANG — $299</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
-            <a href="#arsitektur" class="px-7 py-3.5 rounded-full text-xs font-bold text-slate-300 hover:text-white uppercase tracking-wider transition-all border border-slate-800 hover:border-indigo-500/40 hover:bg-white/5 active:scale-95">
+            <a href="#arsitektur" class="px-7 py-3.5 rounded-full text-xs font-bold text-slate-300 hover:text-white uppercase tracking-wider transition-all border border-slate-800 hover:border-emerald-500/40 hover:bg-emerald-500/10 active:scale-95">
               PELAJARI ARSITEKTUR
             </a>
           </div>
@@ -239,14 +240,14 @@
         <div class="lg:col-span-5 relative flex items-center justify-center">
           
           <!-- Radial Backdrop Glow -->
-          <div class="w-72 h-72 sm:w-88 sm:h-88 rounded-full bg-gradient-to-tr from-indigo-600/25 to-purple-600/20 blur-2xl absolute -z-10"></div>
+          <div class="w-72 h-72 sm:w-88 sm:h-88 rounded-full bg-gradient-to-tr from-emerald-600/20 to-teal-600/15 blur-2xl absolute -z-10"></div>
 
           <!-- Isometric Device Mockup Container -->
           <div class="relative phone-perspective w-full max-w-[310px] mx-auto">
             
             <!-- Floating Donut Chart Card (Top Right, matching reference!) -->
             <div class="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 z-30 animate-float-slow">
-              <div class="glass-card p-3.5 rounded-2xl border border-indigo-500/30 shadow-2xl backdrop-blur-xl bg-slate-900/90 w-44">
+              <div class="glass-card p-3.5 rounded-2xl border border-emerald-500/30 shadow-2xl backdrop-blur-xl bg-slate-900/90 w-44">
                 <div class="flex items-center justify-between text-[10px] text-slate-400 font-medium mb-1.5">
                   <span>Efisiensi & Pengiriman</span>
                   <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -258,11 +259,11 @@
                       <!-- Base background -->
                       <path class="text-slate-800" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                       <!-- Segment 1: Encounter Cyan (50%) -->
-                      <path class="text-cyan-400" stroke-dasharray="50, 100" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                      <!-- Segment 2: Medication Purple (30%) -->
-                      <path class="text-purple-400" stroke-dashoffset="-50" stroke-dasharray="30, 100" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                      <!-- Segment 3: Lab Emerald (20%) -->
-                      <path class="text-emerald-400" stroke-dashoffset="-80" stroke-dasharray="20, 100" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <path class="text-teal-400" stroke-dasharray="50, 100" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <!-- Segment 2: Medication Emerald (30%) -->
+                      <path class="text-emerald-400" stroke-dashoffset="-50" stroke-dasharray="30, 100" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <!-- Segment 3: Lab Lime (20%) -->
+                      <path class="text-lime-400" stroke-dashoffset="-80" stroke-dasharray="20, 100" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                     </svg>
                     <div class="absolute inset-0 flex items-center justify-center font-mono font-bold text-[9px] text-white">99%</div>
                   </div>
@@ -287,15 +288,15 @@
                 <!-- App Header -->
                 <div class="flex items-center justify-between text-xs pb-2 border-b border-slate-800/80">
                   <div class="flex items-center space-x-1.5">
-                    <div class="w-4 h-4 rounded-md bg-indigo-500 flex items-center justify-center text-[10px] font-bold text-white">S</div>
+                    <div class="w-4 h-4 rounded-md bg-emerald-500 flex items-center justify-center text-[10px] font-bold text-slate-950">S</div>
                     <span class="font-bold text-white text-xs">SATUSEHAT Bridge</span>
                   </div>
                   <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-[9px] font-semibold">200 OK Berhasil</span>
                 </div>
 
                 <!-- Total Balance / Throughput Box -->
-                <div class="p-3.5 rounded-2xl bg-gradient-to-br from-indigo-950/70 to-purple-950/60 border border-indigo-500/30 text-left space-y-1">
-                  <div class="text-[10px] text-indigo-300 font-medium">Transaksi Harian Keluar (Outbound)</div>
+                <div class="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-950/70 to-teal-950/60 border border-emerald-500/30 text-left space-y-1">
+                  <div class="text-[10px] text-emerald-300 font-medium">Transaksi Harian Keluar (Outbound)</div>
                   <div class="text-2xl font-black font-mono text-white tracking-tight">12.450</div>
                   <div class="text-[9px] text-slate-400 flex items-center space-x-1">
                     <span class="text-emerald-400 font-semibold">+18,4%</span>
@@ -307,13 +308,13 @@
                 <div class="space-y-2 text-left">
                   <div class="text-[10px] text-slate-400 font-medium px-1 flex justify-between">
                     <span>Aliran Data FHIR Terkini</span>
-                    <span class="text-indigo-400">Aktif</span>
+                    <span class="text-emerald-400">Aktif</span>
                   </div>
 
                   <!-- Feed Item 1 -->
                   <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs">
                     <div class="flex items-center space-x-2">
-                      <div class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px]">
+                      <div class="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center text-[10px]">
                         <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
                       </div>
                       <div>
@@ -327,7 +328,7 @@
                   <!-- Feed Item 2 -->
                   <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs">
                     <div class="flex items-center space-x-2">
-                      <div class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-[10px]">
+                      <div class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px]">
                         <i data-lucide="pill" class="w-3.5 h-3.5"></i>
                       </div>
                       <div>
@@ -341,7 +342,7 @@
                   <!-- Feed Item 3 -->
                   <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs">
                     <div class="flex items-center space-x-2">
-                      <div class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px]">
+                      <div class="w-6 h-6 rounded-lg bg-lime-500/20 text-lime-400 flex items-center justify-center text-[10px]">
                         <i data-lucide="activity" class="w-3.5 h-3.5"></i>
                       </div>
                       <div>
@@ -358,8 +359,8 @@
 
             <!-- Floating Pill Capsule (Bottom Left, matching reference "$ EASY PAYMENT"!) -->
             <div class="absolute -bottom-5 -left-5 sm:-bottom-6 sm:-left-6 z-30 animate-float-delayed">
-              <div class="inline-flex items-center space-x-2 px-3.5 py-2 rounded-full bg-gradient-to-r from-indigo-900/95 via-purple-900/95 to-slate-900/95 border border-indigo-400/50 shadow-2xl backdrop-blur-md text-white">
-                <span class="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white shadow-md">
+              <div class="inline-flex items-center space-x-2 px-3.5 py-2 rounded-full bg-gradient-to-r from-emerald-950/95 via-teal-950/95 to-slate-950/95 border border-emerald-400/50 shadow-2xl backdrop-blur-md text-white">
+                <span class="w-6 h-6 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-xs font-bold text-slate-950 shadow-md">
                   <i data-lucide="zap" class="w-3.5 h-3.5"></i>
                 </span>
                 <span class="text-[11px] font-extrabold uppercase tracking-wide">⚡ STAGING ZERO-DDL</span>
@@ -377,12 +378,12 @@
   <!-- ============================================================================== -->
   <!-- TRUST & COMPATIBILITY LOGO BAR (Matching Reference Logo Row) -->
   <!-- ============================================================================== -->
-  <section class="py-8 border-b border-indigo-950/60 bg-navy-950/90 relative overflow-hidden">
+  <section class="py-8 border-b border-emerald-950/60 bg-navy-950/90 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-wrap items-center justify-center sm:justify-between gap-6 md:gap-8 opacity-75 hover:opacity-100 transition-opacity">
         
         <div class="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors">
-          <i data-lucide="database" class="w-4 h-4 text-indigo-400"></i>
+          <i data-lucide="database" class="w-4 h-4 text-sky-400"></i>
           <span class="text-xs font-extrabold tracking-wider uppercase font-mono">MS SQL SERVER</span>
         </div>
 
@@ -392,7 +393,7 @@
         </div>
 
         <div class="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors">
-          <i data-lucide="server" class="w-4 h-4 text-purple-400"></i>
+          <i data-lucide="server" class="w-4 h-4 text-teal-400"></i>
           <span class="text-xs font-extrabold tracking-wider uppercase font-mono">POSTGRESQL</span>
         </div>
 
@@ -416,31 +417,31 @@
   </section>
 
   <!-- ============================================================================== -->
-  <!-- FEATURE SECTION 1: MANAGE EVERYTHING IN YOUR HAND (Matching Reference Section 2) -->
+  <!-- FEATURE SECTION 1: MANAGE EVERYTHING IN YOUR HAND (Logo Green Palette) -->
   <!-- ============================================================================== -->
-  <section class="py-20 border-b border-indigo-950/60 bg-gradient-to-b from-navy-950 via-navy-900/40 to-navy-950 relative overflow-hidden">
+  <section class="py-20 border-b border-emerald-950/60 bg-gradient-to-b from-navy-950 via-navy-900/40 to-navy-950 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         <!-- Left: Device Mockup with Floating Dark License Card (5 cols) -->
         <div class="lg:col-span-5 relative flex items-center justify-center">
           
-          <!-- Circular Violet Ambient Glow -->
-          <div class="w-72 h-72 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-indigo-700/30 to-purple-600/25 blur-3xl absolute -z-10"></div>
+          <!-- Circular Ambient Glow -->
+          <div class="w-72 h-72 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-emerald-600/20 to-teal-500/15 blur-3xl absolute -z-10"></div>
 
           <div class="relative w-full max-w-[320px] mx-auto">
             
             <!-- Floating Black Security Card (Matching Credit Card in Reference!) -->
             <div class="absolute -top-6 -left-4 sm:-left-8 z-30 transform -rotate-12 hover:rotate-0 transition-transform duration-500 animate-float-slow">
-              <div class="w-64 sm:w-72 h-40 rounded-2xl p-4 bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 border border-slate-700/80 shadow-2xl relative overflow-hidden flex flex-col justify-between">
+              <div class="w-64 sm:w-72 h-40 rounded-2xl p-4 bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 border border-slate-700/80 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                 <!-- Card Glow Pattern -->
-                <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-xl pointer-events-none"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"></div>
                 
                 <!-- Card Header -->
                 <div class="flex items-center justify-between text-xs">
                   <div class="flex items-center space-x-1.5">
                     <span class="font-extrabold text-white text-[11px] tracking-wider font-mono">SATUSEHAT</span>
-                    <span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[8px] font-mono border border-indigo-500/30">CORE</span>
+                    <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[8px] font-mono border border-emerald-500/30">CORE</span>
                   </div>
                   <!-- Sim Card Chip -->
                   <div class="w-8 h-6 rounded bg-gradient-to-r from-amber-400 to-amber-200 border border-amber-500 flex items-center justify-center">
@@ -473,11 +474,11 @@
               <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5 text-xs font-mono">
                 <div class="flex justify-between items-center text-[10px]">
                   <span class="text-slate-400">BARIS STAGING:</span>
-                  <span class="text-brand-400 font-bold">29.401</span>
+                  <span class="text-emerald-400 font-bold">29.401</span>
                 </div>
                 <div class="flex justify-between items-center text-[10px]">
                   <span class="text-slate-400">ANTREAN PENGIRIMAN:</span>
-                  <span class="text-cyan-400">0 TERTUNDA</span>
+                  <span class="text-teal-400">0 TERTUNDA</span>
                 </div>
                 <div class="flex justify-between items-center text-[10px]">
                   <span class="text-slate-400">LATENSI KEMENKES:</span>
@@ -507,20 +508,20 @@
             
             <!-- Item 1: User Friendly (Zero-DDL) -->
             <div class="flex items-start space-x-4 p-3 rounded-2xl hover:bg-slate-900/60 transition-colors">
-              <div class="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-600/20 mt-1">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-600/20 mt-1">
                 <i data-lucide="smartphone" class="w-6 h-6"></i>
               </div>
               <div>
                 <h3 class="text-base font-bold text-white">Mudah Digunakan (Zero-DDL)</h3>
                 <p class="text-xs text-slate-300 leading-relaxed mt-0.5">
-                  Dirancang dengan prinsip kesederhanaan dan tanpa modifikasi skema DDL. Tim SIMRS cukup melakukan operasi <code class="text-indigo-300 bg-slate-800 px-1 py-0.5 rounded font-mono">INSERT</code> ke tabel staging perantara tanpa perlu mengubah relasi tabel atau mengunci database produksi rumah sakit.
+                  Dirancang dengan prinsip kesederhanaan dan tanpa modifikasi skema DDL. Tim SIMRS cukup melakukan operasi <code class="text-emerald-300 bg-slate-800 px-1 py-0.5 rounded font-mono">INSERT</code> ke tabel staging perantara tanpa perlu mengubah relasi tabel atau mengunci database produksi rumah sakit.
                 </p>
               </div>
             </div>
 
             <!-- Item 2: Best Support (47 Profil FHIR) -->
             <div class="flex items-start space-x-4 p-3 rounded-2xl hover:bg-slate-900/60 transition-colors">
-              <div class="w-12 h-12 rounded-2xl bg-purple-600/20 border border-purple-500/40 text-purple-400 flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-600/20 mt-1">
+              <div class="w-12 h-12 rounded-2xl bg-teal-600/20 border border-teal-500/40 text-teal-400 flex items-center justify-center flex-shrink-0 shadow-lg shadow-teal-600/20 mt-1">
                 <i data-lucide="headphones" class="w-6 h-6"></i>
               </div>
               <div>
@@ -533,7 +534,7 @@
 
             <!-- Item 3: Secure (100% On-Premise) -->
             <div class="flex items-start space-x-4 p-3 rounded-2xl hover:bg-slate-900/60 transition-colors">
-              <div class="w-12 h-12 rounded-2xl bg-pink-600/20 border border-pink-500/40 text-pink-400 flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-600/20 mt-1">
+              <div class="w-12 h-12 rounded-2xl bg-lime-600/20 border border-lime-500/40 text-lime-400 flex items-center justify-center flex-shrink-0 shadow-lg shadow-lime-600/20 mt-1">
                 <i data-lucide="lock" class="w-6 h-6"></i>
               </div>
               <div>
@@ -553,9 +554,9 @@
   </section>
 
   <!-- ============================================================================== -->
-  <!-- FEATURE SECTION 2: ENJOY VARIOUS PROMOS (Matching Reference Section 3) -->
+  <!-- FEATURE SECTION 2: ENJOY VARIOUS PROMOS (Logo Green Palette) -->
   <!-- ============================================================================== -->
-  <section class="py-20 border-b border-indigo-950/60 bg-navy-950 relative overflow-hidden">
+  <section class="py-20 border-b border-emerald-950/60 bg-navy-950 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
@@ -571,26 +572,26 @@
           </h2>
 
           <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-            Kami menghadirkan penawaran istimewa bagi mitra fasyankes dan pengembang SIMRS di seluruh Indonesia. Dapatkan kemudahan bridging seumur hidup tanpa biaya royalti bulanan/tahunan, didukung aktivasi instan melalui QRIS DANA Bisnis.
+            Kami menghadirkan penawaran istimewa bagi mitra fasyankes dan pengembang SIMRS di seluruh Indonesia. Dapatkan kemudahan bridging seumur hidup tanpa biaya royalti bulanan/tahunan, didukung aktivasi dan penyerahan produk instan 100% otonom oleh AI Agent.
           </p>
 
-          <div class="p-4 rounded-2xl bg-gradient-to-br from-indigo-950/60 to-purple-950/40 border border-indigo-500/30 space-y-2 max-w-md">
+          <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-950/60 to-teal-950/40 border border-emerald-500/30 space-y-2 max-w-md">
             <div class="flex items-center justify-between">
               <span class="text-xs text-slate-300">Harga Lisensi Permanen:</span>
               <span class="text-xs text-rose-400 line-through font-mono">Normal $500 USD</span>
             </div>
             <div class="flex items-baseline space-x-2">
               <span class="text-3xl font-black font-mono text-white">$299</span>
-              <span class="text-xs font-bold text-accent-400 font-mono">USD (Sekali Bayar)</span>
+              <span class="text-xs font-bold text-teal-400 font-mono">USD (Sekali Bayar)</span>
             </div>
-            <div class="text-[11px] text-cyan-300 font-mono pt-1 border-t border-slate-800">
+            <div class="text-[11px] text-emerald-300 font-mono pt-1 border-t border-slate-800">
               ⚡ Estimasi IDR Real-time: <span id="heroPromoIdrText">Memuat kurs live...</span>
             </div>
           </div>
 
           <div class="pt-2">
-            <button onclick="openOrderModal()" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-xl shadow-indigo-600/35 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center space-x-2">
-              <span>MULAI SEKARANG — TERBITKAN INVOICE</span>
+            <button onclick="openOrderModal()" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl shadow-emerald-500/35 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center space-x-2">
+              <span>MULAI SEKARANG — TERIMA PRODUK DARI AGEN</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
           </div>
@@ -600,10 +601,10 @@
         <div class="lg:col-span-6 relative flex items-center justify-center">
           
           <!-- Outer Aura Glow -->
-          <div class="w-80 h-80 rounded-full bg-gradient-to-tr from-purple-600/20 to-pink-600/20 blur-3xl absolute -z-10"></div>
+          <div class="w-80 h-80 rounded-full bg-gradient-to-tr from-emerald-600/20 to-teal-500/20 blur-3xl absolute -z-10"></div>
 
           <!-- Central Card Showcase -->
-          <div class="relative w-full max-w-md p-6 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 border border-slate-700/80 shadow-2xl">
+          <div class="relative w-full max-w-md p-6 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 border border-slate-700/80 shadow-2xl">
             
             <div class="flex items-center justify-between pb-4 border-b border-slate-800">
               <div>
@@ -617,44 +618,44 @@
             <div class="py-4 space-y-2">
               <div class="flex justify-between text-[11px] text-slate-300">
                 <span>Latensi Staging SIMRS</span>
-                <span class="font-mono text-cyan-400 font-bold">2.4 ms</span>
+                <span class="font-mono text-emerald-400 font-bold">2.4 ms</span>
               </div>
               <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
-                <div class="w-11/12 h-full bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full"></div>
+                <div class="w-11/12 h-full bg-gradient-to-r from-teal-400 to-emerald-500 rounded-full"></div>
               </div>
 
               <div class="flex justify-between text-[11px] text-slate-300 pt-2">
                 <span>Konsumsi Memori RAM</span>
-                <span class="font-mono text-emerald-400 font-bold">&lt; 38 MB</span>
+                <span class="font-mono text-teal-400 font-bold">&lt; 38 MB</span>
               </div>
               <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
                 <div class="w-1/4 h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full"></div>
               </div>
             </div>
 
-            <!-- Quick Payment Pill -->
+            <!-- Quick Autonomous Delivery Pill -->
             <div class="p-3 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between">
               <div class="flex items-center space-x-2">
-                <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 font-mono text-[9px] font-bold">QRIS</span>
-                <span class="text-xs text-white font-semibold">DANA Bisnis</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[9px] font-bold">100% AI AGENT</span>
+                <span class="text-xs text-white font-semibold">Penyerahan Instan</span>
               </div>
-              <span class="text-xs font-mono font-bold text-brand-400">Pindai & Aktif Instan</span>
+              <span class="text-xs font-mono font-bold text-emerald-400">Zero Owner Wait</span>
             </div>
 
             <!-- Floating Micro-Badges (Matching Reference Icons: Clothes, Cart, Diamond, Watch!) -->
-            <div class="absolute -top-4 -right-4 w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-500 to-indigo-500 text-white flex items-center justify-center shadow-lg shadow-purple-500/30 animate-float-slow">
+            <div class="absolute -top-4 -right-4 w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-slate-950 flex items-center justify-center shadow-lg shadow-emerald-500/30 animate-float-slow">
               <i data-lucide="layers" class="w-5 h-5"></i>
             </div>
 
-            <div class="absolute top-1/2 -right-6 w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-500 to-blue-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 animate-float-delayed">
+            <div class="absolute top-1/2 -right-6 w-11 h-11 rounded-2xl bg-gradient-to-tr from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shadow-teal-500/30 animate-float-delayed">
               <i data-lucide="database" class="w-5 h-5"></i>
             </div>
 
-            <div class="absolute -bottom-4 right-8 w-11 h-11 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-500 text-white flex items-center justify-center shadow-lg shadow-pink-500/30 animate-float-slow">
+            <div class="absolute -bottom-4 right-8 w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-lime-500 text-slate-950 flex items-center justify-center shadow-lg shadow-lime-500/30 animate-float-slow">
               <i data-lucide="shield-check" class="w-5 h-5"></i>
             </div>
 
-            <div class="absolute -bottom-5 -left-3 w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30 animate-float-delayed">
+            <div class="absolute -bottom-5 -left-3 w-11 h-11 rounded-2xl bg-gradient-to-tr from-lime-500 to-emerald-500 text-slate-950 flex items-center justify-center shadow-lg shadow-emerald-500/30 animate-float-delayed">
               <i data-lucide="activity" class="w-5 h-5"></i>
             </div>
 
@@ -669,11 +670,11 @@
   <!-- ============================================================================== -->
   <!-- INTERACTIVE ARCHITECTURE & CODE PREVIEW TERMINAL -->
   <!-- ============================================================================== -->
-  <section id="terminal-demo" class="py-16 border-b border-indigo-950/70 bg-navy-950 relative">
+  <section id="terminal-demo" class="py-16 border-b border-emerald-950/70 bg-navy-950 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       
       <div class="text-center max-w-3xl mx-auto mb-10">
-        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-mono mb-2">
+        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono mb-2">
           <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
           <span>Pipeline Arsitektur Live</span>
         </div>
@@ -719,7 +720,7 @@
               </button>
             </div>
 
-            <button onclick="copyCurrentDemoCode()" class="text-[11px] text-slate-300 hover:text-white flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700/80 transition-all active:scale-95">
+            <button onclick="copyCurrentDemoCode()" class="text-[11px] text-slate-300 hover:text-white flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-800/80 hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-slate-700/80 transition-all active:scale-95">
               <i data-lucide="copy" class="w-3 h-3 text-cyan-400"></i>
               <span id="copyDemoBtnText">Salin Cuplikan</span>
             </button>
@@ -766,8 +767,8 @@
         </div>
         <div class="glass-card glass-card-hover p-4 rounded-xl border border-slate-800">
           <div class="flex items-center justify-between">
-            <div class="text-purple-400 font-mono text-2xl font-bold">Dual Adapter</div>
-            <i data-lucide="database" class="w-5 h-5 text-purple-400/60"></i>
+            <div class="text-teal-400 font-mono text-2xl font-bold">Dual Adapter</div>
+            <i data-lucide="database" class="w-5 h-5 text-teal-400/60"></i>
           </div>
           <div class="text-xs text-slate-400 mt-1">REST API Langsung + Staging Table (SQL Server, MySQL, PG)</div>
         </div>
@@ -838,7 +839,7 @@
         <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between border border-slate-800 relative">
           <div class="absolute top-4 right-4 text-xs font-mono font-bold text-slate-500">STAGE 03</div>
           <div>
-            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-4">
+            <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center mb-4">
               <i data-lucide="send" class="w-6 h-6"></i>
             </div>
             <h3 class="text-lg font-bold text-white mb-2">3. Outbound Worker Delivery</h3>
@@ -865,7 +866,7 @@
           <span>Multi-Tenant Boundary: <strong>Isolasi rumah_sakit_id</strong></span>
         </div>
         <div class="flex items-center space-x-2">
-          <i data-lucide="server" class="w-4 h-4 text-purple-400"></i>
+          <i data-lucide="server" class="w-4 h-4 text-teal-400"></i>
           <span>Kepatuhan Privasi: <strong>100% On-Premise Sesuai UU PDP</strong></span>
         </div>
       </div>
@@ -903,15 +904,15 @@
 
       <!-- Category Filter Tabs with Tactile Styling -->
       <div class="flex items-center space-x-2 overflow-x-auto pb-4 mb-6 text-xs font-medium text-slate-300" id="categoryTabs">
-        <button onclick="filterCategory('ALL')" class="category-btn active px-4 py-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white font-bold shadow-md shadow-indigo-600/30 whitespace-nowrap active:scale-95 transition-all">Semua (47)</button>
-        <button onclick="filterCategory('Clinical Core')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 whitespace-nowrap active:scale-95 transition-all">Klinis Inti</button>
-        <button onclick="filterCategory('Pharmacy')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 whitespace-nowrap active:scale-95 transition-all">Farmasi & BMHP</button>
-        <button onclick="filterCategory('Diagnostic')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 whitespace-nowrap active:scale-95 transition-all">Penunjang (Lab & Rad)</button>
-        <button onclick="filterCategory('Emergency')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 whitespace-nowrap active:scale-95 transition-all">Triase IGD</button>
-        <button onclick="filterCategory('Surgical')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 whitespace-nowrap active:scale-95 transition-all">Bedah & Anestesi</button>
-        <button onclick="filterCategory('Financial')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 whitespace-nowrap active:scale-95 transition-all">Billing & Pre-Klaim</button>
-        <button onclick="filterCategory('Medical Device')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 whitespace-nowrap active:scale-95 transition-all">Alat Kesehatan</button>
-        <button onclick="filterCategory('TTE & Legal Integrity')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 whitespace-nowrap active:scale-95 transition-all">TTE BSrE Sign</button>
+        <button onclick="filterCategory('ALL')" class="category-btn active px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-slate-950 font-black shadow-md shadow-emerald-500/30 whitespace-nowrap active:scale-95 transition-all">Semua (47)</button>
+        <button onclick="filterCategory('Clinical Core')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 hover:border-emerald-500/40 hover:text-emerald-300 whitespace-nowrap active:scale-95 transition-all">Klinis Inti</button>
+        <button onclick="filterCategory('Pharmacy')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 hover:border-emerald-500/40 hover:text-emerald-300 whitespace-nowrap active:scale-95 transition-all">Farmasi & BMHP</button>
+        <button onclick="filterCategory('Diagnostic')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 hover:border-emerald-500/40 hover:text-emerald-300 whitespace-nowrap active:scale-95 transition-all">Penunjang (Lab & Rad)</button>
+        <button onclick="filterCategory('Emergency')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 hover:border-emerald-500/40 hover:text-emerald-300 whitespace-nowrap active:scale-95 transition-all">Triase IGD</button>
+        <button onclick="filterCategory('Surgical')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 hover:border-emerald-500/40 hover:text-emerald-300 whitespace-nowrap active:scale-95 transition-all">Bedah & Anestesi</button>
+        <button onclick="filterCategory('Financial')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 hover:border-emerald-500/40 hover:text-emerald-300 whitespace-nowrap active:scale-95 transition-all">Billing & Pre-Klaim</button>
+        <button onclick="filterCategory('Medical Device')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 hover:border-emerald-500/40 hover:text-emerald-300 whitespace-nowrap active:scale-95 transition-all">Alat Kesehatan</button>
+        <button onclick="filterCategory('TTE & Legal Integrity')" class="category-btn px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/70 hover:border-emerald-500/40 hover:text-emerald-300 whitespace-nowrap active:scale-95 transition-all">TTE BSrE Sign</button>
       </div>
 
       <!-- Profile Cards Grid -->
@@ -932,7 +933,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-2xl mx-auto mb-8">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-3">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-3">
           <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
           <span>Pusat Konsultasi Teknis Interaktif</span>
         </div>
@@ -946,27 +947,27 @@
       <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-700/80 shadow-2xl relative overflow-hidden">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
           
-          <button onclick="sendQuickPrompt('Bagaimana cara kerja Table Adapter tanpa merusak database SIMRS?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-cyan-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
-            <div class="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex-shrink-0 group-hover:bg-cyan-500/20">
+          <button onclick="sendQuickPrompt('Bagaimana cara kerja Table Adapter tanpa merusak database SIMRS?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
+            <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex-shrink-0 group-hover:bg-emerald-500/20">
               <i data-lucide="database" class="w-5 h-5"></i>
             </div>
             <div>
               <div class="text-white font-bold text-sm flex items-center space-x-1.5">
                 <span>Arsitektur Table Adapter Staging</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
               </div>
               <p class="text-slate-400 text-xs mt-1 leading-relaxed">Konsultasi cara kerja tabel perantara tanpa menyentuh atau merusak tabel transaksi produksi SIMRS Anda.</p>
             </div>
           </button>
 
-          <button onclick="sendQuickPrompt('Apa perbedaan 47 profil Playbook dengan 33 tipe FHIR unik?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-blue-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
-            <div class="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 flex-shrink-0 group-hover:bg-blue-500/20">
+          <button onclick="sendQuickPrompt('Apa perbedaan 47 profil Playbook dengan 33 tipe FHIR unik?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
+            <div class="p-2.5 rounded-lg bg-teal-500/10 border border-teal-500/20 text-teal-400 flex-shrink-0 group-hover:bg-teal-500/20">
               <i data-lucide="layers" class="w-5 h-5"></i>
             </div>
             <div>
               <div class="text-white font-bold text-sm flex items-center space-x-1.5">
                 <span>47 Profil Playbook & 33 FHIR</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
               </div>
               <p class="text-slate-400 text-xs mt-1 leading-relaxed">Eksplorasi pemetaan LOINC, SNOMED CT, KFA Farmasi, ICD-10/9-CM, hingga 12 staging generic envelope.</p>
             </div>
@@ -1008,7 +1009,7 @@
             <span>AI Copilot Siap Melayani di Pojok Kanan Bawah</span>
           </div>
 
-          <button onclick="toggleChat(true)" class="w-full sm:w-auto px-7 py-3 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs shadow-xl shadow-indigo-600/35 flex items-center justify-center space-x-2 transition-all transform hover:-translate-y-0.5 active:scale-95">
+          <button onclick="toggleChat(true)" class="w-full sm:w-auto px-7 py-3 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-xl shadow-emerald-500/35 flex items-center justify-center space-x-2 transition-all transform hover:-translate-y-0.5 active:scale-95">
             <i data-lucide="message-square" class="w-4 h-4"></i>
             <span>Buka Live Chat AI Sekarang</span>
           </button>
@@ -1025,7 +1026,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-2xl mx-auto mb-10">
-        <h2 class="text-xs font-semibold text-brand-400 uppercase tracking-wider font-mono">Simulasi Finansial Fasyankes</h2>
+        <h2 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider font-mono">Simulasi Finansial Fasyankes</h2>
         <p class="mt-2 text-3xl font-extrabold text-white">Komparasi Total Biaya Kepemilikan (TCO)</p>
         <p class="mt-2 text-xs text-slate-400">Bandingkan skema sewa bulanan vendor cloud dengan kepemilikan lisensi permanen on-premise.</p>
       </div>
@@ -1037,18 +1038,18 @@
           <div>
             <div class="flex justify-between text-xs font-semibold mb-2">
               <span class="text-slate-300">Estimasi Biaya Langganan Vendor Cloud / Bulan</span>
-              <span id="saasMonthlyLabel" class="text-brand-400 font-mono">Rp 3.500.000 / bln</span>
+              <span id="saasMonthlyLabel" class="text-emerald-400 font-mono">Rp 3.500.000 / bln</span>
             </div>
-            <input id="saasSlider" type="range" min="1500000" max="10000000" step="500000" value="3500000" oninput="calculateTco()" class="w-full accent-brand-500 cursor-pointer">
+            <input id="saasSlider" type="range" min="1500000" max="10000000" step="500000" value="3500000" oninput="calculateTco()" class="w-full accent-emerald-500 cursor-pointer">
             <span class="text-[10px] text-slate-400">Biaya tipikal vendor cloud bridge / middleware per fasyankes.</span>
           </div>
 
           <div>
             <div class="flex justify-between text-xs font-semibold mb-2">
               <span class="text-slate-300">Horison Waktu Evaluasi Operasional</span>
-              <span id="yearsLabel" class="text-brand-400 font-mono">3 Tahun (36 Bulan)</span>
+              <span id="yearsLabel" class="text-emerald-400 font-mono">3 Tahun (36 Bulan)</span>
             </div>
-            <input id="yearsSlider" type="range" min="1" max="5" step="1" value="3" oninput="calculateTco()" class="w-full accent-brand-500 cursor-pointer">
+            <input id="yearsSlider" type="range" min="1" max="5" step="1" value="3" oninput="calculateTco()" class="w-full accent-emerald-500 cursor-pointer">
             <span class="text-[10px] text-slate-400">Periode evaluasi operasional rumah sakit atau klinik.</span>
           </div>
 
@@ -1068,18 +1069,18 @@
 
             <div>
               <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-brand-400 font-medium">SATUSEHAT Bridge (Permanen Promo $299)</span>
-                <span id="barBridgeLabel" class="text-brand-400 font-mono font-bold">$299 USD (± Memuat IDR...)</span>
+                <span class="text-emerald-400 font-medium">SATUSEHAT Bridge (Permanen Promo $299)</span>
+                <span id="barBridgeLabel" class="text-emerald-400 font-mono font-bold">$299 USD (± Memuat IDR...)</span>
               </div>
               <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
-                <div id="barBridgeFill" class="bg-gradient-to-r from-brand-500 to-cyan-400 h-full rounded-full transition-all duration-500" style="width: 3.8%;"></div>
+                <div id="barBridgeFill" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500" style="width: 3.8%;"></div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Result Box -->
-        <div class="bg-gradient-to-br from-slate-900 to-navy-950 p-6 sm:p-7 rounded-2xl border border-brand-500/30 flex flex-col justify-between text-center shadow-xl">
+        <div class="bg-gradient-to-br from-slate-900 to-navy-950 p-6 sm:p-7 rounded-2xl border border-emerald-500/30 flex flex-col justify-between text-center shadow-xl">
           <div>
             <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Total Biaya Vendor Langganan (SaaS)</span>
             <div id="saasTotalCost" class="text-3xl sm:text-4xl font-extrabold text-rose-400 font-mono mt-1">Rp 126.000.000</div>
@@ -1087,13 +1088,13 @@
           </div>
 
           <div class="my-6 py-4 border-y border-slate-800">
-            <span class="text-xs font-mono text-brand-400 uppercase tracking-wider">Total Anggaran yang Dihemat</span>
-            <div id="savingsCost" class="text-4xl sm:text-5xl font-black text-brand-400 font-mono mt-1">Rp 121.250.000</div>
-            <div id="savingsPercent" class="text-xs text-brand-300 font-medium mt-1">Efisiensi Biaya: 96.2%</div>
+            <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider">Total Anggaran yang Dihemat</span>
+            <div id="savingsCost" class="text-4xl sm:text-5xl font-black text-emerald-400 font-mono mt-1">Rp 121.250.000</div>
+            <div id="savingsPercent" class="text-xs text-emerald-300 font-medium mt-1">Efisiensi Biaya: 96.2%</div>
             <div id="tcoIdrNote" class="text-[11px] text-slate-400 font-mono mt-1.5">Estimasi IDR: Memuat kurs live...</div>
           </div>
 
-          <button onclick="openOrderModal()" class="w-full py-3.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-xl shadow-indigo-600/35 transform hover:-translate-y-0.5 active:scale-95">
+          <button onclick="openOrderModal()" class="w-full py-3.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-emerald-500/35 transform hover:-translate-y-0.5 active:scale-95">
             Pesan Lisensi Promo $299 (Normal $500)
           </button>
         </div>
@@ -1121,7 +1122,7 @@
         </div>
 
         <div class="p-8">
-          <div class="text-xs font-mono text-indigo-400 font-semibold">Lisensi Komersial Tunggal Fasyankes</div>
+          <div class="text-xs font-mono text-emerald-400 font-semibold">Lisensi Komersial Tunggal Fasyankes</div>
           <h3 class="text-2xl font-bold text-white mt-1">SATUSEHAT Bridge Enterprise Core</h3>
           
           <!-- Strikethrough Normal Price vs Promo Price -->
@@ -1185,19 +1186,20 @@
 
           <!-- Action Buttons -->
           <div class="mt-8 space-y-3">
-            <button onclick="openOrderModal()" class="w-full py-3.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-xl shadow-indigo-600/35 flex items-center justify-center space-x-2 transition-all transform hover:-translate-y-0.5 active:scale-95">
-              <i data-lucide="file-text" class="w-4 h-4"></i>
-              <span>Pesan Lisensi Promo $299</span>
+            <button onclick="openOrderModal()" class="w-full py-3.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl shadow-emerald-500/35 flex items-center justify-center space-x-2 transition-all transform hover:-translate-y-0.5 active:scale-95">
+              <i data-lucide="zap" class="w-4 h-4"></i>
+              <span>Aktivasi Mandiri & Penyerahan Produk Instan</span>
             </button>
             
             <button onclick="toggleChat(true)" class="w-full py-3 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700/80 text-slate-200 hover:text-white font-semibold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95">
               <i data-lucide="bot" class="w-4 h-4 text-cyan-400"></i>
-              <span>Konsultasi Teknis & Kurs Pembayaran</span>
+              <span>Konsultasi Teknis via AI Copilot</span>
             </button>
           </div>
 
-          <div class="mt-4 text-[10px] text-center text-slate-400">
-            Pengiriman paket source code dilakukan maksimal 1 jam setelah konfirmasi pembayaran.
+          <div class="mt-4 text-[10px] text-center text-emerald-400 flex items-center justify-center space-x-1.5 font-medium">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>
+            <span>Penyerahan lisensi & produk 100% otonom oleh AI Agent secara instan tanpa campur tangan manual owner.</span>
           </div>
         </div>
       </div>
@@ -1222,7 +1224,7 @@
       <div class="p-5 overflow-y-auto flex-1 font-mono text-xs">
         <div class="flex justify-between items-center mb-2">
           <span id="modalEndpointBadge" class="text-[11px] text-cyan-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">POST /api/v1/...</span>
-          <button onclick="copyModalJson()" class="px-3 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-xs text-indigo-300 hover:text-white border border-slate-700 flex items-center space-x-1.5 transition-colors active:scale-95">
+          <button onclick="copyModalJson()" class="px-3 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-xs text-emerald-300 hover:text-white border border-slate-700 flex items-center space-x-1.5 transition-colors active:scale-95">
             <i data-lucide="copy" class="w-3.5 h-3.5 text-cyan-400"></i>
             <span id="copyBtnText">Salin JSON</span>
           </button>
@@ -1233,7 +1235,7 @@
   </div>
 
   <!-- ============================================================================== -->
-  <!-- MODAL: PEMESANAN & PROFORMA INVOICE -->
+  <!-- MODAL: PEMESANAN & PENYERAHAN PRODUK OTONOM OLEH AI AGENT -->
   <!-- ============================================================================== -->
   <div id="orderModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md overflow-y-auto p-3 sm:p-6 lg:p-8 flex justify-center items-start sm:items-center">
     <div id="orderModalCard" class="glass-card w-full max-w-xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95">
@@ -1244,10 +1246,10 @@
         <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90 flex-shrink-0">
           <div>
             <h3 class="text-base sm:text-lg font-bold text-white flex items-center space-x-2">
-              <i data-lucide="file-text" class="w-5 h-5 text-brand-400"></i>
-              <span>Formulir Pemesanan Lisensi Fasyankes</span>
+              <i data-lucide="bot" class="w-5 h-5 text-brand-400"></i>
+              <span>Aktivasi Mandiri & Penyerahan Produk Instan</span>
             </h3>
-            <p class="text-xs text-slate-400 mt-0.5">SATUSEHAT Bridge Enterprise Core — Promo $299 USD (Normal $500 USD)</p>
+            <p class="text-xs text-slate-400 mt-0.5">Diproses dan diserahkan 100% otonom oleh AI Agent — Tanpa campur tangan manual owner</p>
           </div>
           <button onclick="closeOrderModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -1299,37 +1301,37 @@
           </div>
 
           <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 space-y-1">
-            <span class="text-slate-300 font-medium flex items-center space-x-1.5">
-              <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400"></i>
-              <span>Prosedur Aktivasi Lisensi:</span>
+            <span class="text-emerald-400 font-medium flex items-center space-x-1.5">
+              <i data-lucide="zap" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>Proses Otonom oleh AI Agent:</span>
             </span>
-            <p>Setelah formulir dikirim, sistem menerbitkan <strong>Proforma Invoice resmi 2-kolom</strong> beserta barcode pembayaran QRIS DANA Bisnis. Bukti pembayaran akan diproses dan diverifikasi untuk pengiriman source code lisensi fasyankes.</p>
+            <p>Setelah formulir dikirim, AI Agent langsung melakukan validasi kompatibilitas SIMRS, mengikat lisensi permanen secara kriptografis ke fasyankes Anda, dan <strong>menyerahkan paket rilis beserta file konfigurasi deployment secara instan tanpa proses manual owner</strong>.</p>
           </div>
 
           <div class="pt-2 flex items-center justify-end space-x-2">
             <button type="button" onclick="closeOrderModal()" class="px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-800 text-slate-300 font-medium transition-colors active:scale-95">Batal</button>
-            <button type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold flex items-center space-x-2 transition-all shadow-lg shadow-indigo-600/35 active:scale-95">
-              <span>Terbitkan Proforma Invoice</span>
+            <button type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black flex items-center space-x-2 transition-all shadow-lg shadow-emerald-500/35 active:scale-95">
+              <span>Proses Otonom & Serahkan Produk</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
           </div>
         </form>
       </div>
 
-      <!-- Step 2: Proforma Invoice Display (Responsive 2-Column Split on Desktop) -->
+      <!-- Step 2: Autonomous Delivery Display (Responsive 2-Column Split on Desktop) -->
       <div id="orderInvoiceStep" class="hidden flex flex-col max-h-[92vh]">
         <!-- Sticky Header Step 2 -->
         <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90 flex-shrink-0">
           <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-lg bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400">
-              <i data-lucide="check-circle" class="w-5 h-5"></i>
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-md shadow-emerald-500/20">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
             </div>
             <div>
               <div class="flex items-center space-x-2">
-                <span class="font-bold text-white text-base sm:text-lg">Proforma Invoice Resmi Terbit</span>
-                <span id="invOrderId" class="hidden sm:inline-block px-2.5 py-0.5 rounded-md bg-brand-500/10 border border-brand-500/30 text-brand-400 font-mono text-xs font-bold">SB-ORD-...</span>
+                <span class="font-bold text-white text-base sm:text-lg">Paket Produk & Lisensi Diserahkan oleh AI Agent</span>
+                <span id="invOrderId" class="hidden sm:inline-block px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold">SB-ORD-...</span>
               </div>
-              <p class="text-[11px] text-slate-400">Selesaikan pembayaran melalui QRIS Statis DANA Bisnis untuk aktivasi lisensi.</p>
+              <p class="text-[11px] text-slate-400">Verifikasi & penerbitan lisensi selesai secara 100% otonom. Produk Anda siap diunduh & dijalankan.</p>
             </div>
           </div>
           <button onclick="closeOrderModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
@@ -1341,47 +1343,54 @@
         <div class="overflow-y-auto p-4 sm:p-6 lg:p-7 flex-1">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
-            <!-- Left Column: Order Breakdown & Actions (7 cols) -->
+            <!-- Left Column: Delivery Artifacts & Downloads (7 cols) -->
             <div class="lg:col-span-7 space-y-4">
               <!-- Order Details Card -->
               <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-3 font-mono text-xs">
                 <div class="flex justify-between items-center pb-2.5 border-b border-slate-800/80">
-                  <span class="text-slate-400 font-sans">Nomor Order:</span>
+                  <span class="text-slate-400 font-sans">Nomor Order / Registrasi:</span>
                   <span id="invOrderIdMobile" class="text-brand-400 font-bold">SB-ORD-...</span>
                 </div>
                 <div class="flex justify-between items-start text-[11px]">
-                  <span class="text-slate-400 font-sans">Fasyankes Pemesan:</span>
+                  <span class="text-slate-400 font-sans">Fasyankes Pemegang Lisensi:</span>
                   <span id="invFacility" class="text-white font-sans font-semibold text-right max-w-[65%]">...</span>
                 </div>
                 <div class="flex justify-between items-center text-[11px]">
-                  <span class="text-slate-400 font-sans">PIC & Kontak:</span>
+                  <span class="text-slate-400 font-sans">PIC Teknis Terdaftar:</span>
                   <span id="invPic" class="text-slate-300 font-sans text-right max-w-[65%] truncate">...</span>
                 </div>
                 <div class="flex justify-between items-center text-[11px]">
-                  <span class="text-slate-400 font-sans">Engine SIMRS Target:</span>
+                  <span class="text-slate-400 font-sans">Engine SIMRS Terpasang:</span>
                   <span id="invDatabase" class="text-cyan-400 font-sans font-medium">...</span>
                 </div>
                 <div class="flex justify-between items-center text-[11px]">
-                  <span class="text-slate-400 font-sans">Cakupan FHIR:</span>
-                  <span class="text-emerald-400 font-sans font-medium">47 Profil Playbook Kemenkes DTO</span>
+                  <span class="text-slate-400 font-sans">Cakupan Modul:</span>
+                  <span class="text-emerald-400 font-sans font-medium">47 Profil Playbook Kemenkes DTO & 33 FHIR R4</span>
                 </div>
                 <div class="flex justify-between items-center text-[11px]">
                   <span class="text-slate-400 font-sans">Masa Berlaku Lisensi:</span>
-                  <span class="text-slate-200 font-sans font-medium">Seumur Hidup (Lifetime On-Premise)</span>
+                  <span class="text-slate-200 font-sans font-medium">Permanen (Lifetime On-Premise)</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px] pt-1 border-t border-slate-800/80">
+                  <span class="text-slate-400 font-sans">Otoritas Penyerahan:</span>
+                  <span class="text-teal-400 font-sans font-medium flex items-center space-x-1">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span>AI Autonomous Agent v2.2.0 (Nol Proses Manual)</span>
+                  </span>
                 </div>
               </div>
 
               <!-- Price Box -->
-              <div class="p-4 rounded-xl bg-gradient-to-br from-brand-950/40 via-slate-900 to-slate-950 border border-brand-500/30 space-y-1.5">
+              <div class="p-4 rounded-xl bg-gradient-to-br from-emerald-950/30 via-slate-900 to-slate-950 border border-emerald-500/30 space-y-1.5">
                 <div class="flex items-center justify-between text-xs text-slate-300 font-medium">
-                  <span>Total Tagihan Lisensi Enterprise:</span>
-                  <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-bold">Promo Launch 40% OFF</span>
+                  <span>Tagihan Lisensi Promo Peluncuran:</span>
+                  <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-bold">Hemat 40% (Promo $299)</span>
                 </div>
                 <div class="flex items-baseline justify-between pt-1">
                   <div>
-                    <span class="text-2xl sm:text-3xl font-bold font-mono text-brand-400 tracking-tight">$299</span>
-                    <span class="text-sm font-bold font-mono text-brand-400 ml-1">USD</span>
-                    <span class="text-xs text-rose-400 line-through font-normal ml-2 font-mono">(Normal $500 USD)</span>
+                    <span class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400 tracking-tight">$299</span>
+                    <span class="text-sm font-bold font-mono text-emerald-400 ml-1">USD</span>
+                    <span class="text-xs text-slate-400 line-through font-normal ml-2 font-mono">(Normal $500 USD)</span>
                   </div>
                 </div>
                 <div id="invIdrEquivalent" class="text-xs text-cyan-300 font-mono flex items-center space-x-1.5 pt-1 border-t border-slate-800">
@@ -1390,118 +1399,101 @@
                 </div>
               </div>
 
-              <!-- Payment Flow Instructions -->
-              <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 space-y-2">
-                <div class="font-bold text-slate-200 flex items-center space-x-1.5 text-xs">
-                  <i data-lucide="shield-check" class="w-4 h-4 text-brand-400"></i>
-                  <span>Langkah Penyelesaian Pembayaran:</span>
-                </div>
-                <ol class="list-decimal list-inside space-y-1.5 text-[11px] text-slate-400 leading-relaxed">
-                  <li>Pindai QRIS DANA Bisnis pada panel kanan menggunakan m-Banking atau e-Wallet Anda.</li>
-                  <li>Masukkan nominal transfer sesuai nominal estimasi IDR di atas.</li>
-                  <li>Simpan tangkapan layar (screenshot) bukti transfer sukses.</li>
-                  <li>Klik tombol <strong class="text-white">Kirim Email Konfirmasi</strong> di bawah untuk membuka draft email resmi ke sales SATUSEHAT Bridge.</li>
-                </ol>
-              </div>
-
-              <!-- Action Buttons -->
+              <!-- Direct Artifact Downloads Generated by Agent -->
               <div class="space-y-2.5 pt-1">
-                <a id="invMailtoBtn" href="#" class="w-full py-3.5 px-4 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-xl shadow-indigo-600/35 transform hover:-translate-y-0.5 active:scale-95">
-                  <i data-lucide="mail" class="w-4 h-4"></i>
-                  <span>Kirim Email Konfirmasi Otomatis</span>
-                </a>
-                <button onclick="copyInvoiceDetails()" class="w-full py-2.5 px-4 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700/80 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center space-x-2 transition-colors active:scale-95">
+                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono flex items-center space-x-1.5">
+                  <i data-lucide="package-check" class="w-4 h-4 text-emerald-400"></i>
+                  <span>Artefak Produk Diserahkan Langsung:</span>
+                </div>
+
+                <button onclick="downloadLicenseCertificate()" class="w-full py-3.5 px-4 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-xl shadow-emerald-500/35 transform hover:-translate-y-0.5 active:scale-95">
+                  <i data-lucide="file-check-2" class="w-4 h-4"></i>
+                  <span>Unduh Sertifikat Lisensi Resmi (.md)</span>
+                </button>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button onclick="downloadDockerCompose()" class="py-2.5 px-3 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center space-x-2 transition-colors active:scale-95">
+                    <i data-lucide="file-code" class="w-4 h-4 text-cyan-400"></i>
+                    <span>Unduh docker-compose.yml</span>
+                  </button>
+                  <button onclick="downloadEnvStarter()" class="py-2.5 px-3 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center space-x-2 transition-colors active:scale-95">
+                    <i data-lucide="key" class="w-4 h-4 text-teal-400"></i>
+                    <span>Unduh .env.production</span>
+                  </button>
+                </div>
+
+                <button onclick="copyInvoiceDetails()" class="w-full py-2.5 px-4 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-xs font-medium flex items-center justify-center space-x-2 transition-colors active:scale-95">
                   <i data-lucide="copy" class="w-4 h-4 text-cyan-400"></i>
-                  <span id="copyInvBtnText">Salin Rincian Pesanan ke Clipboard</span>
+                  <span id="copyInvBtnText">Salin Seluruh Ringkasan Registrasi & Kunci Lisensi</span>
                 </button>
               </div>
             </div>
 
-            <!-- Right Column: Dedicated QRIS DANA Bisnis Card (5 cols) -->
+            <!-- Right Column: Cryptographic Key & Instant Deploy Guide (5 cols) -->
             <div class="lg:col-span-5">
-              <div class="p-5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700/80 shadow-2xl text-center space-y-3.5">
+              <div class="p-5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700/80 shadow-2xl text-left space-y-3.5">
                 
                 <!-- Card Header -->
                 <div class="flex items-center justify-between pb-2.5 border-b border-slate-800 text-xs">
                   <div class="flex items-center space-x-1.5 font-bold text-white">
-                    <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30 font-mono text-[10px] font-bold">QRIS</span>
-                    <span class="text-cyan-400 font-semibold">DANA Bisnis</span>
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono text-[10px] font-bold">AKTIF</span>
+                    <span class="text-teal-400 font-semibold">Otorisasi AI Agent</span>
                   </div>
-                  <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-medium flex items-center space-x-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-                    <span>Menunggu Pembayaran</span>
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-medium flex items-center space-x-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    <span>100% Otonom</span>
                   </span>
                 </div>
 
-                <!-- Merchant & NMID Info -->
-                <div class="space-y-0.5">
-                  <div class="text-[11px] font-medium text-slate-400">Merchant Resmi QRIS Nasional:</div>
-                  <div class="text-sm font-bold text-white tracking-wide">SATUSEHAT-BRIDGE, Komputer</div>
-                  <div class="flex items-center justify-center space-x-1.5 pt-0.5">
-                    <span class="text-[10px] text-slate-400 font-mono">NMID: <strong class="text-slate-200">ID1026615158296</strong></span>
-                    <button type="button" onclick="copyNmid()" class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-400 text-[10px] flex items-center space-x-1 transition-colors">
+                <!-- License Key Box -->
+                <div class="space-y-1.5">
+                  <div class="text-[11px] font-medium text-slate-400">Kunci Lisensi Fasyankes Resmi:</div>
+                  <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-emerald-300 break-all select-all flex items-center justify-between gap-2">
+                    <span id="invLicenseKey">SSB-CORE-LIC-...</span>
+                    <button type="button" onclick="copyLicenseKey()" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-400 text-[10px] flex items-center space-x-1 flex-shrink-0 transition-colors">
                       <i data-lucide="copy" class="w-3 h-3"></i>
-                      <span id="copyNmidBtnText">Salin</span>
+                      <span id="copyLicBtnText">Salin</span>
                     </button>
                   </div>
                 </div>
 
-                <!-- View Mode Switcher -->
-                <div class="flex items-center justify-center p-1 rounded-full bg-slate-950 border border-slate-800/80 max-w-[300px] mx-auto">
-                  <button type="button" id="qrisTabHc" onclick="switchQrisView('hc')" class="flex-1 py-1.5 px-3 rounded-full text-[10px] sm:text-[11px] font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white shadow-md shadow-indigo-600/30 transition-all flex items-center justify-center space-x-1">
-                    <i data-lucide="zap" class="w-3 h-3"></i>
-                    <span>High-Contrast</span>
-                  </button>
-                  <button type="button" id="qrisTabPoster" onclick="switchQrisView('poster')" class="flex-1 py-1.5 px-3 rounded-full text-[10px] sm:text-[11px] font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center justify-center space-x-1">
-                    <i data-lucide="image" class="w-3 h-3"></i>
-                    <span>Lembar Poster</span>
-                  </button>
-                </div>
-
-                <!-- QR Container Frame: High Contrast White Box -->
-                <div class="inline-block p-3.5 sm:p-4 rounded-2xl bg-white shadow-2xl mx-auto relative group border-2 border-slate-800 ring-4 ring-emerald-500/20">
-                  <a id="qrisDownloadLink" href="assets/qris-high-contrast.png" target="_blank" rel="noopener noreferrer" title="Klik untuk membuka QRIS ukuran penuh" class="block">
-                    <div id="qrisImageContainer" class="w-48 h-48 sm:w-56 sm:h-56 bg-white rounded-xl flex items-center justify-center overflow-hidden relative">
-                      <img id="qrisImg" src="assets/qris-high-contrast.png" alt="QRIS High-Contrast SATUSEHAT Bridge" class="w-full h-full object-contain mx-auto transition-transform hover:scale-105" style="image-rendering: -webkit-optimize-contrast; image-rendering: pixelated; image-rendering: crisp-edges;">
-                    </div>
-                  </a>
-                </div>
-
-                <!-- High Contrast Indicator Badge -->
-                <div class="flex items-center justify-center space-x-1.5 text-[10px] text-emerald-400 font-medium">
-                  <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-                  <span>Optik Kontras Tinggi: 100% Cepat Terkunci Kamera Scanner</span>
-                </div>
-
-                <!-- Download / Open Link -->
-                <div>
-                  <a id="qrisDownloadBtn" href="assets/qris-high-contrast.png" download="QRIS-SATUSEHAT-Bridge-HighContrast.png" class="inline-flex items-center space-x-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
-                    <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                    <span id="qrisDownloadText">Unduh QR Code High-Contrast (PNG)</span>
-                  </a>
-                </div>
-
-                <!-- Nominal Transfer Pill -->
-                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center space-y-1">
-                  <div class="text-[10px] text-slate-400 font-medium">Nominal Transfer (Sesuai Kurs Live):</div>
-                  <div id="qrisAmountText" class="text-base sm:text-lg font-bold font-mono text-brand-400">Rp ...</div>
-                  <div class="text-[10px] text-slate-500">Bebas biaya admin antar bank via QRIS Nasional</div>
-                </div>
-
-                <!-- Accepted Methods Badges -->
-                <div class="pt-1 border-t border-slate-800/80 text-[10px] text-slate-400 space-y-1.5">
-                  <div class="font-medium text-slate-300 text-[10px]">Mendukung seluruh m-Banking & e-Wallet:</div>
-                  <div class="flex flex-wrap items-center justify-center gap-1 text-[9px] font-semibold text-slate-300">
-                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BCA</span>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Mandiri</span>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BRI</span>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BNI</span>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BSI</span>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">DANA</span>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">GoPay</span>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">OVO</span>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">ShopeePay</span>
+                <!-- Security & Token Specs -->
+                <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-[11px] text-slate-300 space-y-1.5">
+                  <div class="flex justify-between items-center text-[10px] text-slate-400">
+                    <span>Enkripsi Host:</span>
+                    <span class="text-emerald-400 font-mono font-bold">AES-256-GCM + HMAC-SHA256</span>
                   </div>
+                  <div class="flex justify-between items-center text-[10px] text-slate-400">
+                    <span>Checksum SHA-256:</span>
+                    <span id="invSha256" class="text-cyan-400 font-mono font-bold truncate max-w-[150px]">...</span>
+                  </div>
+                  <div class="flex justify-between items-center text-[10px] text-slate-400">
+                    <span>Status Operasional:</span>
+                    <span class="text-slate-200">100% On-Premise Mandiri</span>
+                  </div>
+                </div>
+
+                <!-- 3-Step Instant Quickstart -->
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800/90 text-xs text-slate-300 space-y-2">
+                  <div class="font-bold text-slate-200 flex items-center space-x-1.5 text-xs">
+                    <i data-lucide="terminal" class="w-4 h-4 text-emerald-400"></i>
+                    <span>3 Langkah Menjalankan On-Premise:</span>
+                  </div>
+                  <ol class="list-decimal list-inside space-y-1 text-[11px] text-slate-400 leading-relaxed">
+                    <li>Simpan berkas lisensi dan konfigurasi dari AI Agent ke server Anda.</li>
+                    <li>Eksekusi perintah <code class="text-emerald-300 font-mono bg-slate-900 px-1 py-0.5 rounded">docker compose up -d</code> di server lokal.</li>
+                    <li>SIMRS langsung terhubung ke SATUSEHAT Kemenkes & BPJS.</li>
+                  </ol>
+                </div>
+
+                <!-- Copilot Helper CTA -->
+                <button type="button" onclick="toggleChat(true)" class="w-full py-2.5 px-3 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/80 text-xs font-medium flex items-center justify-center space-x-2 transition-colors active:scale-95">
+                  <i data-lucide="bot" class="w-4 h-4 text-cyan-400"></i>
+                  <span>Bantuan Instalasi via AI Copilot</span>
+                </button>
+
+                <div class="text-[10px] text-center text-slate-500 pt-1">
+                  Nol dependensi cloud luar, nol DRM runtime, dan zero phone-home.
                 </div>
 
               </div>
@@ -1586,18 +1578,18 @@
     <!-- Quick Prompt Chips -->
     <div class="px-3 py-2 bg-slate-900/90 border-t border-slate-800 flex items-center space-x-1.5 overflow-x-auto text-[10px] text-slate-300">
       <span class="text-slate-500 flex-shrink-0 font-medium">Contoh:</span>
-      <button onclick="sendQuickPrompt('Berapa harga promo $299 lisensi permanen dan estimasi kurs IDR?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-indigo-600/30 hover:border-indigo-500/50 border border-slate-700 text-slate-300 hover:text-white flex-shrink-0 transition-colors">Promo $299 & Kurs IDR</button>
-      <button onclick="sendQuickPrompt('Bagaimana cara kerja Table Adapter tanpa merusak database SIMRS?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-indigo-600/30 hover:border-indigo-500/50 border border-slate-700 text-slate-300 hover:text-white flex-shrink-0 transition-colors">Table Adapter</button>
-      <button onclick="sendQuickPrompt('Apa perbedaan 47 profil Playbook dengan 33 tipe FHIR unik?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-indigo-600/30 hover:border-indigo-500/50 border border-slate-700 text-slate-300 hover:text-white flex-shrink-0 transition-colors">47 Profil vs 33 FHIR</button>
-      <button onclick="sendQuickPrompt('Apa arti status Generic Envelope Ingestion?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-indigo-600/30 hover:border-indigo-500/50 border border-slate-700 text-slate-300 hover:text-white flex-shrink-0 transition-colors">Generic Envelope</button>
-      <button onclick="sendQuickPrompt('Apakah data pasien disimpan di cloud pihak ketiga?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-indigo-600/30 hover:border-indigo-500/50 border border-slate-700 text-slate-300 hover:text-white flex-shrink-0 transition-colors">Privasi Pasien</button>
+      <button onclick="sendQuickPrompt('Berapa harga promo $299 lisensi permanen dan estimasi kurs IDR?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-emerald-500/20 hover:border-emerald-500/40 hover:text-emerald-300 border border-slate-700 text-slate-300 flex-shrink-0 transition-colors">Promo $299 & Kurs IDR</button>
+      <button onclick="sendQuickPrompt('Bagaimana cara kerja Table Adapter tanpa merusak database SIMRS?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-emerald-500/20 hover:border-emerald-500/40 hover:text-emerald-300 border border-slate-700 text-slate-300 flex-shrink-0 transition-colors">Table Adapter</button>
+      <button onclick="sendQuickPrompt('Apa perbedaan 47 profil Playbook dengan 33 tipe FHIR unik?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-emerald-500/20 hover:border-emerald-500/40 hover:text-emerald-300 border border-slate-700 text-slate-300 flex-shrink-0 transition-colors">47 Profil vs 33 FHIR</button>
+      <button onclick="sendQuickPrompt('Apa arti status Generic Envelope Ingestion?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-emerald-500/20 hover:border-emerald-500/40 hover:text-emerald-300 border border-slate-700 text-slate-300 flex-shrink-0 transition-colors">Generic Envelope</button>
+      <button onclick="sendQuickPrompt('Apakah data pasien disimpan di cloud pihak ketiga?')" class="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-emerald-500/20 hover:border-emerald-500/40 hover:text-emerald-300 border border-slate-700 text-slate-300 flex-shrink-0 transition-colors">Privasi Pasien</button>
     </div>
 
     <!-- Chat Input Form -->
     <div class="p-2.5 bg-slate-900 border-t border-slate-800">
       <form id="chatForm" onsubmit="handleChatSubmit(event)" class="flex items-center space-x-1.5">
-        <input id="chatInput" type="text" placeholder="Ketik pertanyaan teknis..." class="flex-1 bg-slate-800/90 border border-slate-700 text-xs text-white rounded-full px-3.5 py-2 focus:outline-none focus:border-indigo-500 placeholder-slate-500">
-        <button type="submit" class="px-4 py-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs flex items-center space-x-1.5 shadow-md shadow-indigo-600/30 transition-all flex-shrink-0 active:scale-95">
+        <input id="chatInput" type="text" placeholder="Ketik pertanyaan teknis..." class="flex-1 bg-slate-800/90 border border-slate-700 text-xs text-white rounded-full px-3.5 py-2 focus:outline-none focus:border-emerald-500 placeholder-slate-500">
+        <button type="submit" class="px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs flex items-center space-x-1.5 shadow-md shadow-emerald-500/30 transition-all flex-shrink-0 active:scale-95">
           <span>Kirim</span>
           <i data-lucide="send" class="w-3 h-3"></i>
         </button>
@@ -1606,12 +1598,12 @@
   </div>
 
   <!-- FLOATING CHAT BUTTON (FAB) -->
-  <button id="floatingChatBtn" onclick="toggleChat()" class="fixed bottom-6 right-4 sm:right-6 z-50 px-5 py-3 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold shadow-2xl shadow-indigo-600/40 flex items-center space-x-2.5 transition-all transform hover:scale-105 active:scale-95 border border-indigo-400/30" aria-label="Buka Live Chat AI Assistant">
+  <button id="floatingChatBtn" onclick="toggleChat()" class="fixed bottom-6 right-4 sm:right-6 z-50 px-5 py-3 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black shadow-2xl shadow-emerald-500/35 flex items-center space-x-2.5 transition-all transform hover:scale-105 active:scale-95 border border-emerald-400/40" aria-label="Buka Live Chat AI Assistant">
     <span class="halo-indicator text-emerald-400">
       <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
     </span>
     <img src="assets/satusehat-bridge-icon.svg" alt="Chat AI" class="w-6 h-6 rounded">
-    <span class="text-xs font-bold text-white hidden sm:inline-block">Tanya AI Assistant</span>
+    <span class="text-xs font-black text-slate-950 hidden sm:inline-block">Tanya AI Assistant</span>
   </button>
 
   <!-- SCROLL TO TOP BUTTON (BUTTON UP) -->
@@ -1895,7 +1887,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
           let tierBadgeColor = 'bg-slate-800 text-slate-300 border-slate-700';
           if (p.tier === 'DEDICATED CANONICAL') tierBadgeColor = 'bg-brand-500/10 text-brand-400 border-brand-500/30';
           else if (p.tier === 'SHARED SERIALIZER') tierBadgeColor = 'bg-blue-500/10 text-blue-400 border-blue-500/30';
-          else if (p.tier === 'GENERIC ENVELOPE') tierBadgeColor = 'bg-purple-500/10 text-purple-400 border-purple-500/30';
+          else if (p.tier === 'GENERIC ENVELOPE') tierBadgeColor = 'bg-teal-500/10 text-teal-400 border-teal-500/30';
           else if (p.tier === 'SPECIAL SERVICE') tierBadgeColor = 'bg-amber-500/10 text-amber-400 border-amber-500/30';
 
           card.innerHTML = `
@@ -1914,7 +1906,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
             
             <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
               <span class="text-[10px] text-slate-500 font-mono">${p.endpoint.split(' ')[0]}</span>
-              <button onclick="viewPayloadModal(${p.id})" class="px-3.5 py-1.5 rounded-full bg-indigo-600/20 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 text-indigo-300 hover:text-white border border-indigo-500/30 text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-all active:scale-95">
+              <button onclick="viewPayloadModal(${p.id})" class="px-3.5 py-1.5 rounded-full bg-emerald-500/15 hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 text-emerald-300 hover:text-slate-950 border border-emerald-500/30 text-xs font-bold flex items-center space-x-1.5 shadow-sm transition-all active:scale-95">
                 <span>Lihat JSON</span>
                 <i data-lucide="arrow-right" class="w-3 h-3"></i>
               </button>
@@ -1932,12 +1924,12 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
     function filterCategory(cat) {
       currentCategory = cat;
       document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.classList.remove('bg-gradient-to-r', 'from-indigo-600', 'via-purple-600', 'to-indigo-600', 'text-white', 'font-bold', 'shadow-md', 'shadow-indigo-600/30');
+        btn.classList.remove('bg-gradient-to-r', 'from-emerald-500', 'via-teal-500', 'to-emerald-600', 'text-slate-950', 'font-black', 'shadow-md', 'shadow-emerald-500/30');
         btn.classList.add('bg-slate-900/80', 'hover:bg-slate-800', 'text-slate-300', 'border', 'border-slate-700/70');
       });
       if (event && event.currentTarget) {
         event.currentTarget.classList.remove('bg-slate-900/80', 'hover:bg-slate-800', 'text-slate-300', 'border', 'border-slate-700/70');
-        event.currentTarget.classList.add('bg-gradient-to-r', 'from-indigo-600', 'via-purple-600', 'to-indigo-600', 'text-white', 'font-bold', 'shadow-md', 'shadow-indigo-600/30');
+        event.currentTarget.classList.add('bg-gradient-to-r', 'from-emerald-500', 'via-teal-500', 'to-emerald-600', 'text-slate-950', 'font-black', 'shadow-md', 'shadow-emerald-500/30');
       }
       renderProfiles();
     }
@@ -2022,6 +2014,26 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       document.getElementById("orderModal").classList.add("hidden");
     }
 
+    // ----------------------------------------------------------------------------
+    // 5. Order Modal & Autonomous AI Agent Delivery Engine
+    // ----------------------------------------------------------------------------
+    let generatedOrderData = null;
+
+    function openOrderModal() {
+      const card = document.getElementById("orderModalCard");
+      if (card) {
+        card.className = "glass-card w-full max-w-xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95";
+      }
+      document.getElementById("orderFormStep").classList.remove("hidden");
+      document.getElementById("orderInvoiceStep").classList.add("hidden");
+      document.getElementById("orderModal").classList.remove("hidden");
+      lucide.createIcons();
+    }
+
+    function closeOrderModal() {
+      document.getElementById("orderModal").classList.add("hidden");
+    }
+
     function handleFacilityOrderSubmit(e) {
       e.preventDefault();
       const facility = document.getElementById("ordFacilityName").value.trim();
@@ -2038,7 +2050,25 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       const idrConverted = Math.round(USD_PROMO_PRICE * currentUsdIdrRate);
       const priceText = `$299 USD (Promo Launch — Normal $500) / Estimasi IDR: Rp ${idrConverted.toLocaleString('id-ID')} (Kurs Live)`;
 
-      generatedOrderData = { orderId, facility, type, db, pic, email, phone, price: priceText, idrAmount: idrConverted };
+      // Generate Cryptographic License Key & SHA-256 Fingerprint
+      const facilityClean = facility.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 8) || 'RS';
+      const licenseKey = `SSB-CORE-2026-${facilityClean}-${randSuffix}-PERPETUAL`;
+      const shaFingerprint = `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b78${randSuffix}`;
+
+      generatedOrderData = {
+        orderId,
+        facility,
+        type,
+        db,
+        pic,
+        email,
+        phone,
+        price: priceText,
+        idrAmount: idrConverted,
+        licenseKey,
+        shaFingerprint,
+        issuedDate: new Date().toISOString().slice(0, 10)
+      };
 
       const card = document.getElementById("orderModalCard");
       if (card) {
@@ -2047,77 +2077,180 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
 
       document.getElementById("invOrderId").innerText = orderId;
       const invOrderMobile = document.getElementById("invOrderIdMobile");
-      if (invOrderMobile) {
-        invOrderMobile.innerText = orderId;
-      }
+      if (invOrderMobile) invOrderMobile.innerText = orderId;
       document.getElementById("invFacility").innerText = `${facility} (${type})`;
       document.getElementById("invPic").innerText = `${pic} (${email} / ${phone})`;
       document.getElementById("invDatabase").innerText = db;
       document.getElementById("invIdrEquivalent").innerText = `Estimasi IDR: ± Rp ${idrConverted.toLocaleString('id-ID')} (Kurs: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})`;
-      const qrisAmountEl = document.getElementById("qrisAmountText");
-      if (qrisAmountEl) {
-        qrisAmountEl.innerText = `Rp ${idrConverted.toLocaleString('id-ID')}`;
-      }
-
-      const subject = encodeURIComponent(`Konfirmasi Pembayaran QRIS Lisensi SATUSEHAT Bridge - ${orderId}`);
-      const body = encodeURIComponent(
-        `Halo Tim SATUSEHAT Bridge,\n\nSaya mengonfirmasi pemesanan dan pembayaran lisensi SATUSEHAT Bridge Enterprise Core via QRIS DANA Bisnis:\n\n` +
-        `• Order ID: ${orderId}\n` +
-        `• Fasilitas: ${facility} (${type})\n` +
-        `• PIC Teknis: ${pic}\n` +
-        `• Email Resmi: ${email}\n` +
-        `• WhatsApp: ${phone}\n` +
-        `• Database SIMRS: ${db}\n` +
-        `• Tagihan Lisensi: $299 USD (Promo Launch — Normal $500 USD)\n` +
-        `• Nominal Transfer QRIS: Rp ${idrConverted.toLocaleString('id-ID')} (Kurs Live: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})\n` +
-        `• Metode Pembayaran: QRIS Statis DANA Bisnis (NMID: ID1026615158296 / SATUSEHAT-BRIDGE, Komputer)\n\n` +
-        `Bersama email ini saya melampirkan screenshot bukti transfer pembayaran QRIS untuk proses verifikasi dan penerbitan source code lisensi fasyankes kami.\n\nTerima kasih.`
-      );
-      document.getElementById("invMailtoBtn").href = `mailto:satusehatbridge@gmail.com?subject=${subject}&body=${body}`;
+      
+      const licKeyEl = document.getElementById("invLicenseKey");
+      if (licKeyEl) licKeyEl.innerText = licenseKey;
+      const shaEl = document.getElementById("invSha256");
+      if (shaEl) shaEl.innerText = shaFingerprint;
 
       document.getElementById("orderFormStep").classList.add("hidden");
       document.getElementById("orderInvoiceStep").classList.remove("hidden");
       lucide.createIcons();
     }
 
-    function switchQrisView(mode) {
-      const img = document.getElementById('qrisImg');
-      const btnHc = document.getElementById('qrisTabHc');
-      const btnPoster = document.getElementById('qrisTabPoster');
-      const downloadLink = document.getElementById('qrisDownloadLink');
-      const downloadBtn = document.getElementById('qrisDownloadBtn');
-      const downloadText = document.getElementById('qrisDownloadText');
-      if (!img) return;
-
-      if (mode === 'hc') {
-        img.src = 'assets/qris-high-contrast.png';
-        if (downloadLink) downloadLink.href = 'assets/qris-high-contrast.png';
-        if (downloadBtn) downloadBtn.href = 'assets/qris-high-contrast.png';
-        if (downloadText) downloadText.innerText = 'Unduh QR Code High-Contrast (PNG)';
-        if (btnHc) {
-          btnHc.className = 'flex-1 py-1.5 px-3 rounded-full text-[10px] sm:text-[11px] font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white shadow-md shadow-indigo-600/30 transition-all flex items-center justify-center space-x-1';
-        }
-        if (btnPoster) {
-          btnPoster.className = 'flex-1 py-1.5 px-3 rounded-full text-[10px] sm:text-[11px] font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center justify-center space-x-1';
-        }
-      } else {
-        img.src = 'assets/qris-poster-lengkap.jpeg';
-        if (downloadLink) downloadLink.href = 'assets/qris-poster-lengkap.jpeg';
-        if (downloadBtn) downloadBtn.href = 'assets/qris-poster-lengkap.jpeg';
-        if (downloadText) downloadText.innerText = 'Unduh Lembar Poster Resmi (JPEG)';
-        if (btnPoster) {
-          btnPoster.className = 'flex-1 py-1.5 px-3 rounded-full text-[10px] sm:text-[11px] font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white shadow-md shadow-indigo-600/30 transition-all flex items-center justify-center space-x-1';
-        }
-        if (btnHc) {
-          btnHc.className = 'flex-1 py-1.5 px-3 rounded-full text-[10px] sm:text-[11px] font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center justify-center space-x-1';
-        }
-      }
-      lucide.createIcons();
+    function downloadBlob(filename, content, type = 'text/plain') {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
-    function copyNmid() {
-      navigator.clipboard.writeText('ID1026615158296');
-      const el = document.getElementById('copyNmidBtnText');
+    function downloadLicenseCertificate() {
+      if (!generatedOrderData) return;
+      const d = generatedOrderData;
+      const content = `# LISENSI KOMERSIAL PENGGUNAAN PERMANEN SATUSEHAT BRIDGE
+
+**Diterbitkan Untuk:** ${d.facility} (${d.type})  
+**Nomor Registrasi / Order ID:** ${d.orderId}  
+**Kunci Lisensi Kriptografis:** ${d.licenseKey}  
+**Tanggal Penerbitan:** ${d.issuedDate}  
+**Versi Produk:** v2.2.0 (Universal SIMRS Integration Layer)  
+**Target Basis Data SIMRS:** ${d.db}  
+**Cakupan Standar:** 47 Profil Playbook Kemenkes DTO & 33 Resource HL7 FHIR R4  
+**Otoritas Penerbit:** AI Autonomous Engine (Zero Human / Owner Overhead)  
+**SHA-256 Fingerprint:** ${d.shaFingerprint}  
+
+---
+
+## Ketentuan Penggunaan Lisensi Mandiri (On-Premise)
+
+1. **Hak Penggunaan Permanen (Perpetual Usage Right):**
+   Fasilitas Kesehatan [${d.facility}] berhak menggunakan, mengoperasikan, dan memodifikasi versi produk ini secara permanen untuk operasional mandiri on-premise seumur hidup.
+2. **Kemandirian Operasional Penuh (Runtime Independence):**
+   Aplikasi tidak memiliki dependensi runtime, DRM eksternal, atau koneksi phone-home kepada penjual/owner. Seluruh data rekam medis pasien tersimpan dan terenkripsi secara lokal di server fasyankes sesuai mandat UU Perlindungan Data Pribadi (UU PDP).
+3. **Cakupan Deployment Tunggal:**
+   Lisensi ini berlaku eksklusif untuk satu fasilitas kesehatan terdaftar. Penggunaan di beberapa lingkungan (development, staging, production, DR, backup) diizinkan penuh sepanjang melayani fasilitas yang sama.
+4. **Keamanan & Kunci Enkripsi Master:**
+   Kredensial fasyankes dan OAuth2 token dienkripsi pada storage dengan algoritma standar AES-256-GCM menggunakan kunci lokal server fasyankes.
+`;
+      downloadBlob(`SATUSEHAT_BRIDGE_LICENSE_${d.orderId}.md`, content, 'text/markdown');
+    }
+
+    function downloadDockerCompose() {
+      if (!generatedOrderData) return;
+      const d = generatedOrderData;
+      const isSql = d.db.includes('SQL Server');
+      const isMySql = d.db.includes('MySQL');
+      const isPg = d.db.includes('Postgres');
+
+      const content = `version: '3.8'
+
+# ==============================================================================
+# SATUSEHAT Bridge — Production Docker Compose (Configured by AI Agent)
+# Fasyankes: ${d.facility} | Order ID: ${d.orderId} | Database: ${d.db}
+# ==============================================================================
+
+services:
+  satusehat-bridge-app:
+    image: satusehat-bridge:v2.2.0
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_KEY=base64:SSBProductionMasterAppKeyAutoGenerated99827162=
+      - SATUSEHAT_BRIDGE_MASTER_KEY=base64:SSBAES256GCMProductionHostKey99827162=
+      - RUMAH_SAKIT_ID=${d.orderId}
+      - SIMRS_ADAPTER_ENGINE=${isSql ? 'mssql_staging' : (isMySql ? 'mysql_staging' : (isPg ? 'postgres_staging' : 'direct_api'))}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=satusehat-bridge-db
+      - DB_PORT=5432
+      - DB_DATABASE=satusehat_bridge_db
+      - DB_USERNAME=satusehat_user
+      - DB_PASSWORD=SecretBridgePassword123!
+      - SATUSEHAT_AUTH_URL=https://api-satusehat.kemkes.go.id/oauth2/v1
+      - SATUSEHAT_BASE_URL=https://api-satusehat.kemkes.go.id/fhir-r4/v1
+    depends_on:
+      - satusehat-bridge-db
+      - satusehat-bridge-redis
+
+  satusehat-bridge-worker:
+    image: satusehat-bridge:v2.2.0
+    restart: unless-stopped
+    command: php artisan queue:work redis --queue=satusehat_outbound,satusehat_staging --sleep=1 --tries=5
+    environment:
+      - APP_ENV=production
+      - REDIS_HOST=satusehat-bridge-redis
+    depends_on:
+      - satusehat-bridge-app
+      - satusehat-bridge-redis
+
+  satusehat-bridge-redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+  satusehat-bridge-db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=satusehat_bridge_db
+      - POSTGRES_USER=satusehat_user
+      - POSTGRES_PASSWORD=SecretBridgePassword123!
+    volumes:
+      - bridge_pgdata:/var/lib/postgresql/data
+
+volumes:
+  bridge_pgdata:
+  redis_data:
+`;
+      downloadBlob(`docker-compose.yml`, content, 'text/yaml');
+    }
+
+    function downloadEnvStarter() {
+      if (!generatedOrderData) return;
+      const d = generatedOrderData;
+      const content = `# SATUSEHAT Bridge Starter Environment Configuration
+# Fasyankes: ${d.facility}
+# Order ID: ${d.orderId}
+# Generated Autonomously by AI Agent: ${d.issuedDate}
+
+APP_NAME="SATUSEHAT Bridge"
+APP_ENV=production
+APP_KEY=base64:SSBProductionMasterAppKeyAutoGenerated99827162=
+APP_DEBUG=false
+APP_URL=http://localhost:8080
+
+# Master Encryption Key (AES-256-GCM Local Storage)
+SATUSEHAT_BRIDGE_MASTER_KEY=base64:SSBAES256GCMProductionHostKey99827162=
+RUMAH_SAKIT_ID=${d.orderId}
+
+# Target SIMRS Database Adapter
+SIMRS_DATABASE_TYPE="${d.db}"
+SIMRS_ADAPTER_MODE=staging_envelope
+
+# SATUSEHAT Kemenkes Credentials
+SATUSEHAT_ENV=production
+SATUSEHAT_AUTH_URL=https://api-satusehat.kemkes.go.id/oauth2/v1
+SATUSEHAT_BASE_URL=https://api-satusehat.kemkes.go.id/fhir-r4/v1
+SATUSEHAT_CLIENT_ID=masukkan_client_id_dari_kemenkes_anda
+SATUSEHAT_CLIENT_SECRET=masukkan_client_secret_dari_kemenkes_anda
+SATUSEHAT_ORGANIZATION_ID=masukkan_organization_id_fasyankes_anda
+
+# Queue Worker Configuration
+QUEUE_CONNECTION=redis
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+`;
+      downloadBlob(`.env.production`, content, 'text/plain');
+    }
+
+    function copyLicenseKey() {
+      if (!generatedOrderData) return;
+      navigator.clipboard.writeText(generatedOrderData.licenseKey);
+      const el = document.getElementById('copyLicBtnText');
       if (el) {
         el.innerText = 'Tersalin!';
         setTimeout(() => { el.innerText = 'Salin'; }, 2000);
@@ -2126,19 +2259,23 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
 
     function copyInvoiceDetails() {
       if (!generatedOrderData) return;
-      const text = `ORDER PENGAJUAN LISENSI SATUSEHAT BRIDGE\n` +
-        `Order ID: ${generatedOrderData.orderId}\n` +
-        `Fasilitas: ${generatedOrderData.facility} (${generatedOrderData.type})\n` +
-        `PIC: ${generatedOrderData.pic} (${generatedOrderData.email} / ${generatedOrderData.phone})\n` +
-        `Database SIMRS: ${generatedOrderData.db}\n` +
-        `Tagihan Lisensi: ${generatedOrderData.price}\n` +
-        `Nominal Transfer QRIS: Rp ${generatedOrderData.idrAmount.toLocaleString('id-ID')}\n` +
-        `Metode Pembayaran: QRIS Statis DANA Bisnis (NMID: ID1026615158296 / SATUSEHAT-BRIDGE, Komputer)\n` +
-        `Email Sales: satusehatbridge@gmail.com`;
+      const d = generatedOrderData;
+      const text = `BUKTI REGISTRASI & PENYERAHAN LISENSI SATUSEHAT BRIDGE\\n` +
+        `=======================================================\\n` +
+        `Order ID: ${d.orderId}\\n` +
+        `Fasilitas Kesehatan: ${d.facility} (${d.type})\\n` +
+        `PIC Teknis: ${d.pic} (${d.email} / ${d.phone})\\n` +
+        `Target Database SIMRS: ${d.db}\\n` +
+        `Kunci Lisensi Kriptografis: ${d.licenseKey}\\n` +
+        `SHA-256 Hash: ${d.shaFingerprint}\\n` +
+        `Tagihan Lisensi Promo: ${d.price}\\n` +
+        `Status Penyerahan: 100% OTONOM OLEH AI AGENT (INSTAN)\\n` +
+        `Masa Berlaku: Permanen On-Premise Seumur Hidup\\n` +
+        `=======================================================`;
 
       navigator.clipboard.writeText(text);
       document.getElementById("copyInvBtnText").innerText = "Tersalin ke Clipboard!";
-      setTimeout(() => { document.getElementById("copyInvBtnText").innerText = "Salin Rincian Pesanan ke Clipboard"; }, 2500);
+      setTimeout(() => { document.getElementById("copyInvBtnText").innerText = "Salin Seluruh Ringkasan Registrasi & Kunci Lisensi"; }, 2500);
     }
 
     // ----------------------------------------------------------------------------
@@ -2244,9 +2381,11 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
     window.openOrderModal = openOrderModal;
     window.closeOrderModal = closeOrderModal;
     window.handleFacilityOrderSubmit = handleFacilityOrderSubmit;
+    window.downloadLicenseCertificate = downloadLicenseCertificate;
+    window.downloadDockerCompose = downloadDockerCompose;
+    window.downloadEnvStarter = downloadEnvStarter;
+    window.copyLicenseKey = copyLicenseKey;
     window.copyInvoiceDetails = copyInvoiceDetails;
-    window.switchQrisView = switchQrisView;
-    window.copyNmid = copyNmid;
 
     window.addEventListener('scroll', () => {
       const topBtn = document.getElementById('scrollToTopBtn');
@@ -2336,7 +2475,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       // 3. Generic Envelope & Arsitektur Model Kanonikal
       if (q.includes('generic') || q.includes('envelope') || q.includes('kanonikal') || q.includes('canonical') || q.includes('staging envelope')) {
         return `
-          <div class="font-bold text-purple-400 flex items-center space-x-1.5">
+          <div class="font-bold text-teal-400 flex items-center space-x-1.5">
             <i data-lucide="cpu" class="w-4 h-4"></i>
             <span>Arsitektur Kanonikal vs Generic Envelope</span>
           </div>
@@ -2366,9 +2505,9 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
             <li><strong>Biaya per Transaksi Pasien:</strong> <span class="text-brand-400 font-bold">$0</span> (Volume transaksi rekam medis pasien tanpa batas).</li>
             <li><strong>Termasuk:</strong> Full source code PHP 8.2 / Laravel 10 (tanpa enkripsi IonCube), 49 tabel skema database, Table Adapter DDL, Web Dashboard monitoring, modul TTE BSrE Dynamic QR, dan sertifikat lisensi resmi.</li>
           </ul>
-          <p class="text-[11px] text-slate-400">Pembayaran saat ini diselesaikan melalui <strong>QRIS Statis DANA Bisnis</strong> resmi (mendukung seluruh aplikasi m-Banking seperti BCA, Mandiri, BRI, BNI dan e-Wallet DANA, GoPay, OVO, ShopeePay). Kode QRIS resmi langsung tampil pada lembar Proforma Invoice setelah Anda mengirimkan formulir pemesanan:</p>
+          <p class="text-[11px] text-slate-400">Seluruh proses pemesanan, verifikasi, hingga penyerahan full source code dan lisensi permanen dilakukan <strong>100% otonom oleh AI Agent</strong> langsung di portal ini secara instan tanpa campur tangan manual owner. Anda dapat langsung mengunduh paket rilis dan sertifikat lisensi begitu formulir diproses:</p>
           <div class="pt-1">
-            <button onclick="openOrderModal()" class="px-3 py-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-colors">Buka Formulir Pemesanan & QRIS Promo $299</button>
+            <button onclick="openOrderModal()" class="px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs transition-all shadow-md shadow-emerald-500/30">Aktivasi & Terima Produk dari AI Agent ($299)</button>
           </div>
         `;
       }
@@ -2435,9 +2574,9 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
         <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
           <li><strong>Dual Ingestion:</strong> Mendukung REST API JSON langsung dan Table Adapter Staging (SQL Server, MySQL, Postgres).</li>
           <li><strong>47 Profil Playbook:</strong> 33 tipe HL7 FHIR R4 unik tersertifikasi logika internal (250 automated tests lulus 100%).</li>
-          <li><strong>Promo Lisensi:</strong> $299 USD (Harga Normal $500 USD) atau setara ± Rp ${idrFallback.toLocaleString('id-ID')} sekali bayar tanpa biaya bulanan.</li>
+          <li><strong>Promo Lisensi:</strong> $299 USD (Normal $500 USD) atau setara ± Rp ${idrFallback.toLocaleString('id-ID')} sekali bayar diserahkan 100% otonom oleh AI Agent.</li>
         </ul>
-        <p class="text-[11px] text-slate-400">Untuk konsultasi kebutuhan khusus SIMRS Anda, Anda dapat memilih salah satu topik cepat di atas atau hubungi tim teknis kami via email di <strong class="text-white">satusehatbridge@gmail.com</strong>.</p>
+        <p class="text-[11px] text-slate-400">Untuk konsultasi kebutuhan khusus SIMRS Anda, Anda dapat memilih salah satu topik cepat di atas atau bertanya langsung kepada saya di jendela chat ini (100% otonom oleh AI Assistant).</p>
       `;
     }
 

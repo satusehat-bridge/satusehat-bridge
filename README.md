@@ -145,7 +145,7 @@ SATUSEHAT Bridge berjalan di lingkungan container Docker standar atau bare-metal
 
 1. **Format Distribusi:** Full Source Code mandiri (*self-hosted*).
 2. **Cakupan Lisensi:** Lisensi Penggunaan Permanen (*Perpetual Usage Right*) untuk **1 (satu) Fasilitas Kesehatan**.
-3. **Harga Dasar Acuan:** **US$299 (atau setara mata uang lokal berdasarkan kurs konversi yang disepakati saat penagihan)** sebagai harga dasar komersial saat ini, dan dapat berubah untuk transaksi mendatang.
+3. **Harga Dasar Acuan:** **Promo Peluncuran US$ 299 (Harga Normal US$ 500)** — atau setara mata uang lokal (IDR) berdasarkan kurs konversi live valas saat penagihan/pembayaran.
 4. **Multi-Environment Diperbolehkan:** Lisensi mengizinkan penggunaan pada beberapa server/environment (Development, Staging, Production, Disaster Recovery, Backup) sepanjang berada dalam naungan fasilitas kesehatan yang sama.
 5. **Tanpa Biaya Berulang Wajib:** Tidak ada biaya bulanan atau tahunan wajib hanya untuk terus menjalankan versi yang telah dibeli secara sah.
 6. **Kebijakan Upgrade:** Hak penggunaan permanen melekat pada versi produk yang dibeli. Upgrade ke rilis versi minor atau mayor baru yang dirilis di masa depan diatur melalui transaksi upgrade terpisah.

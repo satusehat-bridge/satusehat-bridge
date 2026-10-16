@@ -848,18 +848,52 @@
             </div>
           </div>
           <div class="text-[10px] text-slate-500 font-sans">
-            Status: <span class="text-amber-400 font-medium">Menunggu Verifikasi & Penyelesaian Rekening</span>
+            Status: <span class="text-amber-400 font-medium">Menunggu Pembayaran QRIS DANA Bisnis</span>
           </div>
         </div>
 
-        <div class="mt-4 p-3 rounded-xl bg-brand-500/10 border border-brand-500/20 text-xs text-slate-200 leading-relaxed space-y-1">
+        <!-- QRIS Statis DANA Bisnis Section -->
+        <div class="mt-4 p-4 rounded-xl bg-slate-900 border border-slate-700/80 text-center">
+          <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-xs">
+            <div class="flex items-center space-x-1.5 font-bold text-white">
+              <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30 font-mono text-[10px] font-bold">QRIS</span>
+              <span class="text-cyan-400 font-semibold">DANA Bisnis</span>
+            </div>
+            <span class="text-[10px] text-slate-400 font-mono">Merchant: SATUSEHAT BRIDGE</span>
+          </div>
+
+          <!-- QR Container -->
+          <div class="inline-block p-3 rounded-2xl bg-white shadow-xl mx-auto mb-3">
+            <div id="qrisImageContainer" class="w-48 h-48 sm:w-52 sm:h-52 bg-slate-50 rounded-xl flex flex-col items-center justify-center border border-slate-200 overflow-hidden relative">
+              <img id="qrisImg" src="assets/qris-dana-bisnis.png" onerror="this.style.display='none'; document.getElementById('qrisPlaceholder').classList.remove('hidden');" alt="QRIS DANA Bisnis SATUSEHAT Bridge" class="w-full h-full object-contain">
+              <div id="qrisPlaceholder" class="hidden flex flex-col items-center justify-center p-4 text-center">
+                <i data-lucide="qr-code" class="w-16 h-16 text-slate-800 mb-2"></i>
+                <span class="text-xs font-bold text-slate-900 tracking-wider">QRIS DANA BISNIS</span>
+                <span class="text-[10px] text-slate-700 font-semibold mt-1">SATUSEHAT BRIDGE</span>
+                <span class="text-[9px] text-slate-500 mt-1 font-mono">Scan via BCA, Mandiri, BRI, DANA, GoPay</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-300 space-y-1">
+            <div class="font-bold text-white">Pindai QRIS Statis DANA Bisnis</div>
+            <p class="text-[10px] text-slate-400">
+              Dapat di-scan menggunakan seluruh aplikasi m-Banking (BCA, Mandiri, BRI, BNI) dan e-Wallet (DANA, GoPay, OVO, ShopeePay).
+            </p>
+            <div class="text-xs font-mono text-brand-400 font-bold mt-1.5 p-2 rounded-lg bg-slate-950 border border-slate-800">
+              Nominal Transfer: <span id="qrisAmountText">Sesuai Tagihan IDR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 p-3 rounded-xl bg-brand-500/10 border border-brand-500/20 text-xs text-slate-200 leading-relaxed space-y-1">
           <div class="font-bold text-brand-400 flex items-center space-x-1.5">
-            <i data-lucide="info" class="w-4 h-4"></i>
-            <span>Instruksi Penyelesaian Transaksi:</span>
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+            <span>Konfirmasi Pembayaran:</span>
           </div>
           <p class="text-[11px] text-slate-300">
-            Rincian pesanan Anda telah dicatat. Silakan kirimkan konfirmasi pesanan ini ke email resmi kami 
-            <strong class="text-white">satusehatbridge@gmail.com</strong>. Tim administrasi kami akan menerbitkan lembar Invoice resmi dan rincian rekening bank transfer (BCA/Mandiri/QRIS).
+            Setelah transfer via QRIS berhasil, silakan klik tombol <strong>'Kirim Email Konfirmasi Otomatis'</strong> di bawah atau kirimkan bukti transfer screenshot ke email resmi kami 
+            <strong class="text-white">satusehatbridge@gmail.com</strong>.
           </p>
           <p class="text-[11px] text-slate-400">
             Paket software berlisensi penuh beserta checksum integritas SHA-256 akan dikirimkan maksimal 1 jam setelah mutasi transfer terverifikasi.
@@ -1401,19 +1435,24 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       document.getElementById("invPic").innerText = `${pic} (${email} / ${phone})`;
       document.getElementById("invDatabase").innerText = db;
       document.getElementById("invIdrEquivalent").innerText = `Estimasi IDR: ± Rp ${idrConverted.toLocaleString('id-ID')} (Kurs: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})`;
+      const qrisAmountEl = document.getElementById("qrisAmountText");
+      if (qrisAmountEl) {
+        qrisAmountEl.innerText = `Rp ${idrConverted.toLocaleString('id-ID')}`;
+      }
 
-      const subject = encodeURIComponent(`Konfirmasi Pemesanan Lisensi SATUSEHAT Bridge - ${orderId}`);
+      const subject = encodeURIComponent(`Konfirmasi Pembayaran QRIS Lisensi SATUSEHAT Bridge - ${orderId}`);
       const body = encodeURIComponent(
-        `Halo Tim SATUSEHAT Bridge,\n\nSaya ingin mengonfirmasi pemesanan lisensi SATUSEHAT Bridge Enterprise Core:\n\n` +
+        `Halo Tim SATUSEHAT Bridge,\n\nSaya mengonfirmasi pemesanan dan pembayaran lisensi SATUSEHAT Bridge Enterprise Core via QRIS DANA Bisnis:\n\n` +
         `• Order ID: ${orderId}\n` +
         `• Fasilitas: ${facility} (${type})\n` +
         `• PIC Teknis: ${pic}\n` +
         `• Email Resmi: ${email}\n` +
         `• WhatsApp: ${phone}\n` +
         `• Database SIMRS: ${db}\n` +
-        `• Nilai Tagihan Lisensi: $299 USD (Promo Launch — Harga Normal $500 USD)\n` +
-        `• Estimasi Konversi IDR: Rp ${idrConverted.toLocaleString('id-ID')} (Kurs Live: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})\n\n` +
-        `Mohon informasi lembar Invoice resmi dan rekening pembayaran (BCA / Mandiri / QRIS / USD Account) untuk penyelesaian administrasi fasyankes kami.\n\nTerima kasih.`
+        `• Tagihan Lisensi: $299 USD (Promo Launch — Normal $500 USD)\n` +
+        `• Nominal Transfer QRIS: Rp ${idrConverted.toLocaleString('id-ID')} (Kurs Live: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})\n` +
+        `• Metode Pembayaran: QRIS Statis DANA Bisnis\n\n` +
+        `Bersama email ini saya melampirkan screenshot bukti transfer pembayaran QRIS untuk proses verifikasi dan penerbitan source code lisensi fasyankes kami.\n\nTerima kasih.`
       );
       document.getElementById("invMailtoBtn").href = `mailto:satusehatbridge@gmail.com?subject=${subject}&body=${body}`;
 
@@ -1430,7 +1469,8 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
         `PIC: ${generatedOrderData.pic} (${generatedOrderData.email} / ${generatedOrderData.phone})\n` +
         `Database SIMRS: ${generatedOrderData.db}\n` +
         `Tagihan Lisensi: ${generatedOrderData.price}\n` +
-        `Kurs Valas: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')}\n` +
+        `Nominal Transfer QRIS: Rp ${generatedOrderData.idrAmount.toLocaleString('id-ID')}\n` +
+        `Metode Pembayaran: QRIS Statis DANA Bisnis (Merchant: SATUSEHAT BRIDGE)\n` +
         `Email Sales: satusehatbridge@gmail.com`;
 
       navigator.clipboard.writeText(text);
@@ -1661,9 +1701,9 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
             <li><strong>Biaya per Transaksi Pasien:</strong> <span class="text-brand-400 font-bold">$0</span> (Volume transaksi rekam medis pasien tanpa batas).</li>
             <li><strong>Termasuk:</strong> Full source code PHP 8.2 / Laravel 10 (tanpa enkripsi IonCube), 49 tabel skema database, Table Adapter DDL, Web Dashboard monitoring, modul TTE BSrE Dynamic QR, dan sertifikat lisensi resmi.</li>
           </ul>
-          <p class="text-[11px] text-slate-400">Pembayaran dapat diselesaikan via transfer bank lokal (BCA/Mandiri/QRIS) maupun USD invoice. Silakan klik tombol di bawah untuk menerbitkan proforma invoice:</p>
+          <p class="text-[11px] text-slate-400">Pembayaran saat ini diselesaikan melalui <strong>QRIS Statis DANA Bisnis</strong> resmi (mendukung seluruh aplikasi m-Banking seperti BCA, Mandiri, BRI, BNI dan e-Wallet DANA, GoPay, OVO, ShopeePay). Kode QRIS resmi langsung tampil pada lembar Proforma Invoice setelah Anda mengirimkan formulir pemesanan:</p>
           <div class="pt-1">
-            <button onclick="openOrderModal()" class="px-3 py-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-colors">Buka Formulir Pemesanan Promo $299</button>
+            <button onclick="openOrderModal()" class="px-3 py-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-colors">Buka Formulir Pemesanan & QRIS Promo $299</button>
           </div>
         `;
       }

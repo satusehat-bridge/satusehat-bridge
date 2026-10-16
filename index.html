@@ -918,10 +918,10 @@
 
             <!-- Right Column: Dedicated QRIS DANA Bisnis Card (5 cols) -->
             <div class="lg:col-span-5">
-              <div class="p-5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700/80 shadow-2xl text-center space-y-4">
+              <div class="p-5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700/80 shadow-2xl text-center space-y-3.5">
                 
                 <!-- Card Header -->
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
+                <div class="flex items-center justify-between pb-2.5 border-b border-slate-800 text-xs">
                   <div class="flex items-center space-x-1.5 font-bold text-white">
                     <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30 font-mono text-[10px] font-bold">QRIS</span>
                     <span class="text-cyan-400 font-semibold">DANA Bisnis</span>
@@ -932,25 +932,51 @@
                   </span>
                 </div>
 
-                <div>
-                  <div class="text-xs font-semibold text-slate-300">Merchant Resmi:</div>
-                  <div class="text-sm font-bold text-white tracking-wide">SATUSEHAT BRIDGE</div>
-                  <div class="text-[10px] text-slate-500 font-mono mt-0.5">NMID: ID1020021151608 • DANA Bisnis</div>
+                <!-- Merchant & NMID Info -->
+                <div class="space-y-0.5">
+                  <div class="text-[11px] font-medium text-slate-400">Merchant Resmi QRIS Nasional:</div>
+                  <div class="text-sm font-bold text-white tracking-wide">SATUSEHAT-BRIDGE, Komputer</div>
+                  <div class="flex items-center justify-center space-x-1.5 pt-0.5">
+                    <span class="text-[10px] text-slate-400 font-mono">NMID: <strong class="text-slate-200">ID1026615158296</strong></span>
+                    <button type="button" onclick="copyNmid()" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-400 text-[10px] flex items-center space-x-1 transition-colors">
+                      <i data-lucide="copy" class="w-3 h-3"></i>
+                      <span id="copyNmidBtnText">Salin</span>
+                    </button>
+                  </div>
                 </div>
 
-                <!-- QR Container Frame -->
-                <div class="inline-block p-3 rounded-2xl bg-white shadow-xl mx-auto relative group">
-                  <a href="assets/qris-dana-bisnis.png" target="_blank" rel="noopener noreferrer" title="Klik untuk membuka QRIS ukuran penuh" class="block">
-                    <div id="qrisImageContainer" class="w-44 h-44 sm:w-52 sm:h-52 bg-white rounded-xl flex items-center justify-center border border-slate-200 overflow-hidden relative">
-                      <img id="qrisImg" src="assets/qris-dana-bisnis.png" alt="QRIS DANA Bisnis SATUSEHAT Bridge" class="w-full h-full object-contain">
+                <!-- View Mode Switcher -->
+                <div class="flex items-center justify-center p-1 rounded-xl bg-slate-950 border border-slate-800/80 max-w-[280px] mx-auto">
+                  <button type="button" id="qrisTabHc" onclick="switchQrisView('hc')" class="flex-1 py-1 px-2 rounded-lg text-[10px] sm:text-[11px] font-bold bg-brand-500 text-navy-950 shadow-sm transition-all flex items-center justify-center space-x-1">
+                    <i data-lucide="zap" class="w-3 h-3"></i>
+                    <span>High-Contrast (Scan Cepat)</span>
+                  </button>
+                  <button type="button" id="qrisTabPoster" onclick="switchQrisView('poster')" class="flex-1 py-1 px-2 rounded-lg text-[10px] sm:text-[11px] font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center justify-center space-x-1">
+                    <i data-lucide="image" class="w-3 h-3"></i>
+                    <span>Lembar Poster</span>
+                  </button>
+                </div>
+
+                <!-- QR Container Frame: High Contrast White Box -->
+                <div class="inline-block p-3.5 sm:p-4 rounded-2xl bg-white shadow-2xl mx-auto relative group border-2 border-slate-800 ring-4 ring-emerald-500/20">
+                  <a id="qrisDownloadLink" href="assets/qris-high-contrast.png" target="_blank" rel="noopener noreferrer" title="Klik untuk membuka QRIS ukuran penuh" class="block">
+                    <div id="qrisImageContainer" class="w-48 h-48 sm:w-56 sm:h-56 bg-white rounded-xl flex items-center justify-center overflow-hidden relative">
+                      <img id="qrisImg" src="assets/qris-high-contrast.png" alt="QRIS High-Contrast SATUSEHAT Bridge" class="w-full h-full object-contain mx-auto transition-transform hover:scale-105" style="image-rendering: -webkit-optimize-contrast; image-rendering: pixelated; image-rendering: crisp-edges;">
                     </div>
                   </a>
                 </div>
 
+                <!-- High Contrast Indicator Badge -->
+                <div class="flex items-center justify-center space-x-1.5 text-[10px] text-emerald-400 font-medium">
+                  <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Optik Kontras Tinggi: 100% Cepat Terkunci Kamera Scanner</span>
+                </div>
+
+                <!-- Download / Open Link -->
                 <div>
-                  <a href="assets/qris-dana-bisnis.png" download="QRIS-DANA-Bisnis-SATUSEHAT-Bridge.png" class="inline-flex items-center space-x-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+                  <a id="qrisDownloadBtn" href="assets/qris-high-contrast.png" download="QRIS-SATUSEHAT-Bridge-HighContrast.png" class="inline-flex items-center space-x-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
                     <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                    <span>Unduh Barcode QRIS (PNG)</span>
+                    <span id="qrisDownloadText">Unduh QR Code High-Contrast (PNG)</span>
                   </a>
                 </div>
 
@@ -958,13 +984,13 @@
                 <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center space-y-1">
                   <div class="text-[10px] text-slate-400 font-medium">Nominal Transfer (Sesuai Kurs Live):</div>
                   <div id="qrisAmountText" class="text-base sm:text-lg font-bold font-mono text-brand-400">Rp ...</div>
-                  <div class="text-[10px] text-slate-500">Bebas biaya admin antar bank via QRIS</div>
+                  <div class="text-[10px] text-slate-500">Bebas biaya admin antar bank via QRIS Nasional</div>
                 </div>
 
                 <!-- Accepted Methods Badges -->
-                <div class="pt-1 border-t border-slate-800/80 text-[10px] text-slate-400 space-y-2">
-                  <div class="font-medium text-slate-300">Mendukung seluruh m-Banking & e-Wallet:</div>
-                  <div class="flex flex-wrap items-center justify-center gap-1.5 text-[9px] font-semibold text-slate-300">
+                <div class="pt-1 border-t border-slate-800/80 text-[10px] text-slate-400 space-y-1.5">
+                  <div class="font-medium text-slate-300 text-[10px]">Mendukung seluruh m-Banking & e-Wallet:</div>
+                  <div class="flex flex-wrap items-center justify-center gap-1 text-[9px] font-semibold text-slate-300">
                     <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BCA</span>
                     <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Mandiri</span>
                     <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BRI</span>
@@ -1536,7 +1562,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
         `• Database SIMRS: ${db}\n` +
         `• Tagihan Lisensi: $299 USD (Promo Launch — Normal $500 USD)\n` +
         `• Nominal Transfer QRIS: Rp ${idrConverted.toLocaleString('id-ID')} (Kurs Live: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})\n` +
-        `• Metode Pembayaran: QRIS Statis DANA Bisnis\n\n` +
+        `• Metode Pembayaran: QRIS Statis DANA Bisnis (NMID: ID1026615158296 / SATUSEHAT-BRIDGE, Komputer)\n\n` +
         `Bersama email ini saya melampirkan screenshot bukti transfer pembayaran QRIS untuk proses verifikasi dan penerbitan source code lisensi fasyankes kami.\n\nTerima kasih.`
       );
       document.getElementById("invMailtoBtn").href = `mailto:satusehatbridge@gmail.com?subject=${subject}&body=${body}`;
@@ -1544,6 +1570,50 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       document.getElementById("orderFormStep").classList.add("hidden");
       document.getElementById("orderInvoiceStep").classList.remove("hidden");
       lucide.createIcons();
+    }
+
+    function switchQrisView(mode) {
+      const img = document.getElementById('qrisImg');
+      const btnHc = document.getElementById('qrisTabHc');
+      const btnPoster = document.getElementById('qrisTabPoster');
+      const downloadLink = document.getElementById('qrisDownloadLink');
+      const downloadBtn = document.getElementById('qrisDownloadBtn');
+      const downloadText = document.getElementById('qrisDownloadText');
+      if (!img) return;
+
+      if (mode === 'hc') {
+        img.src = 'assets/qris-high-contrast.png';
+        if (downloadLink) downloadLink.href = 'assets/qris-high-contrast.png';
+        if (downloadBtn) downloadBtn.href = 'assets/qris-high-contrast.png';
+        if (downloadText) downloadText.innerText = 'Unduh QR Code High-Contrast (PNG)';
+        if (btnHc) {
+          btnHc.className = 'flex-1 py-1 px-2 rounded-lg text-[10px] sm:text-[11px] font-bold bg-brand-500 text-navy-950 shadow-sm transition-all flex items-center justify-center space-x-1';
+        }
+        if (btnPoster) {
+          btnPoster.className = 'flex-1 py-1 px-2 rounded-lg text-[10px] sm:text-[11px] font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center justify-center space-x-1';
+        }
+      } else {
+        img.src = 'assets/qris-poster-lengkap.jpeg';
+        if (downloadLink) downloadLink.href = 'assets/qris-poster-lengkap.jpeg';
+        if (downloadBtn) downloadBtn.href = 'assets/qris-poster-lengkap.jpeg';
+        if (downloadText) downloadText.innerText = 'Unduh Lembar Poster Resmi (JPEG)';
+        if (btnPoster) {
+          btnPoster.className = 'flex-1 py-1 px-2 rounded-lg text-[10px] sm:text-[11px] font-bold bg-brand-500 text-navy-950 shadow-sm transition-all flex items-center justify-center space-x-1';
+        }
+        if (btnHc) {
+          btnHc.className = 'flex-1 py-1 px-2 rounded-lg text-[10px] sm:text-[11px] font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center justify-center space-x-1';
+        }
+      }
+      lucide.createIcons();
+    }
+
+    function copyNmid() {
+      navigator.clipboard.writeText('ID1026615158296');
+      const el = document.getElementById('copyNmidBtnText');
+      if (el) {
+        el.innerText = 'Tersalin!';
+        setTimeout(() => { el.innerText = 'Salin'; }, 2000);
+      }
     }
 
     function copyInvoiceDetails() {
@@ -1555,7 +1625,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
         `Database SIMRS: ${generatedOrderData.db}\n` +
         `Tagihan Lisensi: ${generatedOrderData.price}\n` +
         `Nominal Transfer QRIS: Rp ${generatedOrderData.idrAmount.toLocaleString('id-ID')}\n` +
-        `Metode Pembayaran: QRIS Statis DANA Bisnis (Merchant: SATUSEHAT BRIDGE)\n` +
+        `Metode Pembayaran: QRIS Statis DANA Bisnis (NMID: ID1026615158296 / SATUSEHAT-BRIDGE, Komputer)\n` +
         `Email Sales: satusehatbridge@gmail.com`;
 
       navigator.clipboard.writeText(text);
@@ -1667,6 +1737,8 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
     window.closeOrderModal = closeOrderModal;
     window.handleFacilityOrderSubmit = handleFacilityOrderSubmit;
     window.copyInvoiceDetails = copyInvoiceDetails;
+    window.switchQrisView = switchQrisView;
+    window.copyNmid = copyNmid;
 
     window.addEventListener('scroll', () => {
       const topBtn = document.getElementById('scrollToTopBtn');

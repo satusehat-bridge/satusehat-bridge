@@ -6,7 +6,7 @@
 [![SATUSEHAT](https://img.shields.io/badge/FHIR%20R4-29%20Resources%20Parity-red.svg)](#katalog-29-resource-terverifikasi)
 
 > 🌐 **Kunjungi Web Portal Interaktif & Live Technical AI Agent:**  
-> 👉 **[https://satusehat-bridge.github.io/satusehat-bridge/](https://satusehat-bridge.github.io/satusehat-bridge/)** *(Eksplorasi 47 Profil Playbook, Pencarian LOINC/SNOMED, Komparasi TCO, dan Form Pemesanan Lisensi)*
+> 👉 **[https://satusehat-bridge-portal.web.app](https://satusehat-bridge-portal.web.app)** *(Eksplorasi 47 Profil Playbook, Pencarian LOINC/SNOMED, Komparasi TCO, dan Form Pemesanan Lisensi)*
 
 **SATUSEHAT Bridge** adalah lapisan integrasi universal (*Universal Integration Bridge*) mandiri (*self-hosted*) yang dirancang khusus untuk menghubungkan Sistem Informasi Manajemen Rumah Sakit (SIMRS) dengan platform **Kemenkes SATUSEHAT (FHIR R4)** tanpa perlu merombak basis data atau arsitektur inti SIMRS Anda.
 

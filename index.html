@@ -980,9 +980,48 @@
 
     function sendQuickPrompt(promptText) {
       const input = document.getElementById('chatInput');
-      input.value = promptText;
-      handleChatSubmit(new Event('submit'));
+      if (input) {
+        input.value = promptText;
+        handleChatSubmit();
+      }
     }
+
+    function handleChatSubmit(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const input = document.getElementById('chatInput');
+      if (!input) return;
+      const query = input.value.trim();
+      if (!query) return;
+
+      // 1. Render User Message
+      appendChatMessage('user', escapeHtml(query));
+      input.value = '';
+
+      // 2. Render Loading Indicator
+      const loadingDiv = appendChatMessage('ai', `
+        <div class="flex items-center space-x-2 text-slate-400 text-xs py-1">
+          <div class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></div>
+          <span>Menganalisis basis pengetahuan teknis SATUSEHAT Bridge...</span>
+        </div>
+      `);
+
+      // 3. Process AI Response with natural response timing
+      setTimeout(() => {
+        const responseHtml = getTechnicalResponse(query);
+        const cardBubble = loadingDiv.querySelector('.bg-slate-800\\/90') || loadingDiv.lastElementChild;
+        if (cardBubble) {
+          cardBubble.innerHTML = responseHtml;
+        }
+        const container = document.getElementById('chatMessages');
+        if (container) container.scrollTop = container.scrollHeight;
+        lucide.createIcons();
+      }, 350);
+    }
+
+    // Attach to window for inline HTML handlers
+    window.handleChatSubmit = handleChatSubmit;
+    window.sendQuickPrompt = sendQuickPrompt;
+    window.resetChat = resetChat;
 
     function appendChatMessage(role, htmlContent) {
       const container = document.getElementById('chatMessages');

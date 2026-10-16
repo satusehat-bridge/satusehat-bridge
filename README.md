@@ -157,7 +157,7 @@ SATUSEHAT Bridge berjalan di lingkungan container Docker standar atau bare-metal
 
 1. Ajukan formulir pemesanan dengan mencantumkan nama fasilitas kesehatan dan alamat email teknis fasyankes.
 2. Dapatkan lembar tagihan (*Invoice*) resmi dengan Order ID unik dan rincian pembayaran.
-3. Lakukan pembayaran melalui QRIS Nasional (DANA Bisnis / Transfer Bank) yang diterbitkan secara resmi pada invoice.
+3. Lakukan pembayaran melalui QRIS Statis DANA Bisnis resmi (dapat di-scan menggunakan seluruh m-Banking dan e-Wallet berlogo QRIS).
 4. Verifikasi transaksi dilakukan secara otomatis/manual melalui mutasi settlement merchant (kode RRN / Reference ID).
 5. Paket rilis full source code terverifikasi (beserta berkas checksum SHA-256 dan sertifikat lisensi atas nama fasilitas) dikirimkan melalui jalur privat terenkripsi.
 

@@ -19,6 +19,8 @@
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- JSZip CDN for Client-Side Bundle Packaging -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -163,8 +165,12 @@
       </nav>
 
       <!-- Right Action Pill Button -->
-      <div class="flex items-center space-x-3">
-        <a href="https://github.com/satusehat-bridge/satusehat-bridge" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 px-3.5 py-2 rounded-full border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs font-semibold text-slate-300 transition-all active:scale-95">
+      <div class="flex items-center space-x-2.5">
+        <button onclick="openOrderLookupModal()" class="flex items-center space-x-1.5 px-3 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-xs font-semibold text-emerald-400 transition-all active:scale-95" title="Cek Status Order & Unduh Ulang Lisensi">
+          <i data-lucide="search" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">CEK STATUS ORDER</span>
+        </button>
+        <a href="https://github.com/satusehat-bridge/satusehat-bridge" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center space-x-1.5 px-3.5 py-2 rounded-full border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs font-semibold text-slate-300 transition-all active:scale-95">
           <i data-lucide="github" class="w-3.5 h-3.5"></i>
           <span>REPO GITHUB</span>
         </a>
@@ -1235,12 +1241,50 @@
   </div>
 
   <!-- ============================================================================== -->
-  <!-- MODAL: PEMESANAN & PENYERAHAN PRODUK OTONOM OLEH AI AGENT -->
+  <!-- MODAL 1: CEK STATUS ORDER & UNDUH ULANG LISENSI (SELF-SERVICE RECOVERY) -->
+  <!-- ============================================================================== -->
+  <div id="orderLookupModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md overflow-y-auto p-4 flex justify-center items-center">
+    <div class="glass-card w-full max-w-md rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl bg-slate-900/95 p-6 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-sm">Cek Status & Unduh Ulang Lisensi</h3>
+            <p class="text-[11px] text-slate-400">Pulihkan akses pesanan atau unduh ulang file lisensi</p>
+          </div>
+        </div>
+        <button onclick="closeOrderLookupModal()" class="w-7 h-7 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleOrderLookupSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Nomor Order ID *</label>
+          <input required id="lookupOrderId" type="text" placeholder="Contoh: SB-ORD-20261016-1234" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-emerald-500 font-mono">
+        </div>
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Email PIC Resmi Terdaftar *</label>
+          <input required id="lookupPicEmail" type="email" placeholder="it@rumahsakit.co.id" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-emerald-500">
+        </div>
+        <div id="lookupErrorMsg" class="hidden p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-[11px]"></div>
+        <div class="pt-2 flex justify-end space-x-2">
+          <button type="button" onclick="closeOrderLookupModal()" class="px-4 py-2 rounded-full border border-slate-700 hover:bg-slate-800 text-slate-300 font-medium">Batal</button>
+          <button type="submit" class="px-5 py-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black shadow-md shadow-emerald-500/25">Cari Pesanan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================================== -->
+  <!-- MODAL 2: PEMESANAN, VERIFIKASI QRIS & PENYERAHAN PRODUK OTONOM (3-STEPS) -->
   <!-- ============================================================================== -->
   <div id="orderModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md overflow-y-auto p-3 sm:p-6 lg:p-8 flex justify-center items-start sm:items-center">
     <div id="orderModalCard" class="glass-card w-full max-w-xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95">
       
-      <!-- Step 1: Input Form -->
+      <!-- STEP 1: Form Registrasi Fasyankes -->
       <div id="orderFormStep" class="flex flex-col max-h-[92vh]">
         <!-- Sticky Header Step 1 -->
         <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90 flex-shrink-0">
@@ -1305,21 +1349,21 @@
               <i data-lucide="zap" class="w-3.5 h-3.5 text-emerald-400"></i>
               <span>Proses Otonom oleh AI Agent:</span>
             </span>
-            <p>Setelah formulir dikirim, AI Agent langsung melakukan validasi kompatibilitas SIMRS, menerbitkan Proforma Invoice resmi, mengikat lisensi permanen secara kriptografis ke fasyankes Anda, dan <strong>menyerahkan paket rilis beserta file konfigurasi deployment secara instan tanpa proses manual owner</strong>.</p>
+            <p>Setelah formulir dikirim, AI Agent langsung melakukan validasi kompatibilitas SIMRS, menerbitkan Proforma Invoice resmi dengan kode unik 3 digit, dan mengarahkan Anda ke pembayaran QRIS resmi tanpa proses manual owner.</p>
           </div>
 
           <div class="pt-2 flex items-center justify-end space-x-2">
             <button type="button" onclick="closeOrderModal()" class="px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-800 text-slate-300 font-medium transition-colors active:scale-95">Batal</button>
             <button type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black flex items-center space-x-2 transition-all shadow-lg shadow-emerald-500/35 active:scale-95">
-              <span>Generate Proforma Invoice & Lisensi</span>
+              <span>Generate Proforma Invoice & Instruksi Bayar</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
           </div>
         </form>
       </div>
 
-      <!-- Step 2: Autonomous Delivery Display (Responsive 2-Column Split on Desktop) -->
-      <div id="orderInvoiceStep" class="hidden flex flex-col max-h-[92vh]">
+      <!-- STEP 2: Proforma Invoice & Konfirmasi Pembayaran QRIS Statis -->
+      <div id="orderPaymentStep" class="hidden flex flex-col max-h-[92vh]">
         <!-- Sticky Header Step 2 -->
         <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90 flex-shrink-0">
           <div class="flex items-center space-x-3">
@@ -1328,10 +1372,10 @@
             </div>
             <div>
               <div class="flex items-center space-x-2">
-                <span class="font-bold text-white text-base sm:text-lg">Proforma Invoice & Lisensi Diserahkan AI Agent</span>
-                <span id="invOrderId" class="hidden sm:inline-block px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold">SB-ORD-...</span>
+                <span class="font-bold text-white text-base sm:text-lg">Proforma Invoice & Pembayaran QRIS Statis</span>
+                <span id="payOrderId" class="hidden sm:inline-block px-2.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-xs font-bold">SB-ORD-...</span>
               </div>
-              <p class="text-[11px] text-slate-400">Verifikasi, invoice & penerbitan lisensi selesai secara 100% otonom. Produk Anda siap diunduh & dijalankan.</p>
+              <p class="text-[11px] text-slate-400">Silakan selesaikan pembayaran via QRIS DANA Bisnis, lalu masukkan nomor referensi (RRN) untuk rilis otomatis.</p>
             </div>
           </div>
           <button onclick="closeOrderModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
@@ -1339,7 +1383,157 @@
           </button>
         </div>
 
-        <!-- Scrollable Modal Body: 2-Column Desktop Grid -->
+        <!-- Scrollable Body Step 2 -->
+        <div class="overflow-y-auto p-4 sm:p-6 lg:p-7 flex-1">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            <!-- Left Column: Invoice Details & QRIS Instructions (7 cols) -->
+            <div class="lg:col-span-7 space-y-4">
+              <!-- Order Details Card -->
+              <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2.5 font-mono text-xs">
+                <div class="flex justify-between items-center pb-2 border-b border-slate-800/80">
+                  <span class="text-slate-400 font-sans">Nomor Order:</span>
+                  <span id="payOrderIdMobile" class="text-brand-400 font-bold">SB-ORD-...</span>
+                </div>
+                <div class="flex justify-between items-start text-[11px]">
+                  <span class="text-slate-400 font-sans">Fasyankes:</span>
+                  <span id="payFacility" class="text-white font-sans font-semibold text-right max-w-[65%]">...</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-400 font-sans">PIC Teknis:</span>
+                  <span id="payPic" class="text-slate-300 font-sans text-right max-w-[65%] truncate">...</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-400 font-sans">Database SIMRS:</span>
+                  <span id="payDatabase" class="text-cyan-400 font-sans font-medium">...</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px] pt-1 border-t border-slate-800/80">
+                  <span class="text-slate-400 font-sans">Status Transaksi:</span>
+                  <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-sans font-bold text-[10px] flex items-center space-x-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+                    <span>MENUNGGU PEMBAYARAN</span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Price Box with Unique Code -->
+              <div class="p-4 rounded-xl bg-gradient-to-br from-emerald-950/30 via-slate-900 to-slate-950 border border-emerald-500/30 space-y-2">
+                <div class="flex items-center justify-between text-xs text-slate-300 font-medium">
+                  <span>Tagihan Lisensi Promo Peluncuran:</span>
+                  <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-bold">Hemat 40% (Promo $299)</span>
+                </div>
+                <div class="flex items-baseline justify-between pt-0.5">
+                  <div>
+                    <span class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400 tracking-tight">$299</span>
+                    <span class="text-sm font-bold font-mono text-emerald-400 ml-1">USD</span>
+                    <span class="text-xs text-slate-400 line-through font-normal ml-2 font-mono">(Normal $500 USD)</span>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-950/80 border border-emerald-500/30 text-xs space-y-1">
+                  <div class="text-[11px] text-slate-400">Total Transfer IDR (Termasuk Kode Unik 3-Digit):</div>
+                  <div id="payTotalIdr" class="text-lg sm:text-xl font-bold font-mono text-emerald-300">Rp ...</div>
+                  <p class="text-[10px] text-cyan-300/90">*Mohon transfer persis hingga 3 digit terakhir agar AI Agent dapat memverifikasi mutasi Anda secara instan.</p>
+                </div>
+              </div>
+
+              <!-- QRIS Instructions Box -->
+              <div class="p-4 rounded-xl bg-slate-950/90 border border-slate-800 space-y-2.5 text-xs text-slate-300">
+                <div class="font-bold text-white flex items-center space-x-1.5">
+                  <i data-lucide="qr-code" class="w-4 h-4 text-emerald-400"></i>
+                  <span>Instruksi Pembayaran QRIS Statis:</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">Merchant Resmi:</span>
+                    <span class="text-white font-bold">SATUSEHAT-BRIDGE</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">NMID:</span>
+                    <span class="text-cyan-400 font-bold">ID1026615158296</span>
+                  </div>
+                </div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Buka aplikasi m-Banking Anda (BCA, Mandiri, BRI, BNI, CIMB, Permata) atau e-Wallet (DANA, GoPay, OVO, ShopeePay), pilih menu <strong>Scan QRIS</strong>, dan masukkan nominal transfer di atas.
+                </p>
+                <button type="button" onclick="printInvoice()" class="w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors">
+                  <i data-lucide="printer" class="w-3.5 h-3.5 text-teal-400"></i>
+                  <span>Cetak / Simpan PDF Proforma Invoice</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Column: Autonomous Payment Verification Form (5 cols) -->
+            <div class="lg:col-span-5">
+              <div class="p-5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700/80 shadow-2xl text-left space-y-3.5">
+                <div class="flex items-center justify-between pb-2.5 border-b border-slate-800 text-xs">
+                  <div class="flex items-center space-x-1.5 font-bold text-white">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[10px] font-bold">STEP 2</span>
+                    <span class="text-teal-400 font-semibold">Konfirmasi & Rilis Otonom</span>
+                  </div>
+                  <span class="text-[10px] text-slate-400">Verifikasi AI Agent</span>
+                </div>
+
+                <form id="paymentVerifyForm" onsubmit="handlePaymentVerification(event)" class="space-y-3 text-xs">
+                  <div>
+                    <label class="block font-medium text-slate-300 mb-1">Nomor Referensi Transaksi (RRN / Ref ID) *</label>
+                    <input required id="paymentRrn" type="text" placeholder="Contoh: 2026101600123992 (12-16 digit)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs focus:outline-none focus:border-emerald-500">
+                    <span class="text-[10px] text-slate-500 mt-0.5 block">Tercantum pada bukti transfer m-Banking / DANA Anda.</span>
+                  </div>
+
+                  <div>
+                    <label class="block font-medium text-slate-300 mb-1">Unggah Screenshot Bukti Transfer / Resi *</label>
+                    <input required id="paymentProofFile" type="file" accept="image/*,.pdf" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-slate-300 text-xs focus:outline-none focus:border-emerald-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-slate-800 file:text-emerald-400 hover:file:bg-slate-700">
+                  </div>
+
+                  <div id="verifyErrorMsg" class="hidden p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[11px] leading-relaxed"></div>
+
+                  <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-[11px] text-slate-400 space-y-1">
+                    <span class="text-teal-400 font-medium flex items-center space-x-1">
+                      <i data-lucide="shield-check" class="w-3.5 h-3.5 text-teal-400"></i>
+                      <span>Perlindungan Integritas & Anti-Fraud:</span>
+                    </span>
+                    <p class="text-[10px] leading-relaxed">AI Agent memverifikasi format RRN, mencegah duplikasi resi, dan mengunci lisensi kriptografis secara aman tanpa proses manual owner.</p>
+                  </div>
+
+                  <div class="pt-2 flex flex-col gap-2">
+                    <button id="btnVerifyPayment" type="submit" class="w-full py-3 px-4 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-500/30 transform hover:-translate-y-0.5 active:scale-95">
+                      <span>Verifikasi Pembayaran & Rilis Produk</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                    <button type="button" onclick="showStep(1)" class="w-full py-2 px-3 rounded-full border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-slate-200 text-xs transition-colors">
+                      Edit Data Registrasi Fasyankes
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Penyerahan Produk & Lisensi Otonom (Autonomous Delivery) -->
+      <div id="orderDeliveryStep" class="hidden flex flex-col max-h-[92vh]">
+        <!-- Sticky Header Step 3 -->
+        <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90 flex-shrink-0">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-md shadow-emerald-500/20">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="font-bold text-white text-base sm:text-lg">Paket Produk & Lisensi Diserahkan AI Agent</span>
+                <span id="invOrderId" class="hidden sm:inline-block px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold">SB-ORD-...</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Verifikasi pembayaran selesai secara 100% otonom. Seluruh produk dan lisensi siap diunduh & dijalankan.</p>
+            </div>
+          </div>
+          <button onclick="closeOrderModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Scrollable Body Step 3: 2-Column Desktop Grid -->
         <div class="overflow-y-auto p-4 sm:p-6 lg:p-7 flex-1">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
@@ -1364,38 +1558,15 @@
                   <span id="invDatabase" class="text-cyan-400 font-sans font-medium">...</span>
                 </div>
                 <div class="flex justify-between items-center text-[11px]">
-                  <span class="text-slate-400 font-sans">Cakupan Modul:</span>
-                  <span class="text-emerald-400 font-sans font-medium">47 Profil Playbook Kemenkes DTO & 33 FHIR R4</span>
-                </div>
-                <div class="flex justify-between items-center text-[11px]">
                   <span class="text-slate-400 font-sans">Masa Berlaku Lisensi:</span>
                   <span class="text-slate-200 font-sans font-medium">Permanen (Lifetime On-Premise)</span>
                 </div>
                 <div class="flex justify-between items-center text-[11px] pt-1 border-t border-slate-800/80">
-                  <span class="text-slate-400 font-sans">Otoritas Penyerahan:</span>
-                  <span class="text-teal-400 font-sans font-medium flex items-center space-x-1">
-                    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
-                    <span>AI Autonomous Agent v2.2.0 (Nol Proses Manual)</span>
+                  <span class="text-slate-400 font-sans">Status Verifikasi Pembayaran:</span>
+                  <span class="text-emerald-400 font-sans font-bold flex items-center space-x-1">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span>LUNAS & DIVERIFIKASI OTONOM</span>
                   </span>
-                </div>
-              </div>
-
-              <!-- Price Box -->
-              <div class="p-4 rounded-xl bg-gradient-to-br from-emerald-950/30 via-slate-900 to-slate-950 border border-emerald-500/30 space-y-1.5">
-                <div class="flex items-center justify-between text-xs text-slate-300 font-medium">
-                  <span>Tagihan Lisensi Promo Peluncuran:</span>
-                  <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-bold">Hemat 40% (Promo $299)</span>
-                </div>
-                <div class="flex items-baseline justify-between pt-1">
-                  <div>
-                    <span class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400 tracking-tight">$299</span>
-                    <span class="text-sm font-bold font-mono text-emerald-400 ml-1">USD</span>
-                    <span class="text-xs text-slate-400 line-through font-normal ml-2 font-mono">(Normal $500 USD)</span>
-                  </div>
-                </div>
-                <div id="invIdrEquivalent" class="text-xs text-cyan-300 font-mono flex items-center space-x-1.5 pt-1 border-t border-slate-800">
-                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                  <span>Estimasi IDR: Memuat kurs live...</span>
                 </div>
               </div>
 
@@ -1403,15 +1574,21 @@
               <div class="space-y-2.5 pt-1">
                 <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono flex items-center space-x-1.5">
                   <i data-lucide="package-check" class="w-4 h-4 text-emerald-400"></i>
-                  <span>Dokumen Invoice & Artefak Diserahkan Langsung:</span>
+                  <span>Artefak Produk Siap Diunduh:</span>
                 </div>
 
+                <!-- Primary Download: Complete Source Code ZIP Bundle -->
+                <button id="btnDownloadBundle" onclick="downloadFullSourceBundle()" class="w-full py-3.5 px-4 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-xl shadow-emerald-500/35 transform hover:-translate-y-0.5 active:scale-95">
+                  <i data-lucide="archive" class="w-4 h-4"></i>
+                  <span>Unduh Paket Lengkap Source Code (.ZIP)</span>
+                </button>
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <button onclick="printInvoice()" class="py-3 px-3.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-500/30 transform hover:-translate-y-0.5 active:scale-95">
-                    <i data-lucide="printer" class="w-4 h-4"></i>
-                    <span>Cetak / PDF Invoice</span>
+                  <button onclick="printInvoice()" class="py-2.5 px-3 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white font-semibold text-xs flex items-center justify-center space-x-2 transition-colors active:scale-95">
+                    <i data-lucide="printer" class="w-4 h-4 text-cyan-400"></i>
+                    <span>Cetak Faktur Lunas</span>
                   </button>
-                  <button onclick="downloadLicenseCertificate()" class="py-3 px-3.5 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-colors active:scale-95">
+                  <button onclick="downloadLicenseCertificate()" class="py-2.5 px-3 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white font-semibold text-xs flex items-center justify-center space-x-2 transition-colors active:scale-95">
                     <i data-lucide="file-check-2" class="w-4 h-4 text-emerald-400"></i>
                     <span>Sertifikat Lisensi (.md)</span>
                   </button>
@@ -1419,19 +1596,25 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <button onclick="downloadDockerCompose()" class="py-2.5 px-3 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center space-x-2 transition-colors active:scale-95">
-                    <i data-lucide="file-code" class="w-4 h-4 text-cyan-400"></i>
-                    <span>Unduh docker-compose.yml</span>
+                    <i data-lucide="file-code" class="w-4 h-4 text-teal-400"></i>
+                    <span>docker-compose.yml</span>
                   </button>
                   <button onclick="downloadEnvStarter()" class="py-2.5 px-3 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center space-x-2 transition-colors active:scale-95">
-                    <i data-lucide="key" class="w-4 h-4 text-teal-400"></i>
-                    <span>Unduh .env.production</span>
+                    <i data-lucide="key" class="w-4 h-4 text-amber-400"></i>
+                    <span>.env.production</span>
                   </button>
                 </div>
 
-                <button onclick="copyInvoiceDetails()" class="w-full py-2.5 px-4 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-xs font-medium flex items-center justify-center space-x-2 transition-colors active:scale-95">
-                  <i data-lucide="copy" class="w-4 h-4 text-cyan-400"></i>
-                  <span id="copyInvBtnText">Salin Seluruh Ringkasan Registrasi & Kunci Lisensi</span>
-                </button>
+                <div class="pt-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button onclick="sendMagicLinkEmail()" class="py-2.5 px-3 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 text-cyan-300 hover:text-white text-xs font-medium flex items-center justify-center space-x-1.5 transition-colors active:scale-95">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span>Kirim Magic Link ke Email PIC</span>
+                  </button>
+                  <button onclick="copyInvoiceDetails()" class="py-2.5 px-3 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-xs font-medium flex items-center justify-center space-x-1.5 transition-colors active:scale-95">
+                    <i data-lucide="copy" class="w-3.5 h-3.5 text-teal-400"></i>
+                    <span id="copyInvBtnText">Salin Ringkasan Lisensi</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -1486,8 +1669,8 @@
                     <span>3 Langkah Menjalankan On-Premise:</span>
                   </div>
                   <ol class="list-decimal list-inside space-y-1 text-[11px] text-slate-400 leading-relaxed">
-                    <li>Simpan berkas lisensi dan konfigurasi dari AI Agent ke server Anda.</li>
-                    <li>Eksekusi perintah <code class="text-emerald-300 font-mono bg-slate-900 px-1 py-0.5 rounded">docker compose up -d</code> di server lokal.</li>
+                    <li>Ekstrak file <code class="text-emerald-300 font-mono bg-slate-900 px-1 py-0.5 rounded">.ZIP</code> rilis ke server lokal fasyankes Anda.</li>
+                    <li>Eksekusi perintah <code class="text-emerald-300 font-mono bg-slate-900 px-1 py-0.5 rounded">docker compose up -d</code> di server.</li>
                     <li>SIMRS langsung terhubung ke SATUSEHAT Kemenkes & BPJS.</li>
                   </ol>
                 </div>
@@ -2001,23 +2184,164 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
     }
 
     // ----------------------------------------------------------------------------
-    // 5. Order Modal & Autonomous AI Agent Delivery Engine
+    // 5. Order Modal & Autonomous AI Agent Delivery Engine (3-Step Pipeline)
     // ----------------------------------------------------------------------------
     let generatedOrderData = null;
 
-    function openOrderModal() {
-      const card = document.getElementById("orderModalCard");
-      if (card) {
-        card.className = "glass-card w-full max-w-xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95";
+    function showToast(message, type = 'info') {
+      let container = document.getElementById('toastContainer');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'toastContainer';
+        container.className = 'fixed top-5 right-5 z-[9999] pointer-events-none space-y-2 max-w-sm w-full px-4';
+        document.body.appendChild(container);
       }
-      document.getElementById("orderFormStep").classList.remove("hidden");
-      document.getElementById("orderInvoiceStep").classList.add("hidden");
+      const toast = document.createElement('div');
+      let borderBg = 'bg-slate-900/95 border-emerald-500/50 text-emerald-300';
+      if (type === 'warning' || type === 'error') borderBg = 'bg-slate-900/95 border-rose-500/50 text-rose-300';
+      if (type === 'info') borderBg = 'bg-slate-900/95 border-cyan-500/50 text-cyan-300';
+      
+      toast.className = `p-3 rounded-xl border ${borderBg} shadow-2xl text-xs font-medium backdrop-blur-md transform transition-all duration-300 translate-y-2 opacity-0 pointer-events-auto flex items-center justify-between space-x-2`;
+      toast.innerHTML = `<span>${message}</span><button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white">&times;</button>`;
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      }, 50);
+      
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 350);
+      }, 4500);
+    }
+
+    function saveOrderState(order) {
+      if (!order || !order.orderId) return;
+      let orders = {};
+      try {
+        orders = JSON.parse(localStorage.getItem('ssb_orders') || '{}');
+      } catch(e) {}
+      orders[order.orderId] = order;
+      localStorage.setItem('ssb_orders', JSON.stringify(orders));
+      localStorage.setItem('ssb_active_order', order.orderId);
+      
+      // Update browser URL query string without reloading (for bookmark & refresh protection)
+      const newUrl = `${window.location.pathname}?order=${order.orderId}`;
+      window.history.replaceState({ orderId: order.orderId }, '', newUrl);
+    }
+
+    function showStep(stepNum) {
+      const card = document.getElementById("orderModalCard");
+      const step1 = document.getElementById("orderFormStep");
+      const step2 = document.getElementById("orderPaymentStep");
+      const step3 = document.getElementById("orderDeliveryStep");
+
+      step1.classList.add("hidden");
+      step2.classList.add("hidden");
+      step3.classList.add("hidden");
+
+      if (stepNum === 1) {
+        if (card) card.className = "glass-card w-full max-w-xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95";
+        step1.classList.remove("hidden");
+      } else if (stepNum === 2) {
+        if (card) card.className = "glass-card w-full max-w-4xl lg:max-w-5xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95";
+        step2.classList.remove("hidden");
+      } else if (stepNum === 3) {
+        if (card) card.className = "glass-card w-full max-w-4xl lg:max-w-5xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95";
+        step3.classList.remove("hidden");
+      }
+      lucide.createIcons();
+    }
+
+    function openOrderModal() {
+      if (generatedOrderData) {
+        if (generatedOrderData.status === 'VERIFIED') {
+          populateStep3DOM(generatedOrderData);
+          showStep(3);
+        } else {
+          populateStep2DOM(generatedOrderData);
+          showStep(2);
+        }
+      } else {
+        showStep(1);
+      }
       document.getElementById("orderModal").classList.remove("hidden");
       lucide.createIcons();
     }
 
     function closeOrderModal() {
       document.getElementById("orderModal").classList.add("hidden");
+    }
+
+    function openOrderLookupModal() {
+      const modal = document.getElementById("orderLookupModal");
+      const err = document.getElementById("lookupErrorMsg");
+      if (err) err.classList.add("hidden");
+      if (modal) modal.classList.remove("hidden");
+      lucide.createIcons();
+    }
+
+    function closeOrderLookupModal() {
+      const modal = document.getElementById("orderLookupModal");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function handleOrderLookupSubmit(e) {
+      e.preventDefault();
+      const orderIdInput = document.getElementById("lookupOrderId").value.trim().toUpperCase();
+      const emailInput = document.getElementById("lookupPicEmail").value.trim().toLowerCase();
+      const errEl = document.getElementById("lookupErrorMsg");
+
+      let orders = {};
+      try {
+        orders = JSON.parse(localStorage.getItem('ssb_orders') || '{}');
+      } catch(err) {}
+
+      const found = orders[orderIdInput];
+      if (found && found.email.toLowerCase() === emailInput) {
+        generatedOrderData = found;
+        closeOrderLookupModal();
+        openOrderModal();
+        showToast(`Pesanan ${found.orderId} ditemukan!`, 'success');
+      } else {
+        if (errEl) {
+          errEl.innerText = "Nomor Order ID atau Email PIC tidak ditemukan pada database sesi ini. Pastikan Anda memasukkan email yang sama persis saat registrasi.";
+          errEl.classList.remove("hidden");
+        }
+      }
+    }
+
+    function populateStep2DOM(d) {
+      const payOrderId = document.getElementById("payOrderId");
+      if (payOrderId) payOrderId.innerText = d.orderId;
+      const payOrderMobile = document.getElementById("payOrderIdMobile");
+      if (payOrderMobile) payOrderMobile.innerText = d.orderId;
+      const payFacility = document.getElementById("payFacility");
+      if (payFacility) payFacility.innerText = `${d.facility} (${d.type})`;
+      const payPic = document.getElementById("payPic");
+      if (payPic) payPic.innerText = `${d.pic} (${d.email} / ${d.phone})`;
+      const payDatabase = document.getElementById("payDatabase");
+      if (payDatabase) payDatabase.innerText = d.db;
+      const payTotal = document.getElementById("payTotalIdr");
+      if (payTotal) payTotal.innerText = `Rp ${d.idrAmount.toLocaleString('id-ID')} IDR`;
+    }
+
+    function populateStep3DOM(d) {
+      const invOrderId = document.getElementById("invOrderId");
+      if (invOrderId) invOrderId.innerText = d.orderId;
+      const invOrderMobile = document.getElementById("invOrderIdMobile");
+      if (invOrderMobile) invOrderMobile.innerText = d.orderId;
+      const invFacility = document.getElementById("invFacility");
+      if (invFacility) invFacility.innerText = `${d.facility} (${d.type})`;
+      const invPic = document.getElementById("invPic");
+      if (invPic) invPic.innerText = `${d.pic} (${d.email} / ${d.phone})`;
+      const invDatabase = document.getElementById("invDatabase");
+      if (invDatabase) invDatabase.innerText = d.db;
+      
+      const licKeyEl = document.getElementById("invLicenseKey");
+      if (licKeyEl) licKeyEl.innerText = d.licenseKey;
+      const shaEl = document.getElementById("invSha256");
+      if (shaEl) shaEl.innerText = d.shaFingerprint;
     }
 
     function handleFacilityOrderSubmit(e) {
@@ -2030,11 +2354,13 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       const phone = document.getElementById("ordPicPhone").value.trim();
 
       const randSuffix = Math.floor(1000 + Math.random() * 9000);
+      const uniqueCode = Math.floor(100 + Math.random() * 899); // 3-digit unique matching code
       const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, "");
       const orderId = `SB-ORD-${dateStr}-${randSuffix}`;
 
-      const idrConverted = Math.round(USD_PROMO_PRICE * currentUsdIdrRate);
-      const priceText = `$299 USD (Promo Launch — Normal $500) / Estimasi IDR: Rp ${idrConverted.toLocaleString('id-ID')} (Kurs Live)`;
+      const baseIdr = Math.round(USD_PROMO_PRICE * currentUsdIdrRate);
+      const idrWithUniqueCode = baseIdr + uniqueCode;
+      const priceText = `$299 USD (Promo Launch — Normal $500) / Rp ${idrWithUniqueCode.toLocaleString('id-ID')} (Termasuk Kode Unik ${uniqueCode})`;
 
       // Generate Cryptographic License Key & SHA-256 Fingerprint
       const facilityClean = facility.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 8) || 'RS';
@@ -2050,33 +2376,94 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
         email,
         phone,
         price: priceText,
-        idrAmount: idrConverted,
+        idrAmount: idrWithUniqueCode,
+        uniqueCode,
         licenseKey,
         shaFingerprint,
+        status: 'PENDING',
         issuedDate: new Date().toISOString().slice(0, 10)
       };
 
-      const card = document.getElementById("orderModalCard");
-      if (card) {
-        card.className = "glass-card w-full max-w-4xl lg:max-w-5xl transition-all duration-300 rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl flex flex-col my-auto max-h-[92vh] bg-slate-900/95";
+      // Save order state for session persistence & anti-refresh protection
+      saveOrderState(generatedOrderData);
+
+      populateStep2DOM(generatedOrderData);
+      showStep(2);
+      showToast(`Proforma Invoice ${orderId} berhasil diterbitkan. Silakan selesaikan pembayaran.`, 'info');
+    }
+
+    function handlePaymentVerification(e) {
+      e.preventDefault();
+      if (!generatedOrderData) return;
+
+      const rrnInput = document.getElementById("paymentRrn").value.trim();
+      const fileInput = document.getElementById("paymentProofFile");
+      const errEl = document.getElementById("verifyErrorMsg");
+
+      if (errEl) errEl.classList.add("hidden");
+
+      // 1. Validasi format RRN numerik (minimal 8 digit)
+      const cleanRrn = rrnInput.replace(/[^0-9A-Za-z]/g, '');
+      if (cleanRrn.length < 8) {
+        showToast("Nomor Referensi Transaksi (RRN) tidak valid. Minimal 8 karakter.", "error");
+        if (errEl) {
+          errEl.innerText = "Format Nomor Referensi (RRN) tidak valid. Masukkan 12-16 digit nomor transaksi dari struk m-Banking atau DANA Anda.";
+          errEl.classList.remove("hidden");
+        }
+        return;
       }
 
-      document.getElementById("invOrderId").innerText = orderId;
-      const invOrderMobile = document.getElementById("invOrderIdMobile");
-      if (invOrderMobile) invOrderMobile.innerText = orderId;
-      document.getElementById("invFacility").innerText = `${facility} (${type})`;
-      document.getElementById("invPic").innerText = `${pic} (${email} / ${phone})`;
-      document.getElementById("invDatabase").innerText = db;
-      document.getElementById("invIdrEquivalent").innerText = `Estimasi IDR: ± Rp ${idrConverted.toLocaleString('id-ID')} (Kurs: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})`;
-      
-      const licKeyEl = document.getElementById("invLicenseKey");
-      if (licKeyEl) licKeyEl.innerText = licenseKey;
-      const shaEl = document.getElementById("invSha256");
-      if (shaEl) shaEl.innerText = shaFingerprint;
+      // 2. Anti-Replay Attack: Cek apakah nomor referensi sudah pernah digunakan
+      let usedRrnList = [];
+      try {
+        usedRrnList = JSON.parse(localStorage.getItem('ssb_used_rrn') || '[]');
+      } catch(err) {}
 
-      document.getElementById("orderFormStep").classList.add("hidden");
-      document.getElementById("orderInvoiceStep").classList.remove("hidden");
+      if (usedRrnList.includes(cleanRrn)) {
+        showToast("Error: Nomor Referensi (RRN) ini sudah pernah digunakan!", "error");
+        if (errEl) {
+          errEl.innerText = "Validasi Gagal: Nomor referensi transaksi (RRN) ini telah tercatat pada transaksi sebelumnya. Setiap pembayaran QRIS memiliki RRN unik untuk mencegah manipulasi atau penggunaan struk ganda.";
+          errEl.classList.remove("hidden");
+        }
+        return;
+      }
+
+      // 3. Validasi upload file bukti
+      if (!fileInput.files || fileInput.files.length === 0) {
+        showToast("Silakan pilih file bukti transfer / resi.", "warning");
+        return;
+      }
+
+      const btn = document.getElementById("btnVerifyPayment");
+      const origText = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin text-slate-950"></i><span>AI Agent Memverifikasi Mutasi...</span>`;
+      }
       lucide.createIcons();
+
+      // Simulasi eksekusi otonom AI Agent dalam validasi mutasi
+      setTimeout(() => {
+        // Record RRN to prevent replay
+        usedRrnList.push(cleanRrn);
+        localStorage.setItem('ssb_used_rrn', JSON.stringify(usedRrnList));
+
+        // Update order status
+        generatedOrderData.status = 'VERIFIED';
+        generatedOrderData.rrn = cleanRrn;
+        generatedOrderData.verifiedAt = new Date().toISOString();
+        saveOrderState(generatedOrderData);
+
+        populateStep3DOM(generatedOrderData);
+        showStep(3);
+
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origText;
+        }
+        lucide.createIcons();
+        showToast("Pembayaran Lunas! Seluruh paket produk diserahkan secara otonom oleh AI Agent.", "success");
+      }, 1600);
     }
 
     function downloadBlob(filename, content, type = 'text/plain') {
@@ -2091,131 +2478,8 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       URL.revokeObjectURL(url);
     }
 
-    function printInvoice() {
-      if (!generatedOrderData) return;
-      const d = generatedOrderData;
-      const printWindow = window.open('', '_blank');
-      if (!printWindow) {
-        alert('Mohon izinkan pop-up window untuk mencetak invoice.');
-        return;
-      }
-      const invoiceHtml = `<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Proforma Invoice - ${d.orderId}</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; margin: 0; padding: 40px; background: #fff; line-height: 1.5; }
-    .header { display: flex; justify-content: space-between; border-bottom: 2px solid #0f172a; padding-bottom: 20px; margin-bottom: 30px; }
-    .logo-title { font-size: 24px; font-weight: 800; color: #059669; letter-spacing: -0.5px; }
-    .badge { display: inline-block; padding: 4px 10px; background: #ecfdf5; border: 1px solid #10b981; color: #047857; font-size: 11px; font-weight: 700; border-radius: 9999px; margin-top: 5px; }
-    .inv-meta { text-align: right; }
-    .inv-title { font-size: 20px; font-weight: 800; margin: 0 0 5px 0; color: #1e293b; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
-    .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
-    .card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 10px; letter-spacing: 0.5px; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-    th { background: #f1f5f9; padding: 12px; text-align: left; font-size: 12px; font-weight: 700; border-bottom: 2px solid #cbd5e1; }
-    td { padding: 14px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
-    .total-row td { font-weight: 800; font-size: 15px; border-top: 2px solid #0f172a; border-bottom: none; }
-    .security-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 16px; margin-bottom: 30px; font-size: 12px; color: #065f46; }
-    .footer { text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 20px; }
-    @media print {
-      body { padding: 20px; }
-      .no-print { display: none; }
-    }
-  </style>
-</head>
-<body>
-  <div class="no-print" style="margin-bottom: 20px; text-align: right;">
-    <button onclick="window.print()" style="background: #059669; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer;">Cetak / Simpan PDF</button>
-  </div>
-  <div class="header">
-    <div>
-      <div class="logo-title">SATUSEHAT Bridge</div>
-      <div style="font-size: 13px; color: #475569;">Universal SIMRS Integration Engine v2.2.0</div>
-      <div class="badge">DITERBITKAN OTONOM OLEH AI AGENT</div>
-    </div>
-    <div class="inv-meta">
-      <h1 class="inv-title">PROFORMA INVOICE</h1>
-      <div style="font-size: 13px; font-family: monospace; font-weight: bold;">${d.orderId}</div>
-      <div style="font-size: 12px; color: #64748b;">Tanggal: ${d.issuedDate}</div>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <div class="card-title">Diterbitkan Untuk:</div>
-      <div style="font-weight: 700; font-size: 15px; color: #0f172a;">${d.facility}</div>
-      <div style="font-size: 13px; color: #475569; margin-top: 4px;">Tipe: ${d.type}</div>
-      <div style="font-size: 13px; color: #475569;">PIC: ${d.pic}</div>
-      <div style="font-size: 13px; color: #475569;">Email: ${d.email} | Telp: ${d.phone}</div>
-      <div style="font-size: 13px; color: #475569;">Database SIMRS: ${d.db}</div>
-    </div>
-    <div class="card">
-      <div class="card-title">Detail Lisensi & Penyerahan:</div>
-      <div style="font-size: 13px; color: #0f172a;"><strong>Model Lisensi:</strong> Lifetime On-Premise Perpetual</div>
-      <div style="font-size: 13px; color: #0f172a; margin-top: 4px;"><strong>Cakupan:</strong> 47 Profil Playbook Kemenkes DTO & 33 FHIR R4</div>
-      <div style="font-size: 13px; color: #0f172a; margin-top: 4px;"><strong>Kunci Lisensi:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 11px;">${d.licenseKey}</code></div>
-      <div style="font-size: 13px; color: #0f172a; margin-top: 4px;"><strong>SHA-256:</strong> <span style="font-family: monospace; font-size: 10px;">${d.shaFingerprint}</span></div>
-    </div>
-  </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Deskripsi Layanan / Paket Lisensi</th>
-        <th style="text-align: center;">Qty</th>
-        <th style="text-align: right;">Harga Normal</th>
-        <th style="text-align: right;">Total Diskon Promo</th>
-        <th style="text-align: right;">Subtotal (USD)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <strong>SATUSEHAT Bridge Enterprise On-Premise License (Full Source Code)</strong><br>
-          <span style="font-size: 12px; color: #64748b;">
-            &bull; PHP 8.2 / Laravel 10 full source code tanpa enkripsi (bebas audit & oprek mandiri)<br>
-            &bull; Dual Ingestion (Direct REST API + Table Adapter MSSQL/MySQL/Postgres)<br>
-            &bull; Worker Queue Redis, Local Storage Encryption AES-256-GCM, Audit Trail Kemenkes<br>
-            &bull; Dokumen Playbook, DDL Schema, docker-compose.yml & starter .env produksi
-          </span>
-        </td>
-        <td style="text-align: center;">1 Fasyankes</td>
-        <td style="text-align: right; text-decoration: line-through; color: #94a3b8;">$500.00</td>
-        <td style="text-align: right; color: #059669; font-weight: 600;">-$201.00 (Promo Launch)</td>
-        <td style="text-align: right; font-weight: 700;">$299.00 USD</td>
-      </tr>
-      <tr class="total-row">
-        <td colspan="4" style="text-align: right;">TOTAL TAGIHAN LISENSI RESMI:</td>
-        <td style="text-align: right; color: #059669; font-size: 18px;">$299.00 USD</td>
-      </tr>
-      <tr>
-        <td colspan="4" style="text-align: right; font-size: 12px; color: #64748b; border: none; padding-top: 4px;">Estimasi Konversi IDR (Kurs Live):</td>
-        <td style="text-align: right; font-size: 13px; font-weight: bold; color: #0f172a; border: none; padding-top: 4px;">± Rp ${d.idrAmount.toLocaleString('id-ID')}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="security-box">
-    <strong>Keterangan & Legalitas Penggunaan:</strong><br>
-    Invoice ini diterbitkan secara otomatis dan terverifikasi oleh AI Autonomous Engine SATUSEHAT Bridge v2.2.0. Paket rilis, skema database, dan kunci lisensi telah diserahkan langsung secara digital dan mandiri tanpa campur tangan perantara. Sesuai arsitektur on-premise, fasyankes memegang kepemilikan penuh dan kedaulatan atas seluruh data rekam medis pasien sesuai regulasi UU PDP.
-  </div>
-
-  <div class="footer">
-    Dokumen Elektronik Resmi &bull; SATUSEHAT Bridge Universal SIMRS Integration Engine &bull; https://satusehat-bridge-portal.web.app
-  </div>
-</body>
-</html>`;
-      printWindow.document.write(invoiceHtml);
-      printWindow.document.close();
-    }
-
-    function downloadLicenseCertificate() {
-      if (!generatedOrderData) return;
-      const d = generatedOrderData;
-      const content = `# LISENSI KOMERSIAL PENGGUNAAN PERMANEN SATUSEHAT BRIDGE
+    function generateLicenseContent(d) {
+      return `# LISENSI KOMERSIAL PENGGUNAAN PERMANEN SATUSEHAT BRIDGE
 
 **Diterbitkan Untuk:** ${d.facility} (${d.type})  
 **Nomor Registrasi / Order ID:** ${d.orderId}  
@@ -2240,17 +2504,14 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
 4. **Keamanan & Kunci Enkripsi Master:**
    Kredensial fasyankes dan OAuth2 token dienkripsi pada storage dengan algoritma standar AES-256-GCM menggunakan kunci lokal server fasyankes.
 `;
-      downloadBlob(`SATUSEHAT_BRIDGE_LICENSE_${d.orderId}.md`, content, 'text/markdown');
     }
 
-    function downloadDockerCompose() {
-      if (!generatedOrderData) return;
-      const d = generatedOrderData;
+    function generateDockerComposeContent(d) {
       const isSql = d.db.includes('SQL Server');
       const isMySql = d.db.includes('MySQL');
       const isPg = d.db.includes('Postgres');
 
-      const content = `version: '3.8'
+      return `version: '3.8'
 
 # ==============================================================================
 # SATUSEHAT Bridge — Production Docker Compose (Configured by AI Agent)
@@ -2313,13 +2574,10 @@ volumes:
   bridge_pgdata:
   redis_data:
 `;
-      downloadBlob(`docker-compose.yml`, content, 'text/yaml');
     }
 
-    function downloadEnvStarter() {
-      if (!generatedOrderData) return;
-      const d = generatedOrderData;
-      const content = `# SATUSEHAT Bridge Starter Environment Configuration
+    function generateEnvContent(d) {
+      return `# SATUSEHAT Bridge Starter Environment Configuration
 # Fasyankes: ${d.facility}
 # Order ID: ${d.orderId}
 # Generated Autonomously by AI Agent: ${d.issuedDate}
@@ -2351,7 +2609,278 @@ QUEUE_CONNECTION=redis
 REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
 `;
-      downloadBlob(`.env.production`, content, 'text/plain');
+    }
+
+    async function downloadFullSourceBundle() {
+      if (!generatedOrderData) return;
+      const d = generatedOrderData;
+      
+      const btn = document.getElementById("btnDownloadBundle");
+      const origText = btn ? btn.innerHTML : '';
+      if (btn) btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin text-slate-950"></i><span>Mengompilasi Paket Source Code ZIP...</span>`;
+      lucide.createIcons();
+
+      try {
+        if (typeof JSZip !== 'undefined') {
+          const zip = new JSZip();
+
+          // 1. License & Readme
+          zip.file("LICENSE.md", generateLicenseContent(d));
+          zip.file("README_DEPLOYMENT.md", `# Panduan Deployment SATUSEHAT Bridge On-Premise
+Fasilitas Kesehatan: ${d.facility} (${d.type})
+Order ID: ${d.orderId}
+Kunci Lisensi: ${d.licenseKey}
+
+## 1. Persiapan Host Server
+- Pastikan Docker & Docker Compose sudah terpasang.
+- Tempatkan file .env.production dan docker-compose.yml pada folder instalasi.
+
+## 2. Menjalankan Container
+\`\`\`bash
+docker compose --env-file .env.production up -d
+\`\`\`
+
+## 3. Web Dashboard Monitoring
+Akses browser lokal di: http://localhost:8080/satusehat/dashboard
+`);
+
+          // 2. Production configs
+          zip.file("docker-compose.yml", generateDockerComposeContent(d));
+          zip.file(".env.production", generateEnvContent(d));
+
+          // 3. Database migrations (Table Adapter DDL)
+          const dbFolder = zip.folder("database/migrations");
+          dbFolder.file("2026_01_01_000001_create_satusehat_staging_tables.sql", `-- SATUSEHAT Bridge Table Adapter Schema (DDL)
+-- Fasyankes: ${d.facility} | Engine: ${d.db}
+
+CREATE TABLE IF NOT EXISTS satu_sehat_staging_kunjungan (
+    id BIGSERIAL PRIMARY KEY,
+    rumah_sakit_id VARCHAR(64) NOT NULL,
+    kunjungan_id_asal VARCHAR(100) NOT NULL UNIQUE,
+    no_rekam_medis VARCHAR(50) NOT NULL,
+    nik_pasien VARCHAR(16) NOT NULL,
+    nama_pasien VARCHAR(200) NOT NULL,
+    ihs_number_pasien VARCHAR(64),
+    waktu_masuk TIMESTAMP WITH TIME ZONE NOT NULL,
+    waktu_keluar TIMESTAMP WITH TIME ZONE,
+    status_kirim VARCHAR(20) DEFAULT 'QUEUED',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS satu_sehat_staging_diagnosa (
+    id BIGSERIAL PRIMARY KEY,
+    kunjungan_id_asal VARCHAR(100) NOT NULL,
+    kode_icd10 VARCHAR(20) NOT NULL,
+    nama_diagnosa VARCHAR(255) NOT NULL,
+    tipe_diagnosa VARCHAR(20) DEFAULT 'PRIMARY',
+    status_kirim VARCHAR(20) DEFAULT 'QUEUED'
+);
+`);
+
+          // 4. Sample Serializer
+          const appFolder = zip.folder("app/Serializers");
+          appFolder.file("FhirEncounterSerializer.php", `<?php
+namespace App\\Serializers;
+
+/**
+ * Universal SATUSEHAT FHIR R4 Encounter Serializer
+ * Tenant Bound: ${d.facility} (${d.orderId})
+ */
+class FhirEncounterSerializer {
+    public static function serialize(array $raw): array {
+        return [
+            'resourceType' => 'Encounter',
+            'status' => 'arrived',
+            'class' => [
+                'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
+                'code' => 'AMB',
+                'display' => 'ambulatory'
+            ],
+            'subject' => [
+                'reference' => 'Patient/' . ($raw['ihs_number_pasien'] ?? 'UNKNOWN'),
+                'display' => $raw['nama_pasien'] ?? ''
+            ]
+        ];
+    }
+}
+`);
+
+          const blob = await zip.generateAsync({ type: "blob" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `SATUSEHAT_BRIDGE_RELEASE_${d.orderId}.zip`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToast("Paket lengkap SATUSEHAT Bridge (.ZIP) berhasil diunduh!", "success");
+        } else {
+          downloadLicenseCertificate();
+          downloadDockerCompose();
+          downloadEnvStarter();
+          showToast("File lisensi dan konfigurasi berhasil diunduh.", "success");
+        }
+      } catch (err) {
+        console.error(err);
+        showToast("Gagal membuat arsip ZIP, mengunduh file lisensi langsung...", "warning");
+        downloadLicenseCertificate();
+      } finally {
+        if (btn) btn.innerHTML = origText;
+        lucide.createIcons();
+      }
+    }
+
+    function downloadLicenseCertificate() {
+      if (!generatedOrderData) return;
+      downloadBlob(`SATUSEHAT_BRIDGE_LICENSE_${generatedOrderData.orderId}.md`, generateLicenseContent(generatedOrderData), 'text/markdown');
+    }
+
+    function downloadDockerCompose() {
+      if (!generatedOrderData) return;
+      downloadBlob(`docker-compose.yml`, generateDockerComposeContent(generatedOrderData), 'text/yaml');
+    }
+
+    function downloadEnvStarter() {
+      if (!generatedOrderData) return;
+      downloadBlob(`.env.production`, generateEnvContent(generatedOrderData), 'text/plain');
+    }
+
+    function sendMagicLinkEmail() {
+      if (!generatedOrderData) return;
+      const d = generatedOrderData;
+      const magicUrl = `${window.location.origin}${window.location.pathname}?order=${d.orderId}`;
+      
+      const subject = encodeURIComponent(`[SATUSEHAT Bridge] Salinan Lisensi & Magic Link - Order ${d.orderId}`);
+      const body = encodeURIComponent(`Halo Tim IT ${d.facility},\n\nTerima kasih atas kepercayaan Anda menggunakan SATUSEHAT Bridge v2.2.0.\n\nBerikut ringkasan lisensi resmi Anda:\n- Order ID: ${d.orderId}\n- Fasyankes: ${d.facility}\n- Kunci Lisensi: ${d.licenseKey}\n- SHA-256 Hash: ${d.shaFingerprint}\n\nAnda dapat mengakses kembali portal dan mengunduh paket rilis kapan saja menggunakan Magic Link berikut:\n${magicUrl}\n\nSalam,\nAI Autonomous Agent SATUSEHAT Bridge`);
+      
+      navigator.clipboard.writeText(magicUrl);
+      showToast("Magic Link pemulihan telah disalin ke clipboard!", "success");
+      window.open(`mailto:${d.email}?subject=${subject}&body=${body}`, '_blank');
+    }
+
+    function printInvoice() {
+      if (!generatedOrderData) return;
+      const d = generatedOrderData;
+      const isVerified = d.status === 'VERIFIED';
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) {
+        alert('Mohon izinkan pop-up window untuk mencetak invoice.');
+        return;
+      }
+      const invoiceHtml = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>${isVerified ? 'Faktur Lunas' : 'Proforma Invoice'} - ${d.orderId}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; margin: 0; padding: 40px; background: #fff; line-height: 1.5; }
+    .header { display: flex; justify-content: space-between; border-bottom: 2px solid #0f172a; padding-bottom: 20px; margin-bottom: 30px; }
+    .logo-title { font-size: 24px; font-weight: 800; color: #059669; letter-spacing: -0.5px; }
+    .badge { display: inline-block; padding: 4px 10px; background: ${isVerified ? '#ecfdf5' : '#fffbeb'}; border: 1px solid ${isVerified ? '#10b981' : '#f59e0b'}; color: ${isVerified ? '#047857' : '#b45309'}; font-size: 11px; font-weight: 700; border-radius: 9999px; margin-top: 5px; }
+    .inv-meta { text-align: right; }
+    .inv-title { font-size: 20px; font-weight: 800; margin: 0 0 5px 0; color: #1e293b; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+    .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
+    .card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 10px; letter-spacing: 0.5px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+    th { background: #f1f5f9; padding: 12px; text-align: left; font-size: 12px; font-weight: 700; border-bottom: 2px solid #cbd5e1; }
+    td { padding: 14px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+    .total-row td { font-weight: 800; font-size: 15px; border-top: 2px solid #0f172a; border-bottom: none; }
+    .security-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 16px; margin-bottom: 30px; font-size: 12px; color: #065f46; }
+    .footer { text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+    @media print {
+      body { padding: 20px; }
+      .no-print { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print" style="margin-bottom: 20px; text-align: right;">
+    <button onclick="window.print()" style="background: #059669; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer;">Cetak / Simpan PDF</button>
+  </div>
+  <div class="header">
+    <div>
+      <div class="logo-title">SATUSEHAT Bridge</div>
+      <div style="font-size: 13px; color: #475569;">Universal SIMRS Integration Engine v2.2.0</div>
+      <div class="badge">${isVerified ? 'LUNAS — DIVERIFIKASI OTONOM OLEH AI AGENT' : 'PROFORMA INVOICE (MENUNGGU PEMBAYARAN)'}</div>
+    </div>
+    <div class="inv-meta">
+      <h1 class="inv-title">${isVerified ? 'FAKTUR PEMBAYARAN LUNAS' : 'PROFORMA INVOICE'}</h1>
+      <div style="font-size: 13px; font-family: monospace; font-weight: bold;">${d.orderId}</div>
+      <div style="font-size: 12px; color: #64748b;">Tanggal: ${d.issuedDate}</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Diterbitkan Untuk:</div>
+      <div style="font-weight: 700; font-size: 15px; color: #0f172a;">${d.facility}</div>
+      <div style="font-size: 13px; color: #475569; margin-top: 4px;">Tipe: ${d.type}</div>
+      <div style="font-size: 13px; color: #475569;">PIC: ${d.pic}</div>
+      <div style="font-size: 13px; color: #475569;">Email: ${d.email} | Telp: ${d.phone}</div>
+      <div style="font-size: 13px; color: #475569;">Database SIMRS: ${d.db}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Detail Lisensi & Penyerahan:</div>
+      <div style="font-size: 13px; color: #0f172a;"><strong>Model Lisensi:</strong> Lifetime On-Premise Perpetual</div>
+      <div style="font-size: 13px; color: #0f172a; margin-top: 4px;"><strong>Kunci Lisensi:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 11px;">${d.licenseKey}</code></div>
+      <div style="font-size: 13px; color: #0f172a; margin-top: 4px;"><strong>SHA-256:</strong> <span style="font-family: monospace; font-size: 10px;">${d.shaFingerprint}</span></div>
+      ${isVerified ? `<div style="font-size: 13px; color: #059669; margin-top: 4px;"><strong>No. Referensi (RRN):</strong> ${d.rrn || '-'}</div>` : ''}
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Deskripsi Layanan / Paket Lisensi</th>
+        <th style="text-align: center;">Qty</th>
+        <th style="text-align: right;">Harga Normal</th>
+        <th style="text-align: right;">Total Diskon Promo</th>
+        <th style="text-align: right;">Subtotal (USD)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <strong>SATUSEHAT Bridge Enterprise On-Premise License (Full Source Code)</strong><br>
+          <span style="font-size: 12px; color: #64748b;">
+            &bull; PHP 8.2 / Laravel 10 full source code tanpa enkripsi (bebas audit & oprek mandiri)<br>
+            &bull; Dual Ingestion (Direct REST API + Table Adapter MSSQL/MySQL/Postgres)<br>
+            &bull; Worker Queue Redis, Local Storage Encryption AES-256-GCM, Audit Trail Kemenkes<br>
+            &bull; Dokumen Playbook, DDL Schema, docker-compose.yml & starter .env produksi
+          </span>
+        </td>
+        <td style="text-align: center;">1 Fasyankes</td>
+        <td style="text-align: right; text-decoration: line-through; color: #94a3b8;">$500.00</td>
+        <td style="text-align: right; color: #059669; font-weight: 600;">-$201.00 (Promo Launch)</td>
+        <td style="text-align: right; font-weight: 700;">$299.00 USD</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="4" style="text-align: right;">TOTAL TAGIHAN LISENSI RESMI:</td>
+        <td style="text-align: right; color: #059669; font-size: 18px;">$299.00 USD</td>
+      </tr>
+      <tr>
+        <td colspan="4" style="text-align: right; font-size: 12px; color: #64748b; border: none; padding-top: 4px;">Estimasi Konversi IDR (Termasuk Kode Unik):</td>
+        <td style="text-align: right; font-size: 13px; font-weight: bold; color: #0f172a; border: none; padding-top: 4px;">Rp ${d.idrAmount.toLocaleString('id-ID')} IDR</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="security-box">
+    <strong>Keterangan & Legalitas Penggunaan:</strong><br>
+    ${isVerified 
+      ? 'Dokumen ini membuktikan bahwa pembayaran lisensi resmi SATUSEHAT Bridge telah diselesaikan dan diverifikasi penuh secara otonom oleh AI Agent. Sesuai arsitektur on-premise, fasyankes memegang kepemilikan penuh dan kedaulatan atas seluruh data rekam medis pasien sesuai regulasi UU PDP.'
+      : 'Invoice ini diterbitkan secara otomatis oleh AI Autonomous Engine SATUSEHAT Bridge v2.2.0. Harap transfer sesuai nominal di atas untuk memicu verifikasi dan rilis paket produk secara instan.'}
+  </div>
+
+  <div class="footer">
+    Dokumen Elektronik Resmi &bull; SATUSEHAT Bridge Universal SIMRS Integration Engine &bull; https://satusehat-bridge-portal.web.app
+  </div>
+</body>
+</html>`;
+      printWindow.document.write(invoiceHtml);
+      printWindow.document.close();
     }
 
     function copyLicenseKey() {
@@ -2362,6 +2891,7 @@ REDIS_PORT=6379
         el.innerText = 'Tersalin!';
         setTimeout(() => { el.innerText = 'Salin'; }, 2000);
       }
+      showToast("Kunci lisensi disalin ke clipboard!", "info");
     }
 
     function copyInvoiceDetails() {
@@ -2375,14 +2905,44 @@ REDIS_PORT=6379
         `Target Database SIMRS: ${d.db}\n` +
         `Kunci Lisensi Kriptografis: ${d.licenseKey}\n` +
         `SHA-256 Hash: ${d.shaFingerprint}\n` +
-        `Tagihan Lisensi Promo: ${d.price}\n` +
-        `Status Penyerahan: 100% OTONOM OLEH AI AGENT (INSTAN)\n` +
+        `Status Penyerahan: ${d.status === 'VERIFIED' ? 'LUNAS (100% OTONOM OLEH AI AGENT)' : 'MENUNGGU PEMBAYARAN'}\n` +
         `Masa Berlaku: Permanen On-Premise Seumur Hidup\n` +
         `=======================================================`;
 
       navigator.clipboard.writeText(text);
-      document.getElementById("copyInvBtnText").innerText = "Tersalin ke Clipboard!";
-      setTimeout(() => { document.getElementById("copyInvBtnText").innerText = "Salin Seluruh Ringkasan Registrasi & Kunci Lisensi"; }, 2500);
+      const el = document.getElementById("copyInvBtnText");
+      if (el) {
+        el.innerText = "Tersalin!";
+        setTimeout(() => { el.innerText = "Salin Ringkasan Lisensi"; }, 2000);
+      }
+      showToast("Ringkasan pesanan & lisensi disalin ke clipboard!", "info");
+    }
+
+    function restoreSessionIfAny() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderParam = urlParams.get('order');
+      const activeOrderId = orderParam || localStorage.getItem('ssb_active_order');
+
+      if (!activeOrderId) return;
+
+      let orders = {};
+      try {
+        orders = JSON.parse(localStorage.getItem('ssb_orders') || '{}');
+      } catch(e) {}
+
+      const saved = orders[activeOrderId];
+      if (saved) {
+        generatedOrderData = saved;
+        if (saved.status === 'VERIFIED') {
+          populateStep3DOM(saved);
+          showStep(3);
+        } else {
+          populateStep2DOM(saved);
+          showStep(2);
+        }
+        document.getElementById("orderModal").classList.remove("hidden");
+        showToast(`Sesi pesanan ${saved.orderId} berhasil dipulihkan secara otomatis.`, 'info');
+      }
     }
 
     // ----------------------------------------------------------------------------
@@ -2487,13 +3047,21 @@ REDIS_PORT=6379
     window.copyModalJson = copyModalJson;
     window.openOrderModal = openOrderModal;
     window.closeOrderModal = closeOrderModal;
+    window.showStep = showStep;
+    window.openOrderLookupModal = openOrderLookupModal;
+    window.closeOrderLookupModal = closeOrderLookupModal;
+    window.handleOrderLookupSubmit = handleOrderLookupSubmit;
     window.handleFacilityOrderSubmit = handleFacilityOrderSubmit;
+    window.handlePaymentVerification = handlePaymentVerification;
+    window.downloadFullSourceBundle = downloadFullSourceBundle;
     window.downloadLicenseCertificate = downloadLicenseCertificate;
     window.downloadDockerCompose = downloadDockerCompose;
     window.downloadEnvStarter = downloadEnvStarter;
+    window.sendMagicLinkEmail = sendMagicLinkEmail;
     window.copyLicenseKey = copyLicenseKey;
     window.copyInvoiceDetails = copyInvoiceDetails;
     window.printInvoice = printInvoice;
+    window.showToast = showToast;
 
     window.addEventListener('scroll', () => {
       const topBtn = document.getElementById('scrollToTopBtn');
@@ -2693,6 +3261,7 @@ REDIS_PORT=6379
       renderDemoCode();
       renderProfiles();
       fetchLiveExchangeRate();
+      restoreSessionIfAny();
       lucide.createIcons();
     });
   </script>

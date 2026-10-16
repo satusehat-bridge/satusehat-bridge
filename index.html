@@ -949,6 +949,231 @@
       setTimeout(() => { document.getElementById("copyInvBtnText").innerText = "Salin Rincian Pesanan ke Clipboard"; }, 2500);
     }
 
+    // ==============================================================================
+    // LIVE TECHNICAL ASSISTANT (AI COPILOT) ENGINE
+    // ==============================================================================
+    const INITIAL_CHAT_HTML = `
+      <div class="flex items-start space-x-3">
+        <div class="w-7 h-7 rounded-lg bg-cyan-600/20 border border-cyan-500/30 text-cyan-400 flex items-center justify-center flex-shrink-0">
+          <img src="assets/satusehat-bridge-icon.svg" alt="AI" class="w-5 h-5 rounded">
+        </div>
+        <div class="bg-slate-800/90 border border-slate-700/80 rounded-2xl rounded-tl-none p-3.5 text-slate-200 max-w-[85%] leading-relaxed">
+          Halo! Saya adalah <strong>Live Technical Assistant SATUSEHAT Bridge</strong>. Saya dapat menjawab pertanyaan teknis mengenai:
+          <ul class="list-disc list-inside mt-2 space-y-1 text-slate-300">
+            <li>Arsitektur Table Adapter (SQL Server, MySQL, Postgres).</li>
+            <li>Daftar 47 Profil Playbook Kemenkes DTO & 33 tipe FHIR unik.</li>
+            <li>Perbedaan model Kanonikal terdedikasi vs Generic Staging Envelope.</li>
+            <li>Enkripsi data, skema keamanan, dan prosedur upgrade tanpa downtime.</li>
+            <li>Lisensi komersial permanen $299 tanpa biaya langganan bulanan.</li>
+          </ul>
+          Silakan pilih pertanyaan cepat di atas atau ketik pertanyaan teknis Anda!
+        </div>
+      </div>
+    `;
+
+    function resetChat() {
+      const container = document.getElementById('chatMessages');
+      container.innerHTML = INITIAL_CHAT_HTML;
+      document.getElementById('chatInput').value = '';
+      lucide.createIcons();
+    }
+
+    function sendQuickPrompt(promptText) {
+      const input = document.getElementById('chatInput');
+      input.value = promptText;
+      handleChatSubmit(new Event('submit'));
+    }
+
+    function appendChatMessage(role, htmlContent) {
+      const container = document.getElementById('chatMessages');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex items-start space-x-3 ' + (role === 'user' ? 'justify-end' : '');
+
+      if (role === 'user') {
+        msgDiv.innerHTML = `
+          <div class="bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-2xl rounded-tr-none p-3.5 max-w-[80%] leading-relaxed shadow-md">
+            ${htmlContent}
+          </div>
+          <div class="w-7 h-7 rounded-lg bg-slate-700 border border-slate-600 text-slate-200 flex items-center justify-center flex-shrink-0 font-bold text-xs">
+            U
+          </div>
+        `;
+      } else {
+        msgDiv.innerHTML = `
+          <div class="w-7 h-7 rounded-lg bg-cyan-600/20 border border-cyan-500/30 text-cyan-400 flex items-center justify-center flex-shrink-0">
+            <img src="assets/satusehat-bridge-icon.svg" alt="AI" class="w-5 h-5 rounded">
+          </div>
+          <div class="bg-slate-800/90 border border-slate-700/80 rounded-2xl rounded-tl-none p-3.5 text-slate-200 max-w-[85%] leading-relaxed space-y-2">
+            ${htmlContent}
+          </div>
+        `;
+      }
+
+      container.appendChild(msgDiv);
+      container.scrollTop = container.scrollHeight;
+      lucide.createIcons();
+      return msgDiv;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.innerText = text;
+      return div.innerHTML;
+    }
+
+    function getTechnicalResponse(rawQuery) {
+      const q = rawQuery.toLowerCase();
+
+      // 1. Table Adapter / Database Staging
+      if (q.includes('table adapter') || q.includes('database') || q.includes('merusak') || q.includes('sql server') || q.includes('mysql') || q.includes('postgres') || q.includes('staging') || q.includes('cursor')) {
+        return `
+          <div class="font-bold text-cyan-400 flex items-center space-x-1.5">
+            <i data-lucide="database" class="w-4 h-4"></i>
+            <span>Arsitektur Table Adapter (Zero Impact SIMRS)</span>
+          </div>
+          <p>Table Adapter dirancang dengan filosofi <strong>isolasi fisik tanpa mengubah skema tabel produksi SIMRS Anda</strong>:</p>
+          <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-[11px]">
+            <li><strong>Tabel Perantara (Staging Tables):</strong> SIMRS hanya menulis ke tabel staging (seperti <code>stg_kunjungan</code>, <code>stg_diagnosis</code>, <code>stg_tindakan</code>, <code>stg_obat</code>). Tabel operasional utama SIMRS tidak pernah disentuh atau dimodifikasi oleh Bridge.</li>
+            <li><strong>Monotonic Cursor Tracking:</strong> Worker membaca data dengan kueri bertahap (<code>id &gt; last_cursor</code>), memproses pemetaan terminologi, dan mencatat status pengiriman secara independen.</li>
+            <li><strong>Basis Data Didukung:</strong> Kompatibel langsung dengan Microsoft SQL Server (2012+), MySQL/MariaDB (5.7+/10.3+), dan PostgreSQL (12+).</li>
+            <li><strong>Fail-safe:</strong> Jika koneksi Kemenkes terputus, data SIMRS tetap tersimpan aman di tabel staging tanpa menyebabkan aplikasi kasir/poli menjadi lambat.</li>
+          </ul>
+        `;
+      }
+
+      // 2. 47 Profil Playbook vs 33 FHIR
+      if (q.includes('47') || q.includes('33') || q.includes('tipe fhir') || q.includes('playbook') || q.includes('profil vs')) {
+        return `
+          <div class="font-bold text-brand-400 flex items-center space-x-1.5">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+            <span>Cakupan 47 Profil Playbook & 33 Tipe FHIR Unik</span>
+          </div>
+          <p>Katalog interoperabilitas SATUSEHAT Bridge mencakup <strong>47 alur kerja klinis Playbook Kemenkes DTO</strong> yang dipetakan ke dalam <strong>33 tipe resource HL7 FHIR R4 unik</strong>:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 text-[11px]">
+            <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700/80">
+              <span class="font-bold text-white">17 Dedicated Canonical:</span>
+              <p class="text-slate-400 mt-0.5">Memiliki tabel dan serializer mandiri (Encounter, Condition, Procedure, Observation, MedicationRequest, Specimen, dll).</p>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700/80">
+              <span class="font-bold text-blue-400">16 Shared Serializer:</span>
+              <p class="text-slate-400 mt-0.5">Berbagi model kanonikal dengan terminologi baku (5 varian Composition resume/triase/operasi, Lab, Radiology, dll).</p>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700/80">
+              <span class="font-bold text-purple-400">12 Generic Staging Buffer:</span>
+              <p class="text-slate-400 mt-0.5">Penampung buffer aman data billing & alkes (ChargeItem, Invoice, Device, SupplyRequest, Coverage, dll).</p>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700/80">
+              <span class="font-bold text-amber-400">2 Special Services:</span>
+              <p class="text-slate-400 mt-0.5">ClaimGradeQualityValidator (12 aturan INA-CBG) dan TteSigningService (BSrE Dynamic QR 10s TTL).</p>
+            </div>
+          </div>
+        `;
+      }
+
+      // 3. Generic Envelope Ingestion
+      if (q.includes('generic') || q.includes('envelope') || q.includes('ingestion') || q.includes('buffer')) {
+        return `
+          <div class="font-bold text-purple-400 flex items-center space-x-1.5">
+            <i data-lucide="package" class="w-4 h-4"></i>
+            <span>Peran Generic Envelope Ingestion</span>
+          </div>
+          <p>Status <strong>Generic Envelope Ingestion</strong> menandakan mekanisme <em>data staging buffer</em> untuk modul pra-klaim keuangan dan logistik alkes:</p>
+          <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-[11px]">
+            <li><strong>Profil Terkait:</strong> <code>ChargeItem</code>, <code>Invoice</code>, <code>Account</code>, <code>NutritionOrder</code>, <code>Device</code>, <code>DeviceRequest</code>, <code>SupplyRequest</code>, <code>Coverage</code>.</li>
+            <li><strong>Tujuan Operasional:</strong> Mencegah penolakan input dari SIMRS ketika mengirimkan rincian biaya atau alkes, sehingga operasional billing fasyankes tidak terganggu.</li>
+            <li><strong>Status Outbound:</strong> Payload dienkripsi dan disimpan di staging internal. Pengiriman outbound FHIR akan otomatis aktif begitu Kemenkes DTO merilis gateway endpoint spesifik di lingkungan produksi.</li>
+          </ul>
+        `;
+      }
+
+      // 4. Harga, Lisensi & Pemesanan
+      if (q.includes('harga') || q.includes('biaya') || q.includes('lisensi') || q.includes('beli') || q.includes('bayar') || q.includes('order') || q.includes('pesan') || q.includes('murah') || q.includes('tco') || q.includes('tarif')) {
+        return `
+          <div class="font-bold text-brand-400 flex items-center space-x-1.5">
+            <i data-lucide="credit-card" class="w-4 h-4"></i>
+            <span>Transparansi Lisensi & Harga SATUSEHAT Bridge</span>
+          </div>
+          <p>SATUSEHAT Bridge menggunakan skema kepemilikan permanen (*perpetual license*) yang dirancang khusus untuk membebaskan fasyankes dari beban vendor lock-in:</p>
+          <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+            <li><strong>Biaya Lisensi:</strong> <span class="text-white font-bold">Rp 4.750.000 (US$ 299)</span> sekali bayar untuk 1 Fasilitas Kesehatan.</li>
+            <li><strong>Biaya Langganan Bulanan:</strong> <span class="text-brand-400 font-bold">Rp 0 (Nol Biaya Rutin Selamanya)</span>.</li>
+            <li><strong>Biaya per Transaksi Pasien:</strong> <span class="text-brand-400 font-bold">Rp 0</span>.</li>
+            <li><strong>Termasuk:</strong> Paket source code lengkap, 49 tabel skema database, Table Adapter DDL, Web Dashboard monitoring, panduan implementasi, dan modul integrasi TTE BSrE.</li>
+          </ul>
+          <p class="text-[11px] text-slate-400">Untuk melakukan pemesanan, silakan gunakan tombol <strong>'Pesan Lisensi'</strong> di kanan atas atau klik tautan di bawah.</p>
+          <div class="pt-1">
+            <button onclick="openOrderModal()" class="px-3 py-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-colors">Buka Formulir Pemesanan</button>
+          </div>
+        `;
+      }
+
+      // 5. Privasi Pasien & Keamanan Data
+      if (q.includes('privasi') || q.includes('pasien') || q.includes('cloud') || q.includes('keamanan') || q.includes('enkripsi') || q.includes('bocor') || q.includes('on premise') || q.includes('on-premise') || q.includes('server')) {
+        return `
+          <div class="font-bold text-cyan-400 flex items-center space-x-1.5">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            <span>Jaminan Privasi & Kedaulatan Data Pasien</span>
+          </div>
+          <p>SATUSEHAT Bridge dirancang sesuai mandat kepatuhan UU Pelindungan Data Pribadi (UU PDP):</p>
+          <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-[11px]">
+            <li><strong>100% On-Premise Host:</strong> Aplikasi dijalankan di server milik rumah sakit Anda sendiri. Tidak ada data medis atau PII pasien yang dialihkan (*relayed*) ke server perantara kami.</li>
+            <li><strong>Enkripsi Standar Militer:</strong> Seluruh kredensial API dan OAuth2 token dienkripsi di level storage menggunakan <strong>AES-256-GCM</strong> dengan kunci host lokal.</li>
+            <li><strong>Integritas Data:</strong> Dilengkapi validasi <strong>HMAC-SHA256</strong> untuk mencegah manipulasi data selama transit.</li>
+            <li><strong>Pemisahan Multi-Tenant:</strong> Isolasi ketat berbasis <code>rumah_sakit_id</code> mencegah kebocoran data antar-fasyankes pada implementasi multi-klinik.</li>
+          </ul>
+        `;
+      }
+
+      // 6. TTE / BSrE & Dynamic QR Code
+      if (q.includes('tte') || q.includes('bsre') || q.includes('tanda tangan') || q.includes('qr') || q.includes('dynamic qr') || q.includes('klaim') || q.includes('ina-cbg') || q.includes('bpjs')) {
+        return `
+          <div class="font-bold text-amber-400 flex items-center space-x-1.5">
+            <i data-lucide="qr-code" class="w-4 h-4"></i>
+            <span>Modul TTE BSrE & Dynamic QR (10s TTL)</span>
+          </div>
+          <p>Untuk memenuhi regulasi RME Permenkes 24/2022 dan integrasi E-Klaim BPJS:</p>
+          <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-[11px]">
+            <li><strong>Dynamic QR Code:</strong> Menghasilkan QR verifikasi dokumen medis dengan masa aktif ketat <strong>10 detik (10s TTL)</strong> untuk memitigasi serangan pemalsuan dokumen atau replay attack.</li>
+            <li><strong>Resource FHIR:</strong> Mengelola siklus penandatanganan melalui resource <code>Provenance</code> dan <code>Task</code> terstandar.</li>
+            <li><strong>ClaimGradeQualityValidator:</strong> Menjalankan 12 aturan validasi pra-klaim INA-CBG otomatis (mendeteksi diskrepansi diagnosis primer/sekunder, kelengkapan resume, dan tindakan bedah) sebelum berkas dikirimkan ke verifikator BPJS.</li>
+          </ul>
+        `;
+      }
+
+      // 7. Persyaratan Teknis & Instalasi
+      if (q.includes('install') || q.includes('instalasi') || q.includes('spesifikasi') || q.includes('spek') || q.includes('docker') || q.includes('php') || q.includes('ram') || q.includes('requirement')) {
+        return `
+          <div class="font-bold text-white flex items-center space-x-1.5">
+            <i data-lucide="server" class="w-4 h-4"></i>
+            <span>Persyaratan Sistem & Panduan Instalasi</span>
+          </div>
+          <p>Kebutuhan infrastruktur minimum untuk menjalankan SATUSEHAT Bridge secara stabil:</p>
+          <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+            <li><strong>Sistem Operasi:</strong> Linux (Ubuntu 20.04/22.04 LTS, Debian 11/12, RHEL) atau Windows Server.</li>
+            <li><strong>Runtime:</strong> PHP 8.2+ (ekstensi: pdo, curl, openssl, mbstring, sodium).</li>
+            <li><strong>Database Bridge:</strong> PostgreSQL 14+ atau MySQL 8.0+ (terpisah dari database SIMRS).</li>
+            <li><strong>Hardware:</strong> Minimum 2 Core CPU & 2 GB RAM (Rekomendasi: 4 Core, 8 GB RAM untuk throughput &gt; 10.000 transaksi/hari).</li>
+            <li><strong>Container:</strong> Tersedia konfigurasi <code>docker-compose.yml</code> siap pakai untuk deployment satu perintah (<code>docker compose up -d</code>).</li>
+          </ul>
+        `;
+      }
+
+      // Default Fallback Response
+      return `
+        <div class="font-bold text-slate-200 flex items-center space-x-1.5">
+          <i data-lucide="help-circle" class="w-4 h-4 text-cyan-400"></i>
+          <span>Informasi Teknis SATUSEHAT Bridge</span>
+        </div>
+        <p>Pertanyaan Anda mengenai "<em>${escapeHtml(rawQuery)}</em>" telah diterima. Berikut ringkasan spesifikasi arsitektur kami yang relevan:</p>
+        <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+          <li><strong>Dual Ingestion:</strong> Mendukung REST API JSON langsung dan Table Adapter Staging (SQL Server, MySQL, Postgres).</li>
+          <li><strong>47 Profil Playbook:</strong> 33 tipe HL7 FHIR R4 unik tersertifikasi logika internal (250 automated tests lulus 100%).</li>
+          <li><strong>Lisensi Permanen:</strong> Rp 4.750.000 per fasyankes seumur hidup tanpa biaya langganan bulanan.</li>
+        </ul>
+        <p class="text-[11px] text-slate-400">Untuk konsultasi kebutuhan khusus SIMRS Anda, Anda dapat memilih salah satu topik cepat di atas atau hubungi tim teknis kami via email di <strong class="text-white">satusehatbridge@gmail.com</strong>.</p>
+      `;
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       renderProfiles();
       calculateTco();

@@ -84,12 +84,6 @@
       background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
       background-size: 24px 24px;
     }
-    .tech-blueprint-lines {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    }
 
     /* Halo indicators replacing noisy animate-ping */
     .halo-indicator {
@@ -106,19 +100,12 @@
       border: 1px solid currentColor;
       opacity: 0.35;
     }
-
-    /* Terminal syntax highlights */
-    .code-keyword { color: #f43f5e; font-weight: 600; }
-    .code-string { color: #34d399; }
-    .code-function { color: #38bdf8; }
-    .code-comment { color: #64748b; font-style: italic; }
-    .code-key { color: #fbbf24; }
   </style>
 </head>
 <body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col tech-grid-pattern">
 
   <!-- ============================================================================== -->
-  <!-- TOP NAVIGATION BAR (Clean, Uncluttered, No Redundant Live Agent Link) -->
+  <!-- TOP NAVIGATION BAR -->
   <!-- ============================================================================== -->
   <header class="sticky top-0 z-50 glass-nav">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -142,8 +129,8 @@
           <span>GitHub Spek</span>
         </a>
         <a href="#harga" class="px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-all shadow-md shadow-brand-500/20 flex items-center space-x-1.5 active:scale-95">
-          <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-          <span>Pesan Lisensi</span>
+          <i data-lucide="tag" class="w-4 h-4"></i>
+          <span>Promo $299</span>
         </a>
       </div>
     </div>
@@ -285,10 +272,10 @@
         </div>
         <div class="glass-card glass-card-hover p-4 rounded-xl border border-slate-800">
           <div class="flex items-center justify-between">
-            <div class="text-amber-400 font-mono text-2xl font-bold">Rp 0 / Bulan</div>
-            <i data-lucide="check-shield" class="w-5 h-5 text-amber-400/60"></i>
+            <div class="text-amber-400 font-mono text-2xl font-bold">$299 USD</div>
+            <i data-lucide="tag" class="w-5 h-5 text-amber-400/60"></i>
           </div>
-          <div class="text-xs text-slate-400 mt-1">Lisensi Permanen Tunggal. Tanpa Biaya Rutin Apapun.</div>
+          <div class="text-xs text-slate-400 mt-1">Promo Peluncuran (Normal $500). Nol Biaya Rutin Selamanya.</div>
         </div>
       </div>
 
@@ -438,7 +425,7 @@
   </section>
 
   <!-- ============================================================================== -->
-  <!-- INTERACTIVE TECHNICAL ASSISTANT SHOWCASE (Distinctive, Command-Center Card) -->
+  <!-- INTERACTIVE TECHNICAL ASSISTANT SHOWCASE -->
   <!-- ============================================================================== -->
   <section id="live-agent" class="py-16 border-b border-slate-800/80 bg-gradient-to-b from-navy-950 via-navy-900/40 to-navy-950">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -497,16 +484,16 @@
             </div>
           </button>
 
-          <button onclick="sendQuickPrompt('Berapa biaya lisensi dan apa saja yang didapat?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
+          <button onclick="sendQuickPrompt('Berapa harga promo $299 lisensi permanen dan estimasi kurs IDR?')" class="text-left p-4 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/40 transition-all flex items-start space-x-3.5 group active:scale-95">
             <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex-shrink-0 group-hover:bg-emerald-500/20">
-              <i data-lucide="credit-card" class="w-5 h-5"></i>
+              <i data-lucide="tag" class="w-5 h-5"></i>
             </div>
             <div>
               <div class="text-white font-bold text-sm flex items-center space-x-1.5">
-                <span>Lisensi Permanen Rp 4.750.000 ($299)</span>
+                <span>Promo Lisensi $299 (Normal $500)</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
               </div>
-              <p class="text-slate-400 text-xs mt-1 leading-relaxed">Konsultasi skema lisensi tanpa biaya langganan bulanan seumur hidup dan tata cara pengiriman paket rilis.</p>
+              <p class="text-slate-400 text-xs mt-1 leading-relaxed">Diskon peluncuran 40% (hemat $201). Dilengkapi informasi kurs live IDR dan nol biaya langganan seumur hidup.</p>
             </div>
           </button>
 
@@ -580,8 +567,8 @@
 
             <div>
               <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-brand-400 font-medium">SATUSEHAT Bridge (Permanen Sekali Bayar)</span>
-                <span class="text-brand-400 font-mono font-bold">Rp 4.750.000</span>
+                <span class="text-brand-400 font-medium">SATUSEHAT Bridge (Permanen Promo $299)</span>
+                <span id="barBridgeLabel" class="text-brand-400 font-mono font-bold">$299 USD (± Memuat IDR...)</span>
               </div>
               <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
                 <div id="barBridgeFill" class="bg-gradient-to-r from-brand-500 to-cyan-400 h-full rounded-full transition-all duration-500" style="width: 3.8%;"></div>
@@ -602,10 +589,11 @@
             <span class="text-xs font-mono text-brand-400 uppercase tracking-wider">Total Anggaran yang Dihemat</span>
             <div id="savingsCost" class="text-4xl sm:text-5xl font-black text-brand-400 font-mono mt-1">Rp 121.250.000</div>
             <div id="savingsPercent" class="text-xs text-brand-300 font-medium mt-1">Efisiensi Biaya: 96.2%</div>
+            <div id="tcoIdrNote" class="text-[11px] text-slate-400 font-mono mt-1.5">Estimasi IDR: Memuat kurs live...</div>
           </div>
 
           <button onclick="openOrderModal()" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-all shadow-lg shadow-brand-500/20 active:scale-95">
-            Pesan Lisensi Permanen Rp 4.750.000
+            Pesan Lisensi Promo $299 (Normal $500)
           </button>
         </div>
 
@@ -622,24 +610,50 @@
       
       <div class="text-center max-w-3xl mx-auto mb-12">
         <h2 class="text-xs font-semibold text-brand-400 uppercase tracking-wider font-mono">Transparansi Lisensi & Pemesanan</h2>
-        <p class="mt-2 text-3xl font-extrabold text-white">Satu Harga Permanen. Tanpa Biaya Tersembunyi.</p>
+        <p class="mt-2 text-3xl font-extrabold text-white">Promo Peluncuran Terbatas. Sekali Bayar Selamanya.</p>
         <p class="mt-2 text-xs sm:text-sm text-slate-400">Lisensi kepemilikan permanen fasyankes dengan instalasi mandiri on-premise tanpa biaya bulanan.</p>
       </div>
 
       <div class="max-w-lg mx-auto glass-card rounded-2xl overflow-hidden border border-brand-500/40 shadow-2xl relative">
-        <div class="absolute top-0 right-0 bg-brand-500 text-navy-950 text-[10px] font-extrabold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
-          Perpetual License
+        <div class="absolute top-0 right-0 bg-gradient-to-r from-rose-500 to-amber-500 text-white text-[10px] font-extrabold px-3 py-1 rounded-bl-lg uppercase tracking-wider font-mono shadow-sm">
+          Promo Terbatas — Diskon 40%
         </div>
 
         <div class="p-8">
           <div class="text-xs font-mono text-brand-400">Single Facility Commercial License</div>
           <h3 class="text-2xl font-bold text-white mt-1">SATUSEHAT Bridge Enterprise Core</h3>
           
-          <div class="mt-6 flex items-baseline space-x-2">
-            <span class="text-4xl sm:text-5xl font-extrabold text-white font-mono">Rp 4.750.000</span>
-            <span class="text-slate-400 text-xs font-mono">(US$ 299)</span>
+          <!-- Strikethrough Normal Price vs Promo Price -->
+          <div class="mt-5 flex items-center space-x-2">
+            <span class="text-xl line-through text-slate-500 font-mono font-semibold">$500</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono bg-rose-500/20 text-rose-400 border border-rose-500/30">HEMAT $201</span>
+            <span class="text-xs text-slate-400 font-mono uppercase">Harga Normal</span>
           </div>
-          <p class="text-xs text-slate-400 mt-1">Sekali bayar untuk penggunaan permanen di 1 Fasilitas Kesehatan.</p>
+
+          <div class="mt-1 flex items-baseline space-x-3">
+            <span class="text-4xl sm:text-5xl font-extrabold text-white font-mono">$299</span>
+            <span class="text-xs text-slate-400 font-sans">USD / Fasilitas Kesehatan (Lisensi Sekali Bayar)</span>
+          </div>
+
+          <!-- Dynamic Live Kurs IDR info box -->
+          <div class="mt-4 p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1.5">
+            <div class="flex flex-wrap items-center justify-between text-xs gap-2">
+              <span class="text-slate-400 font-medium">Informasi Tambahan Kurs IDR:</span>
+              <span id="priceIdrEquivalent" class="text-brand-400 font-mono font-bold text-sm">± Memuat kurs...</span>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1.5 border-t border-slate-800/80">
+              <span class="flex items-center space-x-1.5 text-cyan-400 font-mono">
+                <span class="halo-indicator text-cyan-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                </span>
+                <span id="liveRateText">Kurs Live: Mengambil data valas...</span>
+              </span>
+              <span class="text-[10px] text-slate-500 font-mono">Auto-sync</span>
+            </div>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-2">
+            *Biaya lisensi utama adalah <strong>$299 USD</strong> (promo dari harga normal $500 USD). Pembayaran dalam Rupiah (IDR) dikonversi mengikuti kurs tengah valas saat transaksi.
+          </p>
 
           <div class="mt-6 pt-6 border-t border-slate-800 space-y-3 text-xs text-slate-300">
             <div class="flex items-center space-x-2.5">
@@ -672,12 +686,12 @@
           <div class="mt-8 space-y-3">
             <button onclick="openOrderModal()" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs flex items-center justify-center space-x-2 transition-all shadow-lg shadow-brand-500/20 active:scale-95">
               <i data-lucide="file-text" class="w-4 h-4"></i>
-              <span>Ajukan Pemesanan & Proforma Invoice</span>
+              <span>Pesan Lisensi Promo $299</span>
             </button>
             
             <button onclick="toggleChat(true)" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95">
               <i data-lucide="bot" class="w-4 h-4"></i>
-              <span>Konsultasi Teknis Pra-Beli</span>
+              <span>Konsultasi Teknis & Kurs Pembayaran</span>
             </button>
           </div>
 
@@ -731,7 +745,7 @@
               <i data-lucide="file-text" class="w-5 h-5 text-brand-400"></i>
               <span>Formulir Pemesanan Lisensi Fasyankes</span>
             </h3>
-            <p class="text-xs text-slate-400 mt-0.5">SATUSEHAT Bridge Enterprise Core (Rp 4.750.000 / US$ 299)</p>
+            <p class="text-xs text-slate-400 mt-0.5">SATUSEHAT Bridge Enterprise Core — Promo $299 USD (Normal $500 USD)</p>
           </div>
           <button onclick="closeOrderModal()" class="text-slate-400 hover:text-white">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -828,7 +842,10 @@
           </div>
           <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-sm">
             <span class="text-slate-300 font-sans font-semibold">Total Tagihan Lisensi:</span>
-            <span class="text-brand-400 font-bold font-mono">Rp 4.750.000 <span class="text-xs text-slate-400">(US$ 299)</span></span>
+            <div class="text-right">
+              <div class="text-brand-400 font-bold font-mono text-base">$299 USD <span class="text-xs text-rose-400 line-through font-normal">(Normal $500)</span></div>
+              <div id="invIdrEquivalent" class="text-[11px] text-slate-300 font-mono">Estimasi IDR: Memuat kurs...</div>
+            </div>
           </div>
           <div class="text-[10px] text-slate-500 font-sans">
             Status: <span class="text-amber-400 font-medium">Menunggu Verifikasi & Penyelesaian Rekening</span>
@@ -926,7 +943,7 @@
             <li>Daftar 47 Profil Playbook Kemenkes DTO & 33 tipe FHIR.</li>
             <li>Perbedaan model Kanonikal vs Generic Staging Envelope.</li>
             <li>Enkripsi on-premise AES-256-GCM & privasi pasien.</li>
-            <li>Lisensi komersial permanen $299 tanpa langganan bulanan.</li>
+            <li>Promo lisensi permanen $299 (normal $500) & konversi kurs IDR.</li>
           </ul>
           Pilih pertanyaan cepat di bawah atau ketik langsung pertanyaan Anda!
         </div>
@@ -936,10 +953,10 @@
     <!-- Quick Prompt Chips -->
     <div class="px-3 py-2 bg-slate-900/90 border-t border-slate-800 flex items-center space-x-1.5 overflow-x-auto text-[10px] text-slate-300">
       <span class="text-slate-500 flex-shrink-0 font-medium">Contoh:</span>
+      <button onclick="sendQuickPrompt('Berapa harga promo $299 lisensi permanen dan estimasi kurs IDR?')" class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">Promo $299 & Kurs IDR</button>
       <button onclick="sendQuickPrompt('Bagaimana cara kerja Table Adapter tanpa merusak database SIMRS?')" class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">Table Adapter</button>
       <button onclick="sendQuickPrompt('Apa perbedaan 47 profil Playbook dengan 33 tipe FHIR unik?')" class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">47 Profil vs 33 FHIR</button>
       <button onclick="sendQuickPrompt('Apa arti status Generic Envelope Ingestion?')" class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">Generic Envelope</button>
-      <button onclick="sendQuickPrompt('Berapa biaya lisensi dan apa saja yang didapat?')" class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">Harga & Lisensi</button>
       <button onclick="sendQuickPrompt('Apakah data pasien disimpan di cloud pihak ketiga?')" class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex-shrink-0 transition-colors">Privasi Pasien</button>
     </div>
 
@@ -955,7 +972,7 @@
     </div>
   </div>
 
-  <!-- FLOATING CHAT BUTTON (FAB) With Elegant Halo Ring (No continuous ping) -->
+  <!-- FLOATING CHAT BUTTON (FAB) -->
   <button id="floatingChatBtn" onclick="toggleChat()" class="fixed bottom-6 right-4 sm:right-6 z-50 px-4 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold shadow-2xl shadow-cyan-500/40 flex items-center space-x-2.5 transition-all transform hover:scale-105 active:scale-95 border border-cyan-400/30" aria-label="Buka Live Chat AI Assistant">
     <span class="halo-indicator text-emerald-400">
       <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
@@ -973,6 +990,78 @@
   <!-- CLIENT JAVASCRIPT: ARCHITECTURE DEMO, PROFILES & COPILOT LOGIC -->
   <!-- ============================================================================== -->
   <script>
+    // ----------------------------------------------------------------------------
+    // 0. Live USD / IDR Exchange Rate Engine
+    // ----------------------------------------------------------------------------
+    const USD_PROMO_PRICE = 299;
+    const USD_NORMAL_PRICE = 500;
+    let currentUsdIdrRate = 16000; // Sensible baseline fallback
+    let isLiveRateLoaded = false;
+
+    async function fetchLiveExchangeRate() {
+      try {
+        const resp = await fetch('https://open.er-api.com/v6/latest/USD');
+        if (!resp.ok) throw new Error('Primary rate API error');
+        const data = await resp.json();
+        if (data && data.rates && data.rates.IDR) {
+          currentUsdIdrRate = Math.round(data.rates.IDR);
+          isLiveRateLoaded = true;
+        }
+      } catch (err) {
+        console.warn('Primary exchange rate fetch failed, trying fallback...', err);
+        try {
+          const resp2 = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+          if (resp2.ok) {
+            const data2 = await resp2.json();
+            if (data2 && data2.rates && data2.rates.IDR) {
+              currentUsdIdrRate = Math.round(data2.rates.IDR);
+              isLiveRateLoaded = true;
+            }
+          }
+        } catch (err2) {
+          console.warn('Fallback exchange rate API also failed, using fallback 16.000', err2);
+        }
+      }
+      applyExchangeRateUI();
+    }
+
+    function applyExchangeRateUI() {
+      const idrEquivalent = Math.round(USD_PROMO_PRICE * currentUsdIdrRate);
+
+      // 1. Pricing card display
+      const priceIdrEl = document.getElementById('priceIdrEquivalent');
+      if (priceIdrEl) {
+        priceIdrEl.innerText = `± Rp ${idrEquivalent.toLocaleString('id-ID')}`;
+      }
+
+      const liveRateTextEl = document.getElementById('liveRateText');
+      if (liveRateTextEl) {
+        liveRateTextEl.innerText = isLiveRateLoaded
+          ? `Kurs Live: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')}`
+          : `Kurs Acuan: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')}`;
+      }
+
+      // 2. TCO note and bar label
+      const tcoIdrNoteEl = document.getElementById('tcoIdrNote');
+      if (tcoIdrNoteEl) {
+        tcoIdrNoteEl.innerText = `Estimasi IDR: ± Rp ${idrEquivalent.toLocaleString('id-ID')} (Kurs: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})`;
+      }
+
+      const barBridgeLabelEl = document.getElementById('barBridgeLabel');
+      if (barBridgeLabelEl) {
+        barBridgeLabelEl.innerText = `$299 USD (± Rp ${idrEquivalent.toLocaleString('id-ID')})`;
+      }
+
+      // 3. Update Invoice dynamic element if present
+      const invIdrEl = document.getElementById('invIdrEquivalent');
+      if (invIdrEl) {
+        invIdrEl.innerText = `Estimasi IDR: ± Rp ${idrEquivalent.toLocaleString('id-ID')} (Kurs Live)`;
+      }
+
+      // 4. Recalculate TCO with converted value
+      calculateTco();
+    }
+
     // ----------------------------------------------------------------------------
     // 1. Architecture Terminal Code Snippets
     // ----------------------------------------------------------------------------
@@ -1254,7 +1343,8 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       document.getElementById("yearsLabel").innerText = `${years} Tahun (${months} Bulan)`;
 
       const saasTotal = saasMonthly * months;
-      const bridgeLicense = 4750000;
+      // Bridge License calculated dynamically from $299 USD * currentUsdIdrRate
+      const bridgeLicense = Math.round(USD_PROMO_PRICE * currentUsdIdrRate);
       const savings = saasTotal - bridgeLicense;
       const percent = ((savings / saasTotal) * 100).toFixed(1);
 
@@ -1301,12 +1391,16 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, "");
       const orderId = `SB-ORD-${dateStr}-${randSuffix}`;
 
-      generatedOrderData = { orderId, facility, type, db, pic, email, phone, price: "Rp 4.750.000 (US$ 299)" };
+      const idrConverted = Math.round(USD_PROMO_PRICE * currentUsdIdrRate);
+      const priceText = `$299 USD (Promo Launch — Normal $500) / Estimasi IDR: Rp ${idrConverted.toLocaleString('id-ID')} (Kurs Live)`;
+
+      generatedOrderData = { orderId, facility, type, db, pic, email, phone, price: priceText, idrAmount: idrConverted };
 
       document.getElementById("invOrderId").innerText = orderId;
       document.getElementById("invFacility").innerText = `${facility} (${type})`;
       document.getElementById("invPic").innerText = `${pic} (${email} / ${phone})`;
       document.getElementById("invDatabase").innerText = db;
+      document.getElementById("invIdrEquivalent").innerText = `Estimasi IDR: ± Rp ${idrConverted.toLocaleString('id-ID')} (Kurs: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})`;
 
       const subject = encodeURIComponent(`Konfirmasi Pemesanan Lisensi SATUSEHAT Bridge - ${orderId}`);
       const body = encodeURIComponent(
@@ -1317,8 +1411,9 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
         `• Email Resmi: ${email}\n` +
         `• WhatsApp: ${phone}\n` +
         `• Database SIMRS: ${db}\n` +
-        `• Nilai Lisensi: Rp 4.750.000 (US$ 299)\n\n` +
-        `Mohon informasi lembar Invoice resmi dan rekening pembayaran (BCA / Mandiri / QRIS) untuk penyelesaian administrasi fasyankes kami.\n\nTerima kasih.`
+        `• Nilai Tagihan Lisensi: $299 USD (Promo Launch — Harga Normal $500 USD)\n` +
+        `• Estimasi Konversi IDR: Rp ${idrConverted.toLocaleString('id-ID')} (Kurs Live: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')})\n\n` +
+        `Mohon informasi lembar Invoice resmi dan rekening pembayaran (BCA / Mandiri / QRIS / USD Account) untuk penyelesaian administrasi fasyankes kami.\n\nTerima kasih.`
       );
       document.getElementById("invMailtoBtn").href = `mailto:satusehatbridge@gmail.com?subject=${subject}&body=${body}`;
 
@@ -1334,7 +1429,8 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
         `Fasilitas: ${generatedOrderData.facility} (${generatedOrderData.type})\n` +
         `PIC: ${generatedOrderData.pic} (${generatedOrderData.email} / ${generatedOrderData.phone})\n` +
         `Database SIMRS: ${generatedOrderData.db}\n` +
-        `Tagihan: ${generatedOrderData.price}\n` +
+        `Tagihan Lisensi: ${generatedOrderData.price}\n` +
+        `Kurs Valas: 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')}\n` +
         `Email Sales: satusehatbridge@gmail.com`;
 
       navigator.clipboard.writeText(text);
@@ -1357,7 +1453,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
             <li>Daftar 47 Profil Playbook Kemenkes DTO & 33 tipe FHIR.</li>
             <li>Perbedaan model Kanonikal vs Generic Staging Envelope.</li>
             <li>Enkripsi on-premise AES-256-GCM & privasi pasien.</li>
-            <li>Lisensi komersial permanen $299 tanpa langganan bulanan.</li>
+            <li>Promo lisensi permanen $299 (normal $500) & konversi kurs IDR.</li>
           </ul>
           Pilih pertanyaan cepat di bawah atau ketik langsung pertanyaan Anda!
         </div>
@@ -1549,23 +1645,25 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
         `;
       }
 
-      // 4. Harga, Lisensi, Biaya Bulanan, & Pengiriman
-      if (q.includes('harga') || q.includes('biaya') || q.includes('lisensi') || q.includes('order') || q.includes('beli') || q.includes('pesan') || q.includes('299') || q.includes('4.750.000') || q.includes('langganan') || q.includes('saas')) {
+      // 4. Harga Promo, Lisensi, Kurs IDR, & Pengiriman
+      if (q.includes('harga') || q.includes('biaya') || q.includes('lisensi') || q.includes('order') || q.includes('beli') || q.includes('pesan') || q.includes('299') || q.includes('500') || q.includes('promo') || q.includes('kurs') || q.includes('idr') || q.includes('langganan') || q.includes('saas') || q.includes('4.750.000')) {
+        const idrConverted = Math.round(USD_PROMO_PRICE * currentUsdIdrRate);
         return `
           <div class="font-bold text-emerald-400 flex items-center space-x-1.5">
             <i data-lucide="tag" class="w-4 h-4"></i>
-            <span>Struktur Lisensi Permanen SATUSEHAT Bridge</span>
+            <span>Skema Lisensi Promo Peluncuran SATUSEHAT Bridge</span>
           </div>
-          <p>Kami menerapkan transparansi penuh tanpa skema jebakan vendor cloud:</p>
-          <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
-            <li><strong>Biaya Lisensi:</strong> <span class="text-white font-bold">Rp 4.750.000 (US$ 299)</span> sekali bayar untuk 1 Fasilitas Kesehatan.</li>
-            <li><strong>Biaya Langganan Bulanan:</strong> <span class="text-brand-400 font-bold">Rp 0 (Nol Biaya Rutin Selamanya)</span>.</li>
-            <li><strong>Biaya per Transaksi Pasien:</strong> <span class="text-brand-400 font-bold">Rp 0 (Unlimited Pasien)</span>.</li>
-            <li><strong>Termasuk:</strong> Full source code PHP 8.2 / Laravel 10 (tanpa IonCube), 49 tabel skema, Table Adapter DDL, Web Dashboard monitoring, modul TTE BSrE, dan sertifikat lisensi resmi.</li>
+          <p>Informasi struktur biaya dan model lisensi permanen SATUSEHAT Bridge:</p>
+          <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-[11px]">
+            <li><strong>Harga Promo Peluncuran:</strong> <span class="text-brand-400 font-bold font-mono text-sm">$299 USD</span> <span class="line-through text-slate-500 font-mono text-xs">(Harga Normal: $500 USD)</span> — Hemat $201 (Diskon 40%).</li>
+            <li><strong>Informasi Tambahan Kurs IDR:</strong> Dikonversi secara transparan mengikuti <strong>kurs valas live</strong> terkini (saat ini sekitar <span class="text-white font-mono font-bold">Rp ${idrConverted.toLocaleString('id-ID')}</span> per fasyankes, dengan kurs 1 USD = Rp ${currentUsdIdrRate.toLocaleString('id-ID')}).</li>
+            <li><strong>Biaya Langganan Bulanan:</strong> <span class="text-brand-400 font-bold">$0 / Rp 0</span> (Nol biaya rutin selamanya).</li>
+            <li><strong>Biaya per Transaksi Pasien:</strong> <span class="text-brand-400 font-bold">$0</span> (Volume transaksi rekam medis pasien tanpa batas).</li>
+            <li><strong>Termasuk:</strong> Full source code PHP 8.2 / Laravel 10 (tanpa enkripsi IonCube), 49 tabel skema database, Table Adapter DDL, Web Dashboard monitoring, modul TTE BSrE Dynamic QR, dan sertifikat lisensi resmi.</li>
           </ul>
-          <p class="text-[11px] text-slate-400">Untuk melakukan pemesanan, silakan gunakan tombol <strong>'Pesan Lisensi'</strong> di kanan atas atau klik tautan di bawah.</p>
+          <p class="text-[11px] text-slate-400">Pembayaran dapat diselesaikan via transfer bank lokal (BCA/Mandiri/QRIS) maupun USD invoice. Silakan klik tombol di bawah untuk menerbitkan proforma invoice:</p>
           <div class="pt-1">
-            <button onclick="openOrderModal()" class="px-3 py-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-colors">Buka Formulir Pemesanan</button>
+            <button onclick="openOrderModal()" class="px-3 py-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-navy-950 font-bold text-xs transition-colors">Buka Formulir Pemesanan Promo $299</button>
           </div>
         `;
       }
@@ -1622,6 +1720,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
       }
 
       // Default Fallback Response
+      const idrFallback = Math.round(USD_PROMO_PRICE * currentUsdIdrRate);
       return `
         <div class="font-bold text-slate-200 flex items-center space-x-1.5">
           <i data-lucide="help-circle" class="w-4 h-4 text-cyan-400"></i>
@@ -1631,7 +1730,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
         <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
           <li><strong>Dual Ingestion:</strong> Mendukung REST API JSON langsung dan Table Adapter Staging (SQL Server, MySQL, Postgres).</li>
           <li><strong>47 Profil Playbook:</strong> 33 tipe HL7 FHIR R4 unik tersertifikasi logika internal (250 automated tests lulus 100%).</li>
-          <li><strong>Lisensi Permanen:</strong> Rp 4.750.000 per fasyankes seumur hidup tanpa biaya langganan bulanan.</li>
+          <li><strong>Promo Lisensi:</strong> $299 USD (Harga Normal $500 USD) atau setara ± Rp ${idrFallback.toLocaleString('id-ID')} sekali bayar tanpa biaya bulanan.</li>
         </ul>
         <p class="text-[11px] text-slate-400">Untuk konsultasi kebutuhan khusus SIMRS Anda, Anda dapat memilih salah satu topik cepat di atas atau hubungi tim teknis kami via email di <strong class="text-white">satusehatbridge@gmail.com</strong>.</p>
       `;
@@ -1641,7 +1740,7 @@ $outboundQueue->dispatchToFHIRWorker($canonical, $lockTicket);`,
     window.addEventListener('DOMContentLoaded', () => {
       renderDemoCode();
       renderProfiles();
-      calculateTco();
+      fetchLiveExchangeRate();
       lucide.createIcons();
     });
   </script>
